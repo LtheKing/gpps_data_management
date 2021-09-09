@@ -42,7 +42,7 @@
     <body class="antialiased">
         {{-- <img src="{{ asset('img/logo.jpg') }}" alt="logo" width="550px" height="400px" style="margin:auto;"> --}}
         <div class="container">
-            <h1 class="text-center" style="font-family: 'Anton', sans-serif;">LOGIN</h1>
+            <h1 class="text-center" style="font-family: 'Anton', sans-serif;">LOGIN </h1>
             <form action="" method="post">
                 @csrf
                 <div class="form-group">
