@@ -19,4 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/jemaat/index', 'JemaatController@index')->name('index');
+//user
+Route::post('/user/login', 'UserController@login')->name('user_login');
+
+//jemaat
+Route::get('/jemaat/index', 'JemaatController@index')->name('jemaat_index');
+Route::get('/jemaat/create', 'JemaatController@create')->name('jemaat_create');

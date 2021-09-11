@@ -14,7 +14,8 @@ class JemaatController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $jemaats = Jemaat::all();
+        return view('index', compact('jemaats'));
     }
 
     /**
@@ -24,7 +25,7 @@ class JemaatController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**

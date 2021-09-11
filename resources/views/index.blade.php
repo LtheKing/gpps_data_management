@@ -1,29 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Login Succeed</h1>
+@extends('layout')
 
+@section('section_menu')
+    @parent
+
+@endsection
+
+@section('content')
+    <h1>Data Jemaat</h1>
+    <a href="{{ route('jemaat_create') }}" class="btn btn-info mb-3 mt-3">Jemaat Baru</a>
     <table class="table">
         <thead class="table-borderless">
-            <th>Kode Kain</th>
-            <th>Nama Kain</th>
-            <th>Jenis Kain</th>
-            <th>Harga</th>
+            <th>No Anggota</th>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>No. Telepon</th>
+            <th>Status</th>
+            <th>Nama Ayah</th>
+            <th>Nama Ibu</th>
+            <th>Tanggal Baptis</th>
+            <th>Pelaksana Baptis</th>
             <th>Action</th>
         </thead>
 
-        @foreach ($kains as $kain)
+        @foreach ($jemaats as $jemaat)
             <tbody>
-                    <td>{{ $kain->KodeKain }}</td>
-                    <td>{{ $kain->NamaKain }}</td>
-                    <td>{{ $kain->JenisKain }}</td>
-                    <td>{{ $kain->Harga }}</td>
+                    <td>{{ $jemaat->NoAnggota }}</td>
+                    <td>{{ $jemaat->Nama }}</td>
+                    <td>{{ $jemaat->Alamat }}</td>
+                    <td>{{ $jemaat->Tlp }}</td>
+                    <td>{{ $jemaat->Status }}</td>
+                    <td>{{ $jemaat->NamaAyah }}</td>
+                    <td>{{ $jemaat->NamaIbu }}</td>
+                    <td>{{ $jemaat->TanggalBaptis }}</td>
+                    <td>{{ $jemaat->PelaksanaBaptis }}</td>
                     <td>
                         <form action="#" method="POST">
                         
@@ -39,5 +48,4 @@
             </tbody>
         @endforeach
     </table>
-</body>
-</html>
+@endsection

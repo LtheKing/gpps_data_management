@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
             $checkPass = Hash::check($request->password, $isExist[0]->password);
             
             if ($checkPass) {
-                return redirect()->route('index');
+                return redirect()->route('jemaat_index');
             } 
             else 
             {

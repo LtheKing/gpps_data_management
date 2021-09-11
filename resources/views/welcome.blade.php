@@ -42,13 +42,16 @@
                             <div class="col-lg-10 col-xl-7 mx-auto">
                                 <h3 class="display-4">Login</h3>
                                 <p class="text-muted mb-4">GPPS Agape Bandung</p>
-                                <form>
+                                <form action="{{ route('user_login') }}" method="POST">
+                                    @csrf
                                     <div class="form-group mb-3">
                                         <input id="inputUsername" type="text" placeholder="Username" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" name="username">
                                     </div>
+
                                     <div class="form-group mb-3">
                                         <input id="inputPassword" type="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" name="password">
                                     </div>
+                                    
                                     <button type="submit" class="btn btn-danger btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign in</button>
                                 </form>
                             </div>
