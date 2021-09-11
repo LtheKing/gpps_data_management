@@ -19,5 +19,6 @@ class Jemaat extends Model
         'NamaIbu',
         'TanggalBaptis',
         'PelaksanaBaptis',
+        'FileName',
     ];
 }

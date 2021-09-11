@@ -8,6 +8,24 @@
 @section('content')
     <h1>Input Jemaat Baru</h1>
 
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+        </div>
+    @endif
+    
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="" method="post">
       @csrf
             <div class="mb-3" id="div_noAnggota">
@@ -56,6 +74,16 @@
             <div class="mb-3" id="div_PelaksanaBaptis">
                 <label for="inputPelaksanaBaptis" class="form-label">Pelaksana Baptis</label>
                 <input type="text" class="form-control" id="inputPelaksanaBaptis" name="PelaksanaBaptis">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupFileAddon01">Foto Jemaat</span>
+                </div>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="inputFotoJemaat" aria-describedby="inputGroupFileAddon01">
+                  <label class="custom-file-label" for="inputFotoJemaat">Choose file</label>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
