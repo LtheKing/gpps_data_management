@@ -7,6 +7,13 @@
 
 @section('content')
     <h1>Data Jemaat</h1>
+
+    @if(session()->has('Success'))
+        <div class="alert alert-success">
+            {{ session()->get('Success') }}
+        </div>
+    @endif
+
     <a href="{{ route('jemaat_create') }}" class="btn btn-info mb-3 mt-3">Jemaat Baru</a>
     <table class="table">
         <thead class="table-borderless">
@@ -36,7 +43,8 @@
                     <td>
                         <form action="#" method="POST">
                         
-                        <a class="btn btn-primary btn-sm btn-block mb-3" href="#">Edit</a> 
+                        <a class="btn btn-warning btn-sm btn-block mb-3" href="#">Edit</a> 
+                        <a class="btn btn-secondary btn-sm btn-block mb-3" href="#">Detail</a> 
                         
                             @csrf
                             @method('DELETE')

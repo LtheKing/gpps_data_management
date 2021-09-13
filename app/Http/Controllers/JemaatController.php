@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Jemaat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class JemaatController extends Controller
 {
@@ -15,7 +17,7 @@ class JemaatController extends Controller
     public function index()
     {
         $jemaats = Jemaat::all();
-        return view('index', compact('jemaats'));
+        return view('index', compact('jemaats'))->with('Success', 'Hello');
     }
 
     /**
@@ -36,7 +38,25 @@ class JemaatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        if ($request->hasFile('FileName')) {
+            $image      = $request->file('FileName');
+            $fileName   = time() . '.' . $image->getClientOriginalExtension();
+
+            $img = Image::make($image->getRealPath());
+            // $img->resize(120, 120, function ($constraint) {
+            //     $constraint->aspectRatio();
+            // });
+
+            $img->stream(); // <-- Key point
+            Storage::disk('local')->put('images/'.$fileName, $img, 'public');
+            $request->merge([
+                'FileName' => $fileName,
+            ]);
+
+            Jemaat::create($request->all());
+            return redirect()->route()->with('Success', 'Data Jemaat Berhasil Ditambahkan');
+        }
     }
 
     /**

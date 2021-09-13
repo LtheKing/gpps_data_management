@@ -25,3 +25,14 @@ Route::post('/user/login', 'UserController@login')->name('user_login');
 //jemaat
 Route::get('/jemaat/index', 'JemaatController@index')->name('jemaat_index');
 Route::get('/jemaat/create', 'JemaatController@create')->name('jemaat_create');
+Route::post('/jemaat/store', 'JemaatController@store')->name('jemaat_store');
+
+//testing
+Route::get('testing/playground', function(){
+    return view('testing.playground');
+});
+
+Route::get('testing/alert', function(){
+    return redirect('/testing/playground')->with('status', 'this is alert');
+});
+

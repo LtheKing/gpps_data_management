@@ -26,7 +26,7 @@
         </div>
     @endif
 
-    <form action="" method="post">
+    <form action="{{ route('jemaat_store') }}" method="post">
       @csrf
             <div class="mb-3" id="div_noAnggota">
               <label for="inputNoAnggota" class="form-label">Nomor Anggota</label>
@@ -81,12 +81,27 @@
                   <span class="input-group-text" id="inputGroupFileAddon01">Foto Jemaat</span>
                 </div>
                 <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="inputFotoJemaat" aria-describedby="inputGroupFileAddon01">
-                  <label class="custom-file-label" for="inputFotoJemaat">Choose file</label>
+                  <input type="file" class="custom-file-input" id="input_file" 
+                    aria-describedby="inputGroupFileAddon01" name="FileName" onchange=loadFile()>
+                  <label class="custom-file-label" for="input_file" id="input_file_label">Choose file</label>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary mt-2 mb-3">Submit</button>
     </form>
 
 @endsection
+
+<script>
+    function loadFile(){
+        var fullPath = document.getElementById('input_file').value;
+            if (fullPath) {
+                var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                var filename = fullPath.substring(startIndex);
+                if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                    filename = filename.substring(1);
+                }
+                document.getElementById('input_file_label').innerHTML = filename
+            }
+};
+</script>
