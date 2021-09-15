@@ -8,9 +8,10 @@
 @section('content')
     <h1>Data Jemaat</h1>
 
-    @if(session()->has('Success'))
+    @if(session('Success'))
         <div class="alert alert-success">
-            {{ session()->get('Success') }}
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ session('Success') }}
         </div>
     @endif
 

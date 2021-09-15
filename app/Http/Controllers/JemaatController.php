@@ -17,7 +17,7 @@ class JemaatController extends Controller
     public function index()
     {
         $jemaats = Jemaat::all();
-        return view('index', compact('jemaats'))->with('Success', 'Hello');
+        return view('index', compact('jemaats'));
     }
 
     /**
@@ -41,7 +41,7 @@ class JemaatController extends Controller
         // dd($request->all());
         if ($request->hasFile('FileName')) {
             $image      = $request->file('FileName');
-            $fileName   = time() . '.' . $image->getClientOriginalExtension();
+            $fileName   = $request->Nama . '.' . $image->getClientOriginalExtension();
 
             $img = Image::make($image->getRealPath());
             // $img->resize(120, 120, function ($constraint) {
@@ -55,8 +55,10 @@ class JemaatController extends Controller
             ]);
 
             Jemaat::create($request->all());
-            return redirect()->route()->with('Success', 'Data Jemaat Berhasil Ditambahkan');
+            return redirect()->route('jemaat_index')->with('Success', 'Data Jemaat Berhasil Ditambahkan');
         }
+
+        return back()->with('error', 'Gagal Menyimpan Data');
     }
 
     /**

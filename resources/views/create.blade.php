@@ -7,14 +7,14 @@
 
 @section('content')
     <h1>Input Jemaat Baru</h1>
-
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-block">
+    
+    @if(session('error'))
+        <div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>{{ $message }}</strong>
+            {{ session('error') }}
         </div>
     @endif
-    
+
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <strong>Whoops!</strong> There were some problems with your input.
@@ -26,7 +26,7 @@
         </div>
     @endif
 
-    <form action="{{ route('jemaat_store') }}" method="post">
+    <form action="{{ route('jemaat_store') }}" method="post" enctype="multipart/form-data">
       @csrf
             <div class="mb-3" id="div_noAnggota">
               <label for="inputNoAnggota" class="form-label">Nomor Anggota</label>
@@ -50,7 +50,7 @@
 
             <div class="mb-3" id="div_Status">
                 <label for="inputStatus" class="form-label">Status</label>
-                <select name="KodeKain" id="KodeKain" class="form-control">
+                <select name="Status" id="input_status" class="form-control">
                     <option value="Menikah">Menikah</option>
                     <option value="Belum Menikah">Belum Menikah</option>
                 </select>
@@ -87,8 +87,20 @@
                 </div>
             </div>
 
+            <div class="mb-3">
+                <img id="gambar"/>
+            </div>
+
             <button type="submit" class="btn btn-primary mt-2 mb-3">Submit</button>
     </form>
+
+    <style>
+        #gambar {
+            width: 5cm;
+            height: 5cm;
+            outline: none;
+        }
+    </style>
 
 @endsection
 
@@ -103,5 +115,10 @@
                 }
                 document.getElementById('input_file_label').innerHTML = filename
             }
+
+        const file = document.getElementById('input_file').files
+        if (file) {
+            document.getElementById('gambar').src = URL.createObjectURL(file[0]);
+        }
 };
 </script>
