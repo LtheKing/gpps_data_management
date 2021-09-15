@@ -15,42 +15,41 @@
         </div>
     @endif
 
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
     <form action="{{ route('jemaat_store') }}" method="post" enctype="multipart/form-data">
       @csrf
             <div class="mb-3" id="div_noAnggota">
               <label for="inputNoAnggota" class="form-label">Nomor Anggota</label>
-              <input type="text" class="form-control" id="inputNoAnggota" name="NoAnggota">
+              <input type="text" class="form-control" id="inputNoAnggota" name="NoAnggota" value="{{ old('NoAnggota') }}">
             </div>
 
             <div class="mb-3" id="div_Nama">
                 <label for="inputNama" class="form-label">Nama Jemaat</label>
-                <input type="text" class="form-control" id="inputNama" name="Nama">
+                <input type="text" class="form-control" id="inputNama" name="Nama" value="{{ old('Nama') }}">
             </div>
 
             <div class="mb-3" id="div_Alamat">
                 <label for="inputAlamat" class="form-label">Alamat</label>
-                <textarea class="form-control" id="inputAlamat" name="Alamat"></textarea>
+                <textarea class="form-control" id="inputAlamat" name="Alamat"> {{ old('Alamat') }} </textarea>
             </div>
 
             <div class="mb-3" id="div_Tlp">
                 <label for="inputTlp" class="form-label">Nomor Telepon</label>
-                <input type="number" class="form-control" id="inputTlp" name="Tlp"></input>
+                <input type="number" class="form-control" id="inputTlp" name="Tlp" value="{{ old('Tlp') }}"></input>
             </div>
-
+                
             <div class="mb-3" id="div_Status">
                 <label for="inputStatus" class="form-label">Status</label>
-                <select name="Status" id="input_status" class="form-control">
+                <select name="Status" id="input_status" class="form-control" value="{{ old('Status') }}">
                     <option value="Menikah">Menikah</option>
                     <option value="Belum Menikah">Belum Menikah</option>
                 </select>
@@ -58,22 +57,22 @@
 
             <div class="mb-3" id="div_NamaAyah">
                 <label for="inputNamaAyah" class="form-label">Nama Ayah</label>
-                <input type="text" class="form-control" id="inputNamaAyah" name="NamaAyah">
+                <input type="text" class="form-control" id="inputNamaAyah" name="NamaAyah" value="{{ old('NamaAyah') }}">
             </div>
 
             <div class="mb-3" id="div_NamaIbu">
                 <label for="inputNamaIbu" class="form-label">Nama Ibu</label>
-                <input type="text" class="form-control" id="inputNamaIbu" name="NamaIbu">
+                <input type="text" class="form-control" id="inputNamaIbu" name="NamaIbu" value="{{ old('NamaIbu') }}">
             </div>
 
             <div class="mb-3" id="div_TanggalBaptis">
                 <label for="inputTanggalBaptis" class="form-label">Tanggal Baptis</label>
-                <input type="date" class="form-control" id="inputTanggalBaptis" name="TanggalBaptis">
+                <input type="date" class="form-control" id="inputTanggalBaptis" name="TanggalBaptis" value="{{ old('TanggalBaptis') }}">
             </div>
 
             <div class="mb-3" id="div_PelaksanaBaptis">
                 <label for="inputPelaksanaBaptis" class="form-label">Pelaksana Baptis</label>
-                <input type="text" class="form-control" id="inputPelaksanaBaptis" name="PelaksanaBaptis">
+                <input type="text" class="form-control" id="inputPelaksanaBaptis" name="PelaksanaBaptis" value="{{ old('PelaksanaBaptis') }}">
             </div>
 
             <div class="input-group mb-3">

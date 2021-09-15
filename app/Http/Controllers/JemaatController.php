@@ -39,6 +39,20 @@ class JemaatController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        //'image' => 'file|size:512';
+
+        $request->validate([
+            'NoAnggota' => 'required',
+            'Nama' => 'required',
+            'Alamat' => 'required',
+            'Tlp' => 'required',
+            'Status' => 'required',
+            'NamaIbu' => 'required',
+            'TanggalBaptis' => 'required',
+            'PelaksanaBaptis' => 'required',
+            'FileName' => 'required|file|max:2048',
+        ]);
+
         if ($request->hasFile('FileName')) {
             $image      = $request->file('FileName');
             $fileName   = $request->Nama . '.' . $image->getClientOriginalExtension();
