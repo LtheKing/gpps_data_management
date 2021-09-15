@@ -79,8 +79,7 @@ class JemaatController extends Controller
 
             $img->stream(); // <-- Key point
             Storage::disk('local')->put('images/'.$fileName, $img, 'public');
-            
-            // Jemaat::create($request->all());
+
             $jemaat->save();
             return redirect()->route('jemaat_index')->with('Success', 'Data Jemaat Berhasil Ditambahkan');
         }
@@ -105,9 +104,10 @@ class JemaatController extends Controller
      * @param  \App\Models\Jemaat  $jemaat
      * @return \Illuminate\Http\Response
      */
-    public function edit(Jemaat $jemaat)
+    public function edit($id)
     {
-        //
+        $jemaat = Jemaat::find($id);
+        return view('edit', compact('jemaat'));
     }
 
     /**
@@ -117,7 +117,7 @@ class JemaatController extends Controller
      * @param  \App\Models\Jemaat  $jemaat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Jemaat $jemaat)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -128,8 +128,10 @@ class JemaatController extends Controller
      * @param  \App\Models\Jemaat  $jemaat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Jemaat $jemaat)
+    public function destroy($id)
     {
-        //
+        $jemaat = Jemaat::where('NoAnggota', $id)->get();
+        $jemaat->delete();
+        return back()->with('success', 'data berhasil dihapus');
     }
 }
