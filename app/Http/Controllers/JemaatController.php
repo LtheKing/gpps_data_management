@@ -39,7 +39,6 @@ class JemaatController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        //'image' => 'file|size:512';
 
         $request->validate([
             'NoAnggota' => 'required',
@@ -47,15 +46,31 @@ class JemaatController extends Controller
             'Alamat' => 'required',
             'Tlp' => 'required',
             'Status' => 'required',
+            'NamaAyah' => 'required',
             'NamaIbu' => 'required',
             'TanggalBaptis' => 'required',
             'PelaksanaBaptis' => 'required',
             'FileName' => 'required|file|max:2048',
         ]);
 
+        $jemaat = new Jemaat;
+
+        $jemaat->NoAnggota = $request->NoAnggota;
+        $jemaat->Nama = $request->Nama;
+        $jemaat->Alamat = $request->Alamat;
+        $jemaat->Tlp = $request->Tlp;
+        $jemaat->Status = $request->Status;
+        $jemaat->NamaIbu = $request->NamaIbu;
+        $jemaat->NamaAyah = $request->NamaAyah;
+        $jemaat->TanggalBaptis = $request->TanggalBaptis;
+        $jemaat->PelaksanaBaptis = $request->PelaksanaBaptis;
+
         if ($request->hasFile('FileName')) {
             $image      = $request->file('FileName');
             $fileName   = $request->Nama . '.' . $image->getClientOriginalExtension();
+            $jemaat->FileName = $fileName;
+
+            // dd($jemaat->all());
 
             $img = Image::make($image->getRealPath());
             // $img->resize(120, 120, function ($constraint) {
@@ -64,11 +79,9 @@ class JemaatController extends Controller
 
             $img->stream(); // <-- Key point
             Storage::disk('local')->put('images/'.$fileName, $img, 'public');
-            $request->merge([
-                'FileName' => $fileName,
-            ]);
-
-            Jemaat::create($request->all());
+            
+            // Jemaat::create($request->all());
+            $jemaat->save();
             return redirect()->route('jemaat_index')->with('Success', 'Data Jemaat Berhasil Ditambahkan');
         }
 
