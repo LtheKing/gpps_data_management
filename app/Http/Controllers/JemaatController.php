@@ -55,24 +55,10 @@ class JemaatController extends Controller
             'FileName' => 'required|file|max:2048',
         ]);
 
-        $jemaat = new Jemaat;
-
-        $jemaat->NoAnggota = $request->NoAnggota;
-        $jemaat->Nama = $request->Nama;
-        $jemaat->Alamat = $request->Alamat;
-        $jemaat->Tlp = $request->Tlp;
-        $jemaat->Status = $request->Status;
-        $jemaat->NamaIbu = $request->NamaIbu;
-        $jemaat->NamaAyah = $request->NamaAyah;
-        $jemaat->TanggalBaptis = $request->TanggalBaptis;
-        $jemaat->PelaksanaBaptis = $request->PelaksanaBaptis;
-
         if ($request->hasFile('FileName')) {
             $image      = $request->file('FileName');
             $fileName   = $request->Nama . '.' . $image->getClientOriginalExtension();
-            $jemaat->FileName = $fileName;
-
-            // dd($jemaat->all());
+            $toSave = Arr::add($request->all(), 'ImageName', $fileName);
 
             $img = Image::make($image->getRealPath());
             // $img->resize(120, 120, function ($constraint) {
@@ -82,7 +68,7 @@ class JemaatController extends Controller
             $img->stream(); // <-- Key point
             Storage::disk('local')->put('public/images/'.$fileName, $img, 'public');
 
-            $jemaat->save();
+            Jemaat::create($toSave);
             return redirect()->route('jemaat_index')->with('Success', 'Data Jemaat Berhasil Ditambahkan');
         }
 
@@ -158,8 +144,9 @@ class JemaatController extends Controller
      */
     public function destroy($id)
     {
-        $jemaat = Jemaat::where('NoAnggota', $id)->get();
+        $jemaat = Jemaat::find($id);
         $jemaat->delete();
-        return back()->with('success', 'data berhasil dihapus');
+        Storage::disk('public')->delete('/images/' . $jemaat->ImageName);
+        return back()->with('error', 'data berhasil dihapus');
     }
 }

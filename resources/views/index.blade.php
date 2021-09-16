@@ -15,6 +15,13 @@
         </div>
     @endif
 
+    @if(session('error'))
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ session('error') }}
+        </div>
+    @endif
+
     <a href="{{ route('jemaat_create') }}" class="btn btn-info mb-3 mt-3">Jemaat Baru</a>
     <table class="table">
         <thead class="table-borderless">
@@ -42,7 +49,7 @@
                     <td>{{ $jemaat->TanggalBaptis }}</td>
                     <td>{{ $jemaat->PelaksanaBaptis }}</td>
                     <td>
-                        <form action="#" method="POST">
+                        <form action="{{ route('jemaat_destroy', $jemaat->id) }}" method="POST">
                         
                         <a class="btn btn-warning btn-sm btn-block mb-3" href="{{ route('jemaat_edit', $jemaat->id) }}">Edit</a> 
                         <a class="btn btn-secondary btn-sm btn-block mb-3" href="#">Detail</a> 
