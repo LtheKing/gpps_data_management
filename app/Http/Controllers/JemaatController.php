@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Jemaat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Arr;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class JemaatController extends Controller
@@ -78,7 +80,7 @@ class JemaatController extends Controller
             // });
 
             $img->stream(); // <-- Key point
-            Storage::disk('local')->put('images/'.$fileName, $img, 'public');
+            Storage::disk('local')->put('public/images/'.$fileName, $img, 'public');
 
             $jemaat->save();
             return redirect()->route('jemaat_index')->with('Success', 'Data Jemaat Berhasil Ditambahkan');
@@ -119,7 +121,33 @@ class JemaatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Jemaat::find($id);
+        if ($request->hasFile('FileName')){
+            // $existingImage = storage_path('public/images/'. $data->Nama);
+            // File::delete($existingImage);
+            Storage::disk('public')->delete('/images/' . $data->ImageName);
+
+            $image      = $request->file('FileName');
+            $fileName   = $request->Nama . '.' . $image->getClientOriginalExtension();
+            $toUpdate = Arr::add($request->all(), 'ImageName', $fileName);
+
+            $img = Image::make($image->getRealPath());
+            // $img->resize(120, 120, function ($constraint) {
+            //     $constraint->aspectRatio();
+            // });
+
+            $img->stream(); // <-- Key point
+            Storage::disk('local')->put('public/images/'.$fileName, $img, 'public');
+
+            $data->update($toUpdate);
+            return redirect()->route('jemaat_index')->with('Success', 'Data Jemaat Berhasil Diubah');
+
+        } else {
+            $data->update($request->all());
+            return redirect()->route('jemaat_index')->with('Success', 'Data Jemaat Berhasil Diubah');
+        }
+        
+        return back()->with('error', 'Gagal update Data');
     }
 
     /**

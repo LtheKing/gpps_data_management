@@ -25,8 +25,9 @@
     </div>
 @endif
 
-    <form action="{{ route('jemaat_update', $jemaat->NoAnggota) }}" method="put" enctype="multipart/form-data">
+    <form action="{{ route('jemaat_update', $jemaat->id) }}" method="post" enctype="multipart/form-data">
       @csrf
+      @method('PUT')
             <div class="mb-3" id="div_noAnggota">
               <label for="inputNoAnggota" class="form-label">Nomor Anggota</label>
               <input type="text" class="form-control" id="inputNoAnggota" name="NoAnggota" value="{{ old('NoAnggota', $jemaat->NoAnggota) }}">
@@ -81,13 +82,13 @@
                 </div>
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="input_file" 
-                    aria-describedby="inputGroupFileAddon01" name="FileName" onchange=loadFile() value="{{ old('FileName', $jemaat->FileName) }}">
-                  <label class="custom-file-label" for="input_file" id="input_file_label">Choose file</label>
+                    aria-describedby="inputGroupFileAddon01" name="FileName" onchange=loadFile() value="{{ $jemaat->ImageName }}">
+                  <label class="custom-file-label" for="input_file" id="input_file_label">{{ $jemaat->ImageName }}</label>
                 </div>
             </div>
 
             <div class="mb-3">
-                <img id="gambar"/>
+                <img id="gambar" src="{{ url('storage/images/', $jemaat->ImageName) }}"/>
             </div>
 
             <button type="submit" class="btn btn-primary mt-2 mb-3">Submit</button>
