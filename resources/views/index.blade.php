@@ -52,7 +52,7 @@
                         <form action="{{ route('jemaat_destroy', $jemaat->id) }}" method="POST">
                         
                         <a class="btn btn-warning btn-sm btn-block mb-3" href="{{ route('jemaat_edit', $jemaat->id) }}">Edit</a> 
-                        <a class="btn btn-secondary btn-sm btn-block mb-3" href="#">Detail</a> 
+                        <a class="btn btn-secondary btn-sm btn-block mb-3" href="{{ route('jemaat_detail', $jemaat->id) }}">Detail</a> 
                         
                             @csrf
                             @method('DELETE')

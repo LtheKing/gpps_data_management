@@ -81,9 +81,10 @@ class JemaatController extends Controller
      * @param  \App\Models\Jemaat  $jemaat
      * @return \Illuminate\Http\Response
      */
-    public function show(Jemaat $jemaat)
+    public function show($id)
     {
-        //
+        $jemaat = Jemaat::find($id);
+        return view('detail', compact('jemaat'));
     }
 
     /**
