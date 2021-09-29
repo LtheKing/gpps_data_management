@@ -49,4 +49,7 @@ Route::get('testing/alert', function(){
     return redirect('/testing/playground')->with('status', 'this is alert');
 });
 
-
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});

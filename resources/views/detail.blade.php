@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <h1>Input Jemaat Baru</h1>
+    <h1>Detail Jemaat</h1>
     <a class="btn btn-secondary mb-3 mt-3" href="{{ route('jemaat_index') }}"> Kembali </a>
 
     <form action="#" method="post" enctype="multipart/form-data">

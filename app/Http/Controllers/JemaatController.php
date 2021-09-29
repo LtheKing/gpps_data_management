@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Arr;
 use Intervention\Image\ImageManagerStatic as Image;
+use Artisan;
 
 class JemaatController extends Controller
 {
@@ -95,6 +96,7 @@ class JemaatController extends Controller
      */
     public function edit($id)
     {
+        Artisan::call('cache:clear');
         $jemaat = Jemaat::find($id);
         return view('edit', compact('jemaat'));
     }
@@ -118,7 +120,7 @@ class JemaatController extends Controller
             'NamaIbu' => 'required',
             'TanggalBaptis' => 'required',
             'PelaksanaBaptis' => 'required',
-            'FileName' => 'required|file|max:2048',
+            'FileName' => 'file|max:2048',
         ]);
         
         $data = Jemaat::find($id);
