@@ -108,6 +108,19 @@ class JemaatController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'NoAnggota' => 'required',
+            'Nama' => 'required',
+            'Alamat' => 'required',
+            'Tlp' => 'required',
+            'Status' => 'required',
+            'NamaAyah' => 'required',
+            'NamaIbu' => 'required',
+            'TanggalBaptis' => 'required',
+            'PelaksanaBaptis' => 'required',
+            'FileName' => 'required|file|max:2048',
+        ]);
+        
         $data = Jemaat::find($id);
         if ($request->hasFile('FileName')){
             // $existingImage = storage_path('public/images/'. $data->Nama);

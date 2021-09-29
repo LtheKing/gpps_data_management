@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JemaatController;
+use Illuminate\Support\Facades\DB;
 
 
 /*
@@ -35,8 +36,17 @@ Route::delete('/jemaat/delete/{id}', 'JemaatController@destroy')->name('jemaat_d
 Route::get('testing/playground', function(){
     return view('testing.playground');
 });
+Route::get('testing/qrcode', function () {
+  
+    QrCode::size(500)
+            ->format('png')
+            ->generate('ItSolutionStuff.com', Storage::disk('local')->put('public/images/qrcode.png', 'public'));
+    
+    return view('testing.qrcode');
+});
 
 Route::get('testing/alert', function(){
     return redirect('/testing/playground')->with('status', 'this is alert');
 });
+
 
