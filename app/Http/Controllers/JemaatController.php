@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Arr;
 use Intervention\Image\ImageManagerStatic as Image;
 use Artisan;
+use PDF;
+use DB;
 
 class JemaatController extends Controller
 {
@@ -19,7 +21,9 @@ class JemaatController extends Controller
      */
     public function index()
     {
-        $jemaats = Jemaat::all();
+        // $jemaats = DB::table('jemaats')->paginate(15);
+        $jemaats = DB::table('jemaats')->get();
+        // dd($jemaats);
         return view('index', compact('jemaats'));
     }
 
@@ -164,5 +168,25 @@ class JemaatController extends Controller
         $jemaat->delete();
         Storage::disk('public')->delete('/images/' . $jemaat->ImageName);
         return back()->with('error', 'data berhasil dihapus');
+    }
+
+    //API
+
+    public function getJemaatArray()
+    {
+        $jemaats = DB::table('jemaats')->get();
+        $data = (object)[
+            'data' => $jemaats
+        ];
+        // array_push($data->data, $jemaats);
+        return $data;
+    }
+
+    public function api_delete($id)
+    {
+        $jemaat = Jemaat::find($id);
+        $jemaat->delete();
+        Storage::disk('public')->delete('/images/' . $jemaat->ImageName);
+        return response('Data Deleted', 200);
     }
 }
