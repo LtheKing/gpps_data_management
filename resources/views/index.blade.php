@@ -62,7 +62,7 @@
                 modal.style.display = "none";
             }
         }
-        var localhost = 'http://127.0.0.1:8000/';
+        var localhost = window.origin + '/';
         $(document).ready(function() {
             var table = $('#table_jemaat').DataTable({
                 "ajax": 'array',
@@ -101,6 +101,11 @@
                         alert('Data Jemaat Berhasil Dihapus');
                     })
                 }
+
+                if(action.includes('btnDetail'))
+                {
+                    window.location.href = localhost + 'jemaat/detail/' + data.id;
+                }                
             });
         });
 

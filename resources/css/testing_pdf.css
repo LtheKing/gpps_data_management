@@ -1,12 +1,14 @@
 .card-behind {
     display: grid;
-    width: 15cm;
-    height: 7.5cm;
+    width: 9cm;
+    height: 15cm;
     border-style: solid;
     border-color: red;
     grid-template-areas:
-    'header header header header header header'
-    'left left left right right right';
+    'atas'
+    'tengah1'
+    'tengah2'
+    'bawah';
     grid-gap: 10px;
     padding: 10px;
 }
@@ -22,12 +24,18 @@ p {
     font-family: "Arial";
     font-weight: bold;
     font-size: 20px;
-    grid-area: header; 
+    grid-area: atas; 
     text-align: center;
 }
 .item2 { 
-    grid-area: left; 
+    grid-area: tengah1; 
     text-align: left;
     margin-left: 20px;
 }
-.item3 { grid-area: right; text-align: center;}
+.item3 { 
+    grid-area: tengah2; text-align: center;
+}
+
+.item4 {
+    grid-area: bawah; text-align: center;
+}

@@ -25,6 +25,8 @@
     </div>
 @endif
 
+    <a class="btn btn-secondary mb-3 mt-3" href="{{ route('jemaat_index') }}"> Kembali </a>
+
     <form action="{{ route('jemaat_update', $jemaat->id) }}" method="post" enctype="multipart/form-data">
       @csrf
       @method('PUT')

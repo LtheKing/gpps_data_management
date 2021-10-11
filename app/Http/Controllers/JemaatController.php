@@ -114,6 +114,7 @@ class JemaatController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $request->validate([
             'NoAnggota' => 'required',
             'Nama' => 'required',
@@ -139,7 +140,7 @@ class JemaatController extends Controller
 
             $img = Image::make($image->getRealPath());
             // $img->resize(120, 120, function ($constraint) {
-            //     $constraint->aspectRatio();
+            //     $constraint->aspectRatio();  
             // });
 
             $img->stream(); // <-- Key point
