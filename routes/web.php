@@ -48,7 +48,7 @@ Route::get('testing/qrcode', function () {
   
     QrCode::size(500)
             ->format('png')
-            ->generate('ItSolutionStuff.com', Storage::disk('local')->put('public/images/qrcode.png', 'public'));
+            ->generate(route('jemaat_detail', 16), Storage::disk('local')->put('public/images/qrcode.png', 'public'));
     
     return view('testing.qrcode');
 });

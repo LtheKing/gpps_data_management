@@ -8,7 +8,7 @@
 <div class="visible-print text-center">
     <h1>Laravel 8 - QR Code Generator Example</h1>
      
-    {!! QrCode::size(250)->generate('ItSolutionStuff.com'); !!}
+    {!! QrCode::size(250)->generate(route('jemaat_detail', 16)); !!}
      
     <p>example by ItSolutionStuf.com.</p>
 </div>

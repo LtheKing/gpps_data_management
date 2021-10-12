@@ -11,6 +11,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Artisan;
 use PDF;
 use DB;
+use QrCode;
 
 class JemaatController extends Controller
 {
@@ -89,7 +90,8 @@ class JemaatController extends Controller
     public function show($id)
     {
         $jemaat = Jemaat::find($id);
-        return view('detail', compact('jemaat'));
+        $qrcode = QrCode::size(125)->generate(route('jemaat_detail', $id));
+        return view('detail', compact('jemaat', 'qrcode'));
     }
 
     /**
