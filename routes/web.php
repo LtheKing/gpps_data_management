@@ -44,13 +44,14 @@ Route::delete('/api/jemaat/delete/{id}', 'JemaatController@api_delete')->name('j
 Route::get('testing/playground', function(){
     return view('testing.playground');
 });
+
 Route::get('testing/qrcode', function () {
   
     QrCode::size(500)
             ->format('png')
             ->generate(route('jemaat_detail', 16), Storage::disk('local')->put('public/images/qrcode.png', 'public'));
     
-    return view('testing.qrcode');
+    return view('testing.qrcode');  
 });
 
 Route::get('testing/alert', function(){
@@ -68,15 +69,19 @@ Route::get('/testing/pdf', function() {
     // $pdf = PDF::loadView('testing.testing_pdf', compact('qrcode'));
     $pdf = PDF::loadView('testing.qrcode');
 
-        //Aktifkan Local File Access supaya bisa pakai file external ( cth File .CSS )
-        $pdf->setOption('enable-local-file-access', true);
+    //Aktifkan Local File Access supaya bisa pakai file external ( cth File .CSS )
+    $pdf->setOption('enable-local-file-access', true);
+    // Stream untuk menampilkan tampilan PDF pada browser
+    return $pdf->stream('testing.pdf');
+});
 
-        // Stream untuk menampilkan tampilan PDF pada browser
-        return $pdf->stream('testing.pdf');
-    });
 
 Route::get('/testing/view/pdf', function() {
     $qrcode = QrCode::size(125)->generate('ItSolutionStuff.com');
     return view('testing.testing_pdf', compact('qrcode'));
 });
 
+Route::get('/testing/view/kartu', function() {
+    $qrcode = QrCode::size(125)->generate('ItSolutionStuff.com');
+    return view('testing.testing_kartu', compact('qrcode'));
+});
