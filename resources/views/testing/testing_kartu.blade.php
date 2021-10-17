@@ -15,17 +15,15 @@
 <body>
     <div class="front">
         <div class="front_content">
-            <div class="row">
-                <div class="col" id="content_jemaat">
-                    {{-- <img src="../../img/Darling.png" alt="" id="foto_jemaat"> 
-                    <p>Ini Nama</p> 
-                    <p>2022.3948.009.90</p>  --}}
-                </div>
-                <div class="col" id="content_qrcode">
-                    {{-- <img src="../../img/contoh_qrcode.png" alt="" id="img_qrcode"> --}}
-                </div>
+            <div class="front_content_foto_jemaat">
+                <img src="../../img/Darling.png" alt="" id="foto_jemaat"> 
+                <p id="nama_jemaat">Leonaldi Nata Gunawan</p> 
+                <p id="no_anggota">2022.3948.009.90</p> 
             </div>
-            
+
+            <div class="front_content_qrcode">
+                <img src="../../img/contoh_qrcode.png" alt="" id="img_qrcode">  
+            </div>
         </div>
     </div>
 
@@ -45,29 +43,86 @@
         background-size: cover;
     }
 
+    .back {
+        /* border-style: solid;
+        border-color: red;
+        border-radius: 10px; */
+        width: 35rem;
+        height: 22rem;
+        background-image: url("../../img/FINAL-belakang.jpg");
+        background-size: cover;
+    }
+
     .front_content {
         /* border-style: solid;
-        border-color: blue;
-        border-radius: 10px; */
-        width: 19.7rem;
+        border-color: blue; */
+        border-radius: 10px;
+        width: 20rem;
         height: 22rem;
         float: right;
     }
 
-    .content_jemaat {
-        float: none;
-        margin: auto;
+    .front_content_foto_jemaat {
+        /* border-style: solid;
+        border-color: yellow; */
+        width: auto;
+        height: 150px;
+        display: grid;
+        grid-template-areas:
+            'foto_area nama_area'
+            'foto_area noanggota_area';
+        grid-gap: 10px;
+        padding: 10px;
+    }
+
+    /* .front_content_foto_jemaat > div {
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        padding: 20px 0;
+        font-size: 30px;
+    } */
+
+    .front_content_qrcode {
+        /* border-style: solid;
+        border-color: purple; */
+        width: auto;
+        height: 200px;
+        text-align: center;
     }
 
     #foto_jemaat {
-        width: 150px;
+        width: 120px;
         height: auto;
+        grid-area: foto_area;
+        vertical-align: middle;
+        /* border-style: solid;
+        border-color: orange; */
+    }
+
+    #nama_jemaat {
+        grid-area : nama_area;
+        width: auto;
+        height: auto;
+        font-family: Calibri; 
+        font-size: 20px;
+        /* border-style: solid;
+        border-color: black; */
+    }
+
+    #no_anggota {
+        grid-area : noanggota_area;
+        width: auto;
+        height: auto;
+        font-family: Lucida Sans Typewriter; 
+        font-size: 18px;
+        /* border-style: solid;
+        border-color: greenyellow; */
     }
     
     #img_qrcode {
-        width: 150px;
+        width: 180px;
         height: auto;
-        float: right;
+        margin-top: 15px;
     }
 </style>
 

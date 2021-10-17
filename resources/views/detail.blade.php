@@ -75,84 +75,114 @@
             </div>
     </form>
 
-    <div class="row" style="margin: auto;">
-        <div class="col">
-            <div class="card-behind" id="card-behind">
-                <div class="card" style="width: 22rem; height: 33rem; border-radius: 5%" id="card_front">
-                    <div class="penampung-qrcode">
-                        <div class="card-img-top text-center mt-3">
-                            {{ $qrcode }}
-                        </div>
-                    </div>
-                    <div class="card-body" style="color: white; font-size: 15px;">
-                        <ul>
-                            <li>Pemegang kartu ini adalah jemaat Gereja Pantekosta Pusat Surabaya Agape</li>
-                            <li>Bila menemukan kartu ini, mohon kesediaannya untuk mengembalikan ke alamat : Jalan Pagarsih 136, Bandung</li>
-                            <li>Pemegang kartu ini berhak menerima beragam benefit yang berlaku di GPPS Agape.</li>
-                        </ul>
-        
-                        <p class="card-text text-center">
-                            Jl. Pagarsih 136, Bandung <br>
-                            Tel. 022-6018528 <br>
-                            Email: contact@gpps-agape.com <br>
-                            Website: gppsagapebandung.com
-                        </p>
-                    </div>
-                </div>
+    <div class="front" id="card-front">
+        <div class="front_content">
+            <div class="front_content_foto_jemaat">
+                <img src="{{ url('storage/images/', $jemaat->ImageName) }}" alt="" id="foto_jemaat"> 
+                <p id="nama_jemaat">{{ $jemaat->Nama }}</p> 
+                <p id="no_anggota">{{ $jemaat->NoAnggota }}</p> 
             </div>
-        </div>
 
-        <div class="col">
-            <div class="card-front" id="card-front">
-                <div class="card" style="width: 22rem; height: 33rem; border-radius: 5%">
-                    <h2 class="card-title text-center mt-3" style="color: white;">Kartu Keanggotaan Jemaat</h2>
-                    <img src="{{ asset('img/logo.jpg') }}" style="width: 280px; height: auto; margin: auto;">
-                    <div class="card-body" style="color: white; position: relative;">
-                        <img src="{{ url('storage/images/', $jemaat->ImageName) }}" class="foto-jemaat"> 
-                    </div>
-                    <div class="card-footer">
-                        <div class="row justify-content-end">
-                            <p style="color: white; font-family: Lucida Sans Typewriter; font-size: 20px;" id="no_anggota">{{ $jemaat->NoAnggota }}</p> <br>
-                        </div>
-                        <div class="row justify-content-end">
-                            <p style="color: white; font-family: Calibri; font-size: 25px;" id="nama_jemaat">{{ $jemaat->Nama }}</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="front_content_qrcode">
+                <img src="../../img/contoh_qrcode.png" alt="" id="img_qrcode">  
             </div>
         </div>
     </div>
 
+    <div class="back" id="card-behind"></div>
+
     <style>
-        #gambar {
-            width: 5cm;
-            height: 5cm;
-            outline: none;
-        }
+    .front {
+        /* border-style: solid;
+        border-color: red;
+        border-radius: 10px; */
+        width: 35rem;
+        height: 22rem;
+        background-image: url("../../img/FINAL-depan.jpg");
+        background-size: contain;
+    }
 
-        .card {
-            background-image: url("../../img/background_card.jpg");
-        }
+    .back {
+        /* border-style: solid;
+        border-color: red;
+        border-radius: 10px; */
+        width: 35rem;
+        height: 22rem;
+        background-image: url("../../img/FINAL-belakang.jpg");
+        background-size: contain;
+    }
 
-        .foto-jemaat {
-            width: 125px; 
-            height: auto;
-            position: absolute; 
-            top: 15%; 
-            left: 60%;
-            border: 1px solid #ddd;
-            border-radius: 7px;
-            padding: 5px;
-            background-color: white;
-        }
+    .front_content {
+        /* border-style: solid;
+        border-color: blue; */
+        border-radius: 10px;
+        width: 20rem;
+        height: 22rem;
+        float: right;
+    }
 
-        .penampung-qrcode {
-            height: 160px;
-            width: 160px;
-            background-color: white;
-            margin: auto;
-            margin-top: 10px;
-        }
+    .front_content_foto_jemaat {
+        /* border-style: solid;
+        border-color: yellow; */
+        width: auto;
+        height: 150px;
+        display: grid;
+        grid-template-areas:
+            'foto_area nama_area'
+            'foto_area noanggota_area';
+        grid-gap: 10px;
+        padding: 10px;
+    }
+
+    /* .front_content_foto_jemaat > div {
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        padding: 20px 0;
+        font-size: 30px;
+    } */
+
+    .front_content_qrcode {
+        /* border-style: solid;
+        border-color: purple; */
+        width: auto;
+        height: 200px;
+        text-align: center;
+    }
+
+    #foto_jemaat {
+        width: 120px;
+        height: auto;
+        grid-area: foto_area;
+        vertical-align: middle;
+        /* border-style: solid;
+        border-color: orange; */
+    }
+
+    #nama_jemaat {
+        grid-area : nama_area;
+        width: auto;
+        height: auto;
+        font-family: Calibri; 
+        font-size: 20px;
+        /* border-style: solid;
+        border-color: black; */
+    }
+
+    #no_anggota {
+        grid-area : noanggota_area;
+        width: auto;
+        height: auto;
+        font-family: Lucida Sans Typewriter; 
+        font-size: 18px;
+        /* border-style: solid;
+        border-color: greenyellow; */
+    }
+    
+    #img_qrcode {
+        width: 180px;
+        height: auto;
+        margin-top: 15px;
+    }
     </style>
 
 <script>
