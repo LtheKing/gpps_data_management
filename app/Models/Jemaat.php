@@ -21,5 +21,10 @@ class Jemaat extends Model
         'PelaksanaBaptis',
         'FileName',
         'ImageName',
+        'JenisKelamin',
+        'Segment',
+        'StatusBaptis',
+        'StatusKematian',
+        'TanggalKematian'
     ];
 }

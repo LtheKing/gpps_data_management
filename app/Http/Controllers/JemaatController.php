@@ -58,6 +58,10 @@ class JemaatController extends Controller
             'NamaIbu' => 'required',
             'TanggalBaptis' => 'required',
             'PelaksanaBaptis' => 'required',
+            'JenisKelamin' => 'required',
+            'StatusBaptis' => 'required',
+            'StatusKematian' => 'required',
+            'Segment' => 'required',
             'FileName' => 'required|file|max:2048',
         ]);
 
@@ -127,6 +131,11 @@ class JemaatController extends Controller
             'NamaIbu' => 'required',
             'TanggalBaptis' => 'required',
             'PelaksanaBaptis' => 'required',
+            'JenisKelamin' => 'required',
+            'StatusBaptis' => 'required',
+            'StatusKematian' => 'required',
+            'TanggalKematian' => 'required',
+            'Segment' => 'required',
             'FileName' => 'file|max:2048',
         ]);
         

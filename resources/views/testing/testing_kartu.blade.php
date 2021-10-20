@@ -10,10 +10,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
+    <script src="{{ asset('js/render.js') }}"></script>
     <title>Document</title>
 </head>
 <body>
-    <div class="front">
+    <div class="front col" id="card-front">
         <div class="front_content">
             <div class="front_content_foto_jemaat">
                 <img src="../../img/Darling.png" alt="" id="foto_jemaat"> 
@@ -27,30 +28,39 @@
         </div>
     </div>
 
-    <div class="back">
+    <div class="back col" id="card-behind">
 
+    </div>
+
+    <div>
+        <button class="btn btn-success btn-block mt-3 mb-3" id="btnDownload">Download</button>
     </div>
 </body>
 
 <style>
     .front {
-        /* border-style: solid;
+        border-style: solid;
         border-color: red;
-        border-radius: 10px; */
+        border-radius: 10px; 
         width: 35rem;
         height: 22rem;
         background-image: url("../../img/FINAL-depan.jpg");
         background-size: cover;
+        background-repeat: no-repeat;
+        margin: auto;
+        margin-bottom: 20px;
+        margin-top: 50px;
     }
 
     .back {
-        /* border-style: solid;
+        border-style: solid;
         border-color: red;
-        border-radius: 10px; */
+        border-radius: 10px;
         width: 35rem;
         height: 22rem;
         background-image: url("../../img/FINAL-belakang.jpg");
         background-size: cover;
+        margin: auto;
     }
 
     .front_content {
@@ -125,5 +135,38 @@
         margin-top: 15px;
     }
 </style>
+
+<script>
+    document.getElementById("btnDownload").addEventListener("click", function() {
+		html2canvas(document.getElementById("card-behind"),
+			{
+				allowTaint: true,
+				useCORS: true
+			}).then(function (canvas) {
+				var anchorTag = document.createElement("a");
+				document.body.appendChild(anchorTag);
+				// document.getElementById("previewImg").appendChild(canvas);
+				anchorTag.download = "back" + ".jpg";
+				anchorTag.href = canvas.toDataURL();
+				anchorTag.target = '_blank';
+				anchorTag.click();
+			});
+
+        html2canvas(document.getElementById("card-front"),
+			{
+				allowTaint: true,
+				useCORS: true
+			}).then(function (canvas) {
+				var anchorTag = document.createElement("a");
+				document.body.appendChild(anchorTag);
+				// document.getElementById("previewImg").appendChild(canvas);
+                anchorTag.download = "front" + ".jpg";
+				anchorTag.href = canvas.toDataURL();
+				anchorTag.target = '_blank';
+				anchorTag.click();
+			});
+        });
+
+</script>
 
 </html>

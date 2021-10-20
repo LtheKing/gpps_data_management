@@ -40,6 +40,14 @@
                 <input type="text" class="form-control" id="inputNama" name="Nama" value="{{ old('Nama', $jemaat->Nama) }}">
             </div>
 
+            <div class="mb-3" id="div_JenisKelamin">
+                <label for="input_jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                <select name="JenisKelamin" id="input_jenis_kelamin" class="form-control" value="{{ old('JenisKelamin', $jemaat->JenisKelamin) }}">
+                    <option value="Pria">Pria</option>
+                    <option value="Wanita">Wanita</option>
+                </select>
+            </div>
+
             <div class="mb-3" id="div_Alamat">
                 <label for="inputAlamat" class="form-label">Alamat</label>
                 <textarea class="form-control" id="inputAlamat" name="Alamat"> {{ old('Alamat', $jemaat->Alamat) }} </textarea>
@@ -67,6 +75,14 @@
                 <label for="inputNamaIbu" class="form-label">Nama Ibu</label>
                 <input type="text" class="form-control" id="inputNamaIbu" name="NamaIbu" value="{{ old('NamaIbu', $jemaat->NamaIbu) }}">
             </div>
+            
+            <div class="mb-3" id="div_StatusBaptis">
+                <label for="input_status_Baptis" class="form-label">Sudah Baptis</label>
+                <select name="StatusBaptis" id="input_status_Baptis" class="form-control" value="{{ old('Status', $jemaat->StatusBaptis) }}">
+                    <option value="Sudah">Sudah</option>
+                    <option value="Belum">Belum</option>
+                </select>
+            </div>
 
             <div class="mb-3" id="div_TanggalBaptis">
                 <label for="inputTanggalBaptis" class="form-label">Tanggal Baptis</label>
@@ -76,6 +92,27 @@
             <div class="mb-3" id="div_PelaksanaBaptis">
                 <label for="inputPelaksanaBaptis" class="form-label">Pelaksana Baptis</label>
                 <input type="text" class="form-control" id="inputPelaksanaBaptis" name="PelaksanaBaptis" value="{{ old('PelaksanaBaptis', $jemaat->PelaksanaBaptis) }}">
+            </div>
+
+            <div class="mb-3" id="div_Segment">
+                <label for="input_segment" class="form-label">Segment</label>
+                <select name="Segment" id="input_segment" class="form-control" value="{{ old('Status', $jemaat->Segment) }}">
+                    <option value="Menikah">Menikah</option>
+                    <option value="Belum Menikah">Belum Menikah</option>
+                </select>
+            </div>
+
+            <div class="mb-3" id="div_StatusKematian">
+                <label for="input_status_kematian" class="form-label">Status Kematian</label>
+                <select name="StatusKematian" id="input_status_kematian" class="form-control" value="{{ old('StatusKematian', $jemaat->StatusKematian) }}" onchange="StatusKematianChange(this);">
+                    <option value="Ya">Ya</option>
+                    <option value="Tidak">Tidak</option>
+                </select>
+            </div>
+
+            <div class="mb-3" id="div_TanggalKematian">
+                <label for="inputTanggalKematian" class="form-label">Tanggal Kematian</label>
+                <input type="date" class="form-control" id="inputTanggalKematian" name="TanggalKematian" value="{{ old('TanggalKematian', $jemaat->TanggalKematian) }}">
             </div>
 
             <div class="input-group mb-3">
@@ -107,6 +144,14 @@
 @endsection
 
 <script>
+    window.onload = function() {
+        debugger;
+        var statKematian = document.getElementById('input_status_kematian').value;
+        if (statKematian == 'Tidak') {
+            document.getElementById('div_TanggalKematian').hidden = true;
+        }
+    }
+
     function loadFile(){
         var fullPath = document.getElementById('input_file').value;
             if (fullPath) {
@@ -122,5 +167,13 @@
         if (file) {
             document.getElementById('gambar').src = URL.createObjectURL(file[0]);
         }
-};
+    };
+
+    function StatusKematianChange(e) {
+        if (e.value == 'Tidak') {
+            document.getElementById('div_TanggalKematian').hidden = true;
+        } else {
+            document.getElementById('div_TanggalKematian').hidden = false;
+        }
+    } 
 </script>

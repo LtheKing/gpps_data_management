@@ -30,6 +30,11 @@ class JemaatSeeder extends Seeder
                 'PelaksanaBaptis' => $faker->name,
                 'FileName' => $faker->imageUrl($width = 640, $height = 480),
                 'ImageName' => $faker->imageUrl($width = 640, $height = 480),
+                'Segment' => $faker->randomElement(['Anak' ,'Remaja', 'Dewasa']),
+                'StatusKematian' => $faker->randomElement(['Ya' ,'Tidak']),
+                'TanggalKematian' => $faker->date,
+                'StatusBaptis' => $faker->randomElement(['Sudah' ,'Belum']),
+                'JenisKelamin' => $faker->randomElement(['Wanita' ,'Pria']),
             ]);
         }
     }

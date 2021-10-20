@@ -21,6 +21,11 @@
                 <input type="text" class="form-control" id="inputNama" name="Nama" value="{{ $jemaat->Nama }}" readonly=true>
             </div>
 
+            <div class="mb-3" id="div_JenisKelamin">
+                <label for="inputJenisKelamin" class="form-label">Jenis Kelamin</label>
+                <input type="text" class="form-control" id="inputJenisKelamin" name="JenisKelamin" value="{{ $jemaat->JenisKelamin }}" readonly=true>
+            </div>
+
             <div class="mb-3" id="div_Alamat">
                 <label for="inputAlamat" class="form-label">Alamat</label>
                 <textarea class="form-control" id="inputAlamat" name="Alamat" readonly=true> {{ $jemaat->Alamat }} </textarea>
@@ -49,6 +54,11 @@
                 <input type="text" class="form-control" id="inputNamaIbu" name="NamaIbu" value="{{ $jemaat->NamaIbu }}" readonly=true>
             </div>
 
+            <div class="mb-3" id="div_StatusBaptis">
+                <label for="inputStatusBaptis" class="form-label">Sudah Baptis</label>
+                <input type="text" class="form-control" id="inputStatusBaptis" name="StatusBaptis" value="{{ $jemaat->StatusBaptis }}" readonly=true>
+            </div>
+
             <div class="mb-3" id="div_TanggalBaptis">
                 <label for="inputTanggalBaptis" class="form-label">Tanggal Baptis</label>
                 <input type="date" class="form-control" id="inputTanggalBaptis" name="TanggalBaptis" value="{{ $jemaat->TanggalBaptis }}" readonly=true>
@@ -57,6 +67,21 @@
             <div class="mb-3" id="div_PelaksanaBaptis">
                 <label for="inputPelaksanaBaptis" class="form-label">Pelaksana Baptis</label>
                 <input type="text" class="form-control" id="inputPelaksanaBaptis" name="PelaksanaBaptis" value="{{ $jemaat->PelaksanaBaptis }}" readonly=true>
+            </div>
+
+            <div class="mb-3" id="div_Segment">
+                <label for="inputSegment" class="form-label">Segment</label>
+                <input type="text" class="form-control" id="inputSegment" name="Segment" value="{{ $jemaat->Segment }}" readonly=true>
+            </div>
+
+            <div class="mb-3" id="div_StatusKematian">
+                <label for="inputStatusKematian" class="form-label">Status Kematian</label>
+                <input type="text" class="form-control" id="inputStatusKematian" name="StatusKematian" value="{{ $jemaat->StatusKematian }}" readonly=true>
+            </div>
+
+            <div class="mb-3" id="div_TanggalKematian">
+                <label for="inputTanggalKematian" class="form-label">Tanggal Kematian</label>
+                <input type="text" class="form-control" id="inputTanggalKematian" name="TanggalKematian" value="{{ $jemaat->TanggalKematian }}" readonly=true>
             </div>
 
             <div class="input-group mb-3">
@@ -78,13 +103,13 @@
     <div class="front" id="card-front">
         <div class="front_content">
             <div class="front_content_foto_jemaat">
-                <img src="{{ url('storage/images/', $jemaat->ImageName) }}" alt="" id="foto_jemaat"> 
+                <img src="{{ url('storage/images/', $jemaat->ImageName) }}" id="foto_jemaat"> 
                 <p id="nama_jemaat">{{ $jemaat->Nama }}</p> 
                 <p id="no_anggota">{{ $jemaat->NoAnggota }}</p> 
             </div>
 
             <div class="front_content_qrcode">
-                <img src="../../img/contoh_qrcode.png" alt="" id="img_qrcode">  
+                <img src="../../img/contoh_qrcode.png" id="img_qrcode">  
             </div>
         </div>
     </div>
@@ -92,14 +117,20 @@
     <div class="back" id="card-behind"></div>
 
     <style>
+    html,
+    body {
+        margin: 0px;
+        padding: 0px;
+    }
     .front {
         /* border-style: solid;
-        border-color: red;
-        border-radius: 10px; */
+        border-color: red; */
+        border-radius: 10px; 
         width: 35rem;
         height: 22rem;
         background-image: url("../../img/FINAL-depan.jpg");
-        background-size: contain;
+        background-size: cover;
+        background-repeat: no-repeat;
     }
 
     .back {
@@ -110,6 +141,7 @@
         height: 22rem;
         background-image: url("../../img/FINAL-belakang.jpg");
         background-size: contain;
+        background-repeat: no-repeat;
     }
 
     .front_content {
@@ -134,13 +166,6 @@
         padding: 10px;
     }
 
-    /* .front_content_foto_jemaat > div {
-        background-color: rgba(255, 255, 255, 0.8);
-        text-align: center;
-        padding: 20px 0;
-        font-size: 30px;
-    } */
-
     .front_content_qrcode {
         /* border-style: solid;
         border-color: purple; */
@@ -150,7 +175,7 @@
     }
 
     #foto_jemaat {
-        width: 120px;
+        width: 180px;
         height: auto;
         grid-area: foto_area;
         vertical-align: middle;
