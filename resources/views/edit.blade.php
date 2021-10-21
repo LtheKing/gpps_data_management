@@ -105,8 +105,13 @@
             <div class="mb-3" id="div_StatusKematian">
                 <label for="input_status_kematian" class="form-label">Status Kematian</label>
                 <select name="StatusKematian" id="input_status_kematian" class="form-control" value="{{ old('StatusKematian', $jemaat->StatusKematian) }}" onchange="StatusKematianChange(this);">
-                    <option value="Ya">Ya</option>
-                    <option value="Tidak">Tidak</option>
+                    <?php
+                        $val = array('Ya', 'Tidak');
+                    ?>
+                    
+                    @foreach ($val as $item)
+                        <option value="{{ $jemaat->StatusKematian }}" {{$jemaat->StatusKematian == $item  ? 'selected' : ''}}>{{ $jemaat->StatusKematian}}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -145,7 +150,6 @@
 
 <script>
     window.onload = function() {
-        debugger;
         var statKematian = document.getElementById('input_status_kematian').value;
         if (statKematian == 'Tidak') {
             document.getElementById('div_TanggalKematian').hidden = true;

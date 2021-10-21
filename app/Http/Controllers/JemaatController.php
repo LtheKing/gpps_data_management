@@ -201,4 +201,20 @@ class JemaatController extends Controller
         Storage::disk('public')->delete('/images/' . $jemaat->ImageName);
         return response('Data Deleted', 200);
     }
+
+    public function getAyah($nama) {
+        $data = Jemaat::where('Nama', $nama)->get();
+        if (count($data) > 0) {
+            return redirect()->route('jemaat_detail', $data[0]->id)->with('Success', 'Data Ayah Berhasil Ditemukan');
+        }
+        return back()->with('error', 'Data Ayah Tidak Ditemukan');
+    }
+
+    public function getIbu($nama) {
+        $data = Jemaat::where('Nama', $nama)->get();
+        if (count($data) > 0) {
+            return redirect()->route('jemaat_detail', $data[0]->id)->with('Success', 'Data Ibu Berhasil Ditemukan');
+        }
+        return back()->with('error', 'Data Ibu Tidak Ditemukan');
+    }
 }

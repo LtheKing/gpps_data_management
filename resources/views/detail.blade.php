@@ -7,6 +7,19 @@
 
 @section('content')
     <h1>Detail Jemaat</h1>
+    @if(session('Success'))
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ session('Success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ session('error') }}
+        </div>
+    @endif
     <a class="btn btn-secondary mb-3 mt-3" href="{{ route('jemaat_index') }}"> Kembali </a>
     <button id="btnDownload" type="button" class="btn btn-warning">Download Kartu Jemaat</button>
 
@@ -45,13 +58,15 @@
             </div>
 
             <div class="mb-3" id="div_NamaAyah">
-                <label for="inputNamaAyah" class="form-label">Nama Ayah</label>
-                <input type="text" class="form-control" id="inputNamaAyah" name="NamaAyah" value="{{ $jemaat->NamaAyah }}" readonly=true>
+                <label for="inputNamaAyah" class="form-label">Nama Ayah</label> <br>
+                {{-- <input type="text" class="form-control" id="inputNamaAyah" name="NamaAyah" value="{{ $jemaat->NamaAyah }}" readonly=true> --}}
+                <a href="{{ route('jemaat_get_ayah', $jemaat->NamaAyah) }}">{{ $jemaat->NamaAyah }}</a>
             </div>
 
             <div class="mb-3" id="div_NamaIbu">
-                <label for="inputNamaIbu" class="form-label">Nama Ibu</label>
-                <input type="text" class="form-control" id="inputNamaIbu" name="NamaIbu" value="{{ $jemaat->NamaIbu }}" readonly=true>
+                <label for="inputNamaIbu" class="form-label">Nama Ibu</label> <br>
+                {{-- <input type="text" class="form-control" id="inputNamaIbu" name="NamaIbu" value="{{ $jemaat->NamaIbu }}" readonly=true> --}}
+                <a href="{{ route('jemaat_get_ibu', $jemaat->NamaIbu) }}">{{ $jemaat->NamaIbu }}</a>
             </div>
 
             <div class="mb-3" id="div_StatusBaptis">

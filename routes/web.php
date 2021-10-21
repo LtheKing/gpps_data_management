@@ -38,7 +38,8 @@ Route::get('/api/token', function() {
 });
 Route::get('/jemaat/array', 'JemaatController@getJemaatArray')->name('jemaat_array');
 Route::delete('/api/jemaat/delete/{id}', 'JemaatController@api_delete')->name('jemaat_api_delete');
-
+Route::get('/api/jemaat/ayah/{nama}', 'JemaatController@getAyah')->name('jemaat_get_ayah');
+Route::get('/api/jemaat/ibu/{nama}', 'JemaatController@getIbu')->name('jemaat_get_ibu');
 
 //testing
 Route::get('testing/playground', function(){
