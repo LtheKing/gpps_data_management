@@ -110,7 +110,7 @@
                     ?>
                     
                     @foreach ($val as $item)
-                        <option value="{{ $jemaat->StatusKematian }}" {{$jemaat->StatusKematian == $item  ? 'selected' : ''}}>{{ $jemaat->StatusKematian}}</option>
+                        <option value="{{ $jemaat->StatusKematian }}" {{$jemaat->StatusKematian == $item  ? 'selected' : ''}}>{{ $item}}</option>
                     @endforeach
                 </select>
             </div>

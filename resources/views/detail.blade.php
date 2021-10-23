@@ -115,6 +115,9 @@
             </div>
     </form>
 
+    <hr>
+    <p class="h2 mt-3 mb-3">Kartu Jemaat</p>
+
     <div class="front" id="card-front">
         <div class="front_content">
             <div class="front_content_foto_jemaat">
@@ -122,9 +125,12 @@
                 <p id="nama_jemaat">{{ $jemaat->Nama }}</p> 
                 <p id="no_anggota">{{ $jemaat->NoAnggota }}</p> 
             </div>
-
+            <hr>
             <div class="front_content_qrcode">
-                <img src="../../img/contoh_qrcode.png" id="img_qrcode">  
+                {{-- <img src="../../img/contoh_qrcode.png" id="img_qrcode">   --}}
+                <div id="img_qrcode">
+                    {{$qrcode}}
+                </div>
             </div>
         </div>
     </div>
@@ -134,8 +140,8 @@
     <style>
     html,
     body {
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
     }
     .front {
         /* border-style: solid;
@@ -179,6 +185,8 @@
             'foto_area noanggota_area';
         grid-gap: 10px;
         padding: 10px;
+        grid-template-columns: auto 50%;
+        grid-template-rows: 75% 25%;
     }
 
     .front_content_qrcode {
@@ -190,10 +198,10 @@
     }
 
     #foto_jemaat {
-        width: 180px;
+        width: 140px;
         height: auto;
         grid-area: foto_area;
-        vertical-align: middle;
+        margin-top: 30px;
         /* border-style: solid;
         border-color: orange; */
     }
@@ -204,6 +212,8 @@
         height: auto;
         font-family: Calibri; 
         font-size: 20px;
+        margin-top: 58px;
+        padding: 0px;
         /* border-style: solid;
         border-color: black; */
     }
@@ -213,7 +223,8 @@
         width: auto;
         height: auto;
         font-family: Lucida Sans Typewriter; 
-        font-size: 18px;
+        font-size: 15px;
+        border-top: 1px inset black;
         /* border-style: solid;
         border-color: greenyellow; */
     }
@@ -221,7 +232,15 @@
     #img_qrcode {
         width: 180px;
         height: auto;
-        margin-top: 15px;
+        /* margin-top: 60px;
+        margin-left: 60px; */
+        margin: auto;
+    }
+
+    #gambar {
+            width: 5cm;
+            height: 5cm;
+            outline: none;
     }
     </style>
 
@@ -231,7 +250,11 @@
 		html2canvas(document.getElementById("card-behind"),
 			{
 				allowTaint: true,
-				useCORS: true
+				useCORS: true,
+                scrollX: -window.scrollX,
+                scrollY: -window.scrollY,
+                windowWidth: document.documentElement.offsetWidth,
+                windowHeight: document.documentElement.offsetHeight
 			}).then(function (canvas) {
 				var anchorTag = document.createElement("a");
 				document.body.appendChild(anchorTag);
@@ -245,7 +268,11 @@
         html2canvas(document.getElementById("card-front"),
 			{
 				allowTaint: true,
-				useCORS: true
+				useCORS: true,
+                scrollX: -window.scrollX,
+                scrollY: -window.scrollY,
+                windowWidth: document.documentElement.offsetWidth,
+                windowHeight: document.documentElement.offsetHeight
 			}).then(function (canvas) {
 				var anchorTag = document.createElement("a");
 				document.body.appendChild(anchorTag);
