@@ -8,10 +8,13 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Arr;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Artisan;
 use PDF;
 use DB;
 use QrCode;
+
 
 class JemaatController extends Controller
 {
@@ -64,6 +67,22 @@ class JemaatController extends Controller
             'Segment' => 'required',
             'FileName' => 'required|file|max:2048',
         ]);
+
+        if ($request->Status == "Menikah" && $request->JenisKelamin == "Pria") {
+            $request->validate([
+                'NamaIstri' => 'required',
+                'TanggalPernikahan' => 'required',
+                'PelaksanaPemberkatan' => 'required',
+            ]);
+        }
+
+        if ($request->Status == "Menikah" && $request->JenisKelamin == "Wanita") {
+            $request->validate([
+                'NamaSuami' => 'required',
+                'TanggalPernikahan' => 'required',
+                'PelaksanaPemberkatan' => 'required',
+            ]);
+        }
 
         if ($request->hasFile('FileName')) {
             $image      = $request->file('FileName');

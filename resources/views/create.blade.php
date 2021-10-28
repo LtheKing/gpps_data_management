@@ -7,7 +7,7 @@
 
 @section('content')
     <h1>Input Jemaat Baru</h1>
-    <a href="{{ route('jemaat_index') }}" class="btn btn-warning">Cancel</a>
+    <a href="{{ route('jemaat_index') }}" class="btn btn-warning mb-3 mt-3">Cancel</a>
     
     @if(session('error'))
         <div class="alert alert-danger">
@@ -100,13 +100,13 @@
 
             <div class="mb-3" id="div_StatusBaptis">
                 <label for="input_status_Baptis" class="form-label">Status Baptis</label>
-                <select name="StatusBaptis" id="input_status_Baptis" class="form-control" value="{{ old('StatusBaptis') }}">
+                <select name="StatusBaptis" id="input_status_Baptis" class="form-control" value="{{ old('StatusBaptis') }}" onchange="StatusBaptisOnChange();">
                     <option value="Sudah">Sudah</option>
                     <option value="Belum" selected>Belum</option>
                 </select>
             </div>
 
-            <div class="mb-3" id="div_TanggalBaptis">
+            <div class="mb-3" id="div_TanggalBaptis" hidden=true>
                 <label for="inputTanggalBaptis" class="form-label">Tanggal Baptis</label>
                 <input type="date" class="form-control" id="inputTanggalBaptis" name="TanggalBaptis" value="{{ old('TanggalBaptis') }}">
             </div>
@@ -134,7 +134,7 @@
                 </select>
             </div>
 
-            <div class="mb-3" id="div_TanggalKematian">
+            <div class="mb-3" id="div_TanggalKematian" hidden=true>
                 <label for="inputTanggalKematian" class="form-label">Tanggal Kematian</label>
                 <input type="date" class="form-control" id="inputTanggalKematian" name="TanggalKematian" value="{{ old('TanggalKematian') }}">
             </div>
@@ -224,6 +224,16 @@
         } else {
             document.getElementById('div_NamaSuami').hidden = false;
             document.getElementById('div_NamaIstri').hidden = true;
+        }
+    }
+
+    function StatusBaptisOnChange() {
+        var stat = document.getElementById('input_status_Baptis').value;
+
+        if (stat == 'Sudah') {
+            document.getElementById('div_TanggalBaptis').hidden=false;
+        } else {
+            document.getElementById('div_TanggalBaptis').hidden=true;
         }
     }
 </script>
