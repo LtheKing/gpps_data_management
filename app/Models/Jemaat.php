@@ -25,6 +25,10 @@ class Jemaat extends Model
         'Segment',
         'StatusBaptis',
         'StatusKematian',
-        'TanggalKematian'
+        'TanggalKematian',
+        'NamaSuami',
+        'NamaIstri',
+        'TanggalPernikahan',
+        'PelaksanaPemberkatan',
     ];
 }

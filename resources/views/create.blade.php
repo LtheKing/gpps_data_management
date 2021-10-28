@@ -7,6 +7,7 @@
 
 @section('content')
     <h1>Input Jemaat Baru</h1>
+    <a href="{{ route('jemaat_index') }}" class="btn btn-warning">Cancel</a>
     
     @if(session('error'))
         <div class="alert alert-danger">
@@ -39,7 +40,7 @@
 
             <div class="mb-3" id="div_JenisKelamin">
                 <label for="input_jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                <select name="JenisKelamin" id="input_jenis_kelamin" class="form-control" value="{{ old('JenisKelamin') }}">
+                <select name="JenisKelamin" id="input_jenis_kelamin" class="form-control" value="{{ old('JenisKelamin') }}" onchange="onJKChange();">
                     <option value="Pria">Pria</option>
                     <option value="Wanita">Wanita</option>
                 </select>
@@ -57,11 +58,35 @@
                 
             <div class="mb-3" id="div_Status">
                 <label for="inputStatus" class="form-label">Status</label>
-                <select name="Status" id="input_status" class="form-control" value="{{ old('Status') }}">
+                <select name="Status" id="input_status" class="form-control" value="{{ old('Status') }}" onchange="onStatusChange();">
                     <option value="Menikah">Menikah</option>
-                    <option value="Belum Menikah">Belum Menikah</option>
+                    <option value="Belum Menikah" selected>Belum Menikah</option>
                 </select>
             </div>
+
+            {{-- DATA PERNIKAHAN BEGIN --}}
+            <div id="group-pernikahan" class="form-group border" style="padding: 20px; border-radius:10px;" hidden=true>
+                <div class="mb-3" id="div_NamaSuami">
+                    <label for="inputNamaSuami" class="form-label">Nama Suami</label>
+                    <input type="text" class="form-control" id="inputNamaSuami" name="NamaSuami" value="{{ old('NamaSuami') }}"></input>
+                </div>
+
+                <div class="mb-3" id="div_NamaIstri">
+                    <label for="inputNamaIstri" class="form-label">Nama Istri</label>
+                    <input type="text" class="form-control" id="inputNamaIstri" name="NamaIstri" value="{{ old('NamaIstri') }}"></input>
+                </div>
+
+                <div class="mb-3" id="div_TanggalPernikahan">
+                    <label for="inputTanggalPernikahan" class="form-label">Tanggal Pernikahan</label>
+                    <input type="date" class="form-control" id="inputTanggalPernikahan" name="TanggalPernikahan" value="{{ old('TanggalPernikahan') }}">
+                </div>
+
+                <div class="mb-3" id="div_PelaksanaPemberkatan">
+                    <label for="inputPelaksanaPemberkatan" class="form-label">Pelaksana Pemberkatan</label>
+                    <input type="text" class="form-control" id="inputPelaksanaPemberkatan" name="PelaksanaPemberkatan" value="{{ old('PelaksanaPemberkatan') }}"></input>
+                </div>
+            </div>
+            {{-- DATA PERNIKAHAN END --}}
 
             <div class="mb-3" id="div_NamaAyah">
                 <label for="inputNamaAyah" class="form-label">Nama Ayah</label>
@@ -77,7 +102,7 @@
                 <label for="input_status_Baptis" class="form-label">Status Baptis</label>
                 <select name="StatusBaptis" id="input_status_Baptis" class="form-control" value="{{ old('StatusBaptis') }}">
                     <option value="Sudah">Sudah</option>
-                    <option value="Belum">Belum</option>
+                    <option value="Belum" selected>Belum</option>
                 </select>
             </div>
 
@@ -97,6 +122,7 @@
                     <option value="Anak">Anak</option>
                     <option value="Remaja">Remaja</option>
                     <option value="Dewasa">Dewasa</option>
+                    <option value="Lansia">Lansia</option>
                 </select>
             </div>
 
@@ -137,6 +163,11 @@
             height: 5cm;
             outline: none;
         }
+
+        /* #group-pernikahan {
+            border-style: inset;
+            padding: 10px;
+        } */
     </style>
 
 @endsection
@@ -164,6 +195,35 @@
             document.getElementById('div_TanggalKematian').hidden = true;
         } else {
             document.getElementById('div_TanggalKematian').hidden = false;
+        }
+    }
+
+    function onStatusChange() {
+        var stat = document.getElementById('input_status').value;
+        
+        if (stat == 'Menikah') {
+            document.getElementById('group-pernikahan').hidden = false;
+            if (document.getElementById('input_jenis_kelamin').value == 'Pria') {
+                document.getElementById('div_NamaIstri').hidden = false;
+                document.getElementById('div_NamaSuami').hidden = true;
+            } else {
+                document.getElementById('div_NamaIstri').hidden = true;
+                document.getElementById('div_NamaSuami').hidden = false;
+            }
+        } else {
+            document.getElementById('group-pernikahan').hidden = true;
+        }
+    }
+
+    function onJKChange() {
+        var jk = document.getElementById('input_jenis_kelamin').value;
+
+        if (jk == 'Pria') {
+            document.getElementById('div_NamaSuami').hidden = true;
+            document.getElementById('div_NamaIstri').hidden = false;
+        } else {
+            document.getElementById('div_NamaSuami').hidden = false;
+            document.getElementById('div_NamaIstri').hidden = true;
         }
     }
 </script>
