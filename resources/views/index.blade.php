@@ -22,9 +22,32 @@
         </div>
     @endif
 
-    <a href="{{ route('jemaat_create') }}" class="btn btn-info mb-3 mt-3">Jemaat Baru</a>
+    <div>
+        <a href="{{ route('jemaat_create') }}" class="btn btn-info mb-3 mt-3">Jemaat Baru</a>
+    </div>
 
-        <table class="display" id="table_jemaat">
+    {{-- FILTER BEGIN --}}
+    <div class="form-group float-left">
+        <select name="" id="select_filter" onchange="onSelectFilterChange(this);" class="form-control mb-3">
+            <option value="">== Pilih Filter ==</option>
+            <option value="JenisKelamin">Jenis Kelamin</option>
+            <option value="Status">Status Pernikahan</option>
+            <option value="StatusBaptis">Status Baptis</option>
+            <option value="Segment">Segment</option>
+            <option value="StatusKematian">Status Kematian</option>
+        </select>
+
+        <select name="" id="value_filter" class="form-control mt-3 mb-3" hidden=true></select>
+        <button class="btn btn-success" id="btnFilter" disabled=true onclick="onBtnFilterClick();">Filter</button>
+        <a href="{{ route('jemaat_index') }}" class="btn btn-secondary mb-3 mt-3">Clear Filter</a>
+    </div>
+
+    <div>
+    </div>
+        
+    {{-- FILTER END --}}
+
+        <table class="display table" id="table_jemaat">
             <thead class="table-borderless">
                 <th class="text-center">No Anggota</th>
                 <th class="text-center" id="thead_nama">Nama</th>
@@ -55,6 +78,14 @@
     </div>
 
     <script>
+        // window.onload = function() {
+        //     var select = document.getElementById('select_filter');
+        //     var arr = [''];
+        //     var options = arr.map(x => `<option value=${x.toLowerCase()}>${x}</option>`).join('\n');
+        //     select.innerHTML = options;
+        // }
+
+
         var modal = document.getElementById('id01');
         window.onclick = function(event) {
             if (event.target == modal) {
@@ -138,6 +169,75 @@
             const response = await fetch(localhost + 'api/token');
             const token = await response.text();
             return token;
+        }
+
+        function onSelectFilterChange(e) {
+            switch(e.value) {
+                case 'JenisKelamin':
+                        document.getElementById('value_filter').hidden = false;
+                        document.getElementById('btnFilter').disabled = false;
+                        var select = document.getElementById('value_filter');
+                        var arr = ['Pria', 'Wanita'];
+                        var options = arr.map(x => `<option value=${x.toLowerCase()}>${x}</option>`).join('\n');
+                        select.innerHTML = options;
+                    break;
+                
+                case 'Status':
+                        document.getElementById('value_filter').hidden = false;
+                        document.getElementById('btnFilter').disabled = false;
+                        var select = document.getElementById('value_filter');
+                        var arr = ['Menikah', 'Belum Menikah'];
+                        var options = arr.map(x => `<option value=${x.toLowerCase()}>${x}</option>`).join('\n');
+                        select.innerHTML = options;
+                    break;
+                
+                case 'StatusBaptis':
+                    document.getElementById('value_filter').hidden = false;
+                    document.getElementById('btnFilter').disabled = false;
+                    var select = document.getElementById('value_filter');
+                    var arr = ['Sudah', 'Belum'];
+                    var options = arr.map(x => `<option value=${x.toLowerCase()}>${x}</option>`).join('\n');
+                    select.innerHTML = options;
+                break;
+
+                case 'StatusKematian':
+                    document.getElementById('value_filter').hidden = false;
+                    document.getElementById('btnFilter').disabled = false;
+                    var select = document.getElementById('value_filter');
+                    var arr = ['Ya', 'Tidak'];
+                    var options = arr.map(x => `<option value=${x.toLowerCase()}>${x}</option>`).join('\n');
+                    select.innerHTML = options;
+                break;
+
+                case 'Segment':
+                    document.getElementById('value_filter').hidden = false;
+                    document.getElementById('btnFilter').disabled = false;
+                    var select = document.getElementById('value_filter');
+                    var arr = ['Anak', 'Remaja', 'Dewasa', 'Lansia'];
+                    var options = arr.map(x => `<option value=${x.toLowerCase()}>${x}</option>`).join('\n');
+                    select.innerHTML = options;
+                break;
+
+                default:
+                    document.getElementById('value_filter').hidden = true;
+                    document.getElementById('btnFilter').disabled = true;
+
+            }
+            // document.getElementById('value_filter').hidden = false;
+        }
+
+        async function onBtnFilterClick(){
+            var field = document.getElementById('select_filter').value;
+            var value = document.getElementById('value_filter').value;
+            const response = await fetch(localhost + 'api/jemaat/filter/' + field + '/' + value);
+            const result = await response.text();
+            
+            console.log(JSON.parse(result));
+
+            var datatable = $('#table_jemaat').DataTable();
+            datatable.clear().draw();
+            datatable.rows.add(JSON.parse(result)); // Add new data
+            datatable.draw(false);
         }
     </script>
 

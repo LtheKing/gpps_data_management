@@ -1,7 +1,8 @@
 -Feedbacknya udah ok dari add edit delete nya. 
 -Untuk segment kan saat ini ada anak, remaja, dewasa, minta satu tambahin “lansia”. 
 -untuk status menikah, kalo pilihannya “ya” ada tambahan field untuk nama suami/nama istri, tanggal pernikahan dan pelaksana pemberkatan nya siapa
--mau ada filter status, misal pilih filter status menikah, nanti datanya yang muncul data yg sudah menikah semua, atau kalo filter remaja, nanti yg muncul data remaja semua. 
+-mau ada filter status, misal pilih filter status menikah, nanti datanya yang muncul data yg sudah menikah semua, 
+    atau kalo filter remaja, nanti yg muncul data remaja semua. 
 
 rangkuman :
 - tambah field :
@@ -9,4 +10,15 @@ rangkuman :
     - nama istri
     - tanggal pernikahan
     - pelaksana pemberkatan
-- tambah filter : bisa pilih filter (status)
+- tambah filter : 
+    - Jenis Kelamin
+    - Status
+    - Status Baptis
+    - Status Kematian
+    - Segment
+
+tambahan 3 November 2021 :
+* tambah field :
+-TempatLahir
+-TanggalLahir
+-GolonganDarah

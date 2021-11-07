@@ -57,20 +57,12 @@
                 <label for="inputTlp" class="form-label">Nomor Telepon</label>
                 <input type="number" class="form-control" id="inputTlp" name="Tlp" value="{{ old('Tlp', $jemaat->Tlp) }}"></input>
             </div>
-                
-            <div class="mb-3" id="div_Status">
-                <label for="inputStatus" class="form-label">Status</label>
-                <select name="Status" id="input_status" class="form-control" value="{{ old('Status', $jemaat->Status) }}">
-                    <option value="Menikah">Menikah</option>
-                    <option value="Belum Menikah">Belum Menikah</option>
-                </select>
-            </div>
-
+                            
             <div class="mb-3" id="div_NamaAyah">
                 <label for="inputNamaAyah" class="form-label">Nama Ayah</label>
                 <input type="text" class="form-control" id="inputNamaAyah" name="NamaAyah" value="{{ old('NamaAyah', $jemaat->NamaAyah) }}">
             </div>
-
+            
             <div class="mb-3" id="div_NamaIbu">
                 <label for="inputNamaIbu" class="form-label">Nama Ibu</label>
                 <input type="text" class="form-control" id="inputNamaIbu" name="NamaIbu" value="{{ old('NamaIbu', $jemaat->NamaIbu) }}">
@@ -83,24 +75,58 @@
                     <option value="Belum">Belum</option>
                 </select>
             </div>
-
+            
             <div class="mb-3" id="div_TanggalBaptis">
                 <label for="inputTanggalBaptis" class="form-label">Tanggal Baptis</label>
                 <input type="date" class="form-control" id="inputTanggalBaptis" name="TanggalBaptis" value="{{ old('TanggalBaptis', $jemaat->TanggalBaptis) }}">
             </div>
-
+            
             <div class="mb-3" id="div_PelaksanaBaptis">
                 <label for="inputPelaksanaBaptis" class="form-label">Pelaksana Baptis</label>
                 <input type="text" class="form-control" id="inputPelaksanaBaptis" name="PelaksanaBaptis" value="{{ old('PelaksanaBaptis', $jemaat->PelaksanaBaptis) }}">
             </div>
-
+            
             <div class="mb-3" id="div_Segment">
                 <label for="input_segment" class="form-label">Segment</label>
                 <select name="Segment" id="input_segment" class="form-control" value="{{ old('Status', $jemaat->Segment) }}">
+                    <option value="Anak">Anak</option>
+                    <option value="Remaja">Remaja</option>
+                    <option value="Dewasa">Dewasa</option>
+                    <option value="Lansia">Lansia</option>
+                </select>
+            </div>
+            
+            <div class="mb-3" id="div_Status">
+                <label for="inputStatus" class="form-label">Status</label>
+                <select name="Status" id="input_status" class="form-control" value="{{ old('Status', $jemaat->Status) }}">
                     <option value="Menikah">Menikah</option>
                     <option value="Belum Menikah">Belum Menikah</option>
                 </select>
             </div>
+
+            {{-- DATA PERNIKAHAN BEGIN --}}
+            <div id="group-pernikahan" class="form-group border" style="padding: 20px; border-radius:10px;" hidden=true>
+                <div class="mb-3" id="div_NamaSuami">
+                    <label for="inputNamaSuami" class="form-label">Nama Suami</label>
+                    <input type="text" class="form-control" id="inputNamaSuami" name="NamaSuami" value="{{ old('NamaSuami', $jemaat->NamaSuami) }}"></input>
+                </div>
+
+                <div class="mb-3" id="div_NamaIstri">
+                    <label for="inputNamaIstri" class="form-label">Nama Istri</label>
+                    <input type="text" class="form-control" id="inputNamaIstri" name="NamaIstri" value="{{ old('NamaIstri', $jemaat->NamaIstri) }}"></input>
+                </div>
+
+                <div class="mb-3" id="div_TanggalPernikahan">
+                    <label for="inputTanggalPernikahan" class="form-label">Tanggal Pernikahan</label>
+                    <input type="date" class="form-control" id="inputTanggalPernikahan" name="TanggalPernikahan" value="{{ old('TanggalPernikahan', $jemaat->TanggalPernikahan) }}">
+                </div>
+
+                <div class="mb-3" id="div_PelaksanaPemberkatan">
+                    <label for="inputPelaksanaPemberkatan" class="form-label">Pelaksana Pemberkatan</label>
+                    <input type="text" class="form-control" id="inputPelaksanaPemberkatan" name="PelaksanaPemberkatan" value="{{ old('PelaksanaPemberkatan', $jemaat->PelaksanaPemberkatan) }}"></input>
+                </div>
+            </div>
+            {{-- DATA PERNIKAHAN END --}}
 
             <div class="mb-3" id="div_StatusKematian">
                 <label for="input_status_kematian" class="form-label">Status Kematian</label>
@@ -151,8 +177,33 @@
 <script>
     window.onload = function() {
         var statKematian = document.getElementById('input_status_kematian').value;
+        var jk = document.getElementById('input_jenis_kelamin').value;
+        var statBaptis = document.getElementById('input_status_Baptis').value;
+        var stat = document.getElementById('input_status').value;
+        
+        if (stat == 'Menikah') {
+            document.getElementById('group-pernikahan').hidden = false;
+            if (document.getElementById('input_jenis_kelamin').value == 'Pria') {
+                document.getElementById('div_NamaIstri').hidden = false;
+                document.getElementById('div_NamaSuami').hidden = true;
+            } else {
+                document.getElementById('div_NamaIstri').hidden = true;
+                document.getElementById('div_NamaSuami').hidden = false;
+            }
+        } else {
+            document.getElementById('group-pernikahan').hidden = true;
+        }
+
+        if (statBaptis == 'Sudah') {
+            document.getElementById('div_TanggalBaptis').hidden=false;
+        } else {
+            document.getElementById('div_TanggalBaptis').hidden=true;
+        }
+
         if (statKematian == 'Tidak') {
             document.getElementById('div_TanggalKematian').hidden = true;
+        } else {
+            document.getElementById('div_TanggalKematian').hidden = false;
         }
     }
 
@@ -180,4 +231,43 @@
             document.getElementById('div_TanggalKematian').hidden = false;
         }
     } 
+
+    function onStatusChange() {
+        var stat = document.getElementById('input_status').value;
+        
+        if (stat == 'Menikah') {
+            document.getElementById('group-pernikahan').hidden = false;
+            if (document.getElementById('input_jenis_kelamin').value == 'Pria') {
+                document.getElementById('div_NamaIstri').hidden = false;
+                document.getElementById('div_NamaSuami').hidden = true;
+            } else {
+                document.getElementById('div_NamaIstri').hidden = true;
+                document.getElementById('div_NamaSuami').hidden = false;
+            }
+        } else {
+            document.getElementById('group-pernikahan').hidden = true;
+        }
+    }
+
+    function onJKChange() {
+        var jk = document.getElementById('input_jenis_kelamin').value;
+
+        if (jk == 'Pria') {
+            document.getElementById('div_NamaSuami').hidden = true;
+            document.getElementById('div_NamaIstri').hidden = false;
+        } else {
+            document.getElementById('div_NamaSuami').hidden = false;
+            document.getElementById('div_NamaIstri').hidden = true;
+        }
+    }
+
+    function StatusBaptisOnChange() {
+        var stat = document.getElementById('input_status_Baptis').value;
+
+        if (stat == 'Sudah') {
+            document.getElementById('div_TanggalBaptis').hidden=false;
+        } else {
+            document.getElementById('div_TanggalBaptis').hidden=true;
+        }
+    }
 </script>

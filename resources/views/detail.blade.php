@@ -51,21 +51,40 @@
                 
             <div class="mb-3" id="div_Status">
                 <label for="inputStatus" class="form-label">Status</label>
-                <select name="Status" id="input_status" class="form-control" value="{{ $jemaat->Status }}" readonly=true>
-                    <option value="Menikah">Menikah</option>
-                    <option value="Belum Menikah">Belum Menikah</option>
-                </select>
+                <input type="text" class="form-control" id="input_status" name="Status" value="{{ $jemaat->Status }}" readonly=true>
             </div>
+
+             {{-- DATA PERNIKAHAN BEGIN --}}
+             <div id="group-pernikahan" class="form-group border" style="padding: 20px; border-radius:10px;" hidden=true>
+                <div class="mb-3" id="div_NamaSuami">
+                    <label for="inputNamaSuami" class="form-label">Nama Suami</label> <br>
+                    <a href="{{ route('jemaat_get_suami', $jemaat->NamaSuami) }}">{{ $jemaat->NamaSuami }}</a>
+                </div>
+
+                <div class="mb-3" id="div_NamaIstri">
+                    <label for="inputNamaIstri" class="form-label">Nama Istri</label> <br>
+                    <a href="{{ route('jemaat_get_istri', $jemaat->NamaIstri) }}">{{ $jemaat->NamaIstri }}</a>
+                </div>
+
+                <div class="mb-3" id="div_TanggalPernikahan">
+                    <label for="inputTanggalPernikahan" class="form-label">Tanggal Pernikahan</label>
+                    <input type="date" class="form-control" id="inputTanggalPernikahan" name="TanggalPernikahan" readonly=true value="{{ old('TanggalPernikahan', $jemaat->TanggalPernikahan) }}">
+                </div>
+
+                <div class="mb-3" id="div_PelaksanaPemberkatan">
+                    <label for="inputPelaksanaPemberkatan" class="form-label">Pelaksana Pemberkatan</label>
+                    <input type="text" class="form-control" id="inputPelaksanaPemberkatan" name="PelaksanaPemberkatan" readonly=true value="{{ old('PelaksanaPemberkatan', $jemaat->PelaksanaPemberkatan) }}"></input>
+                </div>
+            </div>
+            {{-- DATA PERNIKAHAN END --}}
 
             <div class="mb-3" id="div_NamaAyah">
                 <label for="inputNamaAyah" class="form-label">Nama Ayah</label> <br>
-                {{-- <input type="text" class="form-control" id="inputNamaAyah" name="NamaAyah" value="{{ $jemaat->NamaAyah }}" readonly=true> --}}
                 <a href="{{ route('jemaat_get_ayah', $jemaat->NamaAyah) }}">{{ $jemaat->NamaAyah }}</a>
             </div>
 
             <div class="mb-3" id="div_NamaIbu">
                 <label for="inputNamaIbu" class="form-label">Nama Ibu</label> <br>
-                {{-- <input type="text" class="form-control" id="inputNamaIbu" name="NamaIbu" value="{{ $jemaat->NamaIbu }}" readonly=true> --}}
                 <a href="{{ route('jemaat_get_ibu', $jemaat->NamaIbu) }}">{{ $jemaat->NamaIbu }}</a>
             </div>
 
@@ -245,6 +264,38 @@
     </style>
 
 <script>
+    window.onload = function() {
+        var statKematian = document.getElementById('inputStatusKematian').value;
+        var jk = document.getElementById('inputJenisKelamin').value;
+        var statBaptis = document.getElementById('inputStatusBaptis').value;
+        var stat = document.getElementById('input_status').value;
+        
+        if (stat == 'Menikah') {
+            document.getElementById('group-pernikahan').hidden = false;
+            if (document.getElementById('inputJenisKelamin').value == 'Pria') {
+                document.getElementById('div_NamaIstri').hidden = false;
+                document.getElementById('div_NamaSuami').hidden = true;
+            } else {
+                document.getElementById('div_NamaIstri').hidden = true;
+                document.getElementById('div_NamaSuami').hidden = false;
+            }
+        } else {
+            document.getElementById('group-pernikahan').hidden = true;
+        }
+
+        if (statBaptis == 'Sudah') {
+            document.getElementById('div_TanggalBaptis').hidden=false;
+        } else {
+            document.getElementById('div_TanggalBaptis').hidden=true;
+        }
+
+        if (statKematian == 'Tidak') {
+            document.getElementById('div_TanggalKematian').hidden = true;
+        } else {
+            document.getElementById('div_TanggalKematian').hidden = false;
+        }
+    }
+
     var nama = document.getElementById('inputNama').value;
     document.getElementById("btnDownload").addEventListener("click", function() {
 		html2canvas(document.getElementById("card-behind"),

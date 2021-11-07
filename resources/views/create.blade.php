@@ -68,12 +68,12 @@
             <div id="group-pernikahan" class="form-group border" style="padding: 20px; border-radius:10px;" hidden=true>
                 <div class="mb-3" id="div_NamaSuami">
                     <label for="inputNamaSuami" class="form-label">Nama Suami</label>
-                    <input type="text" class="form-control" id="inputNamaSuami" name="NamaSuami" value="{{ old('NamaSuami') }}"></input>
+                    <input type="text" class="form-control" id="inputNamaSuami" name="NamaSuami" value="{{ old('NamaSuami', '-') }}"></input>
                 </div>
 
                 <div class="mb-3" id="div_NamaIstri">
                     <label for="inputNamaIstri" class="form-label">Nama Istri</label>
-                    <input type="text" class="form-control" id="inputNamaIstri" name="NamaIstri" value="{{ old('NamaIstri') }}"></input>
+                    <input type="text" class="form-control" id="inputNamaIstri" name="NamaIstri" value="{{ old('NamaIstri', '-') }}"></input>
                 </div>
 
                 <div class="mb-3" id="div_TanggalPernikahan">
@@ -111,7 +111,7 @@
                 <input type="date" class="form-control" id="inputTanggalBaptis" name="TanggalBaptis" value="{{ old('TanggalBaptis') }}">
             </div>
 
-            <div class="mb-3" id="div_PelaksanaBaptis">
+            <div class="mb-3" id="div_PelaksanaBaptis" hidden=true>
                 <label for="inputPelaksanaBaptis" class="form-label">Pelaksana Baptis</label>
                 <input type="text" class="form-control" id="inputPelaksanaBaptis" name="PelaksanaBaptis" value="{{ old('PelaksanaBaptis') }}">
             </div>
@@ -232,8 +232,11 @@
 
         if (stat == 'Sudah') {
             document.getElementById('div_TanggalBaptis').hidden=false;
+            document.getElementById('div_PelaksanaBaptis').hidden=false;
         } else {
             document.getElementById('div_TanggalBaptis').hidden=true;
+            document.getElementById('div_PelaksanaBaptis').hidden=true;
+
         }
     }
 </script>
