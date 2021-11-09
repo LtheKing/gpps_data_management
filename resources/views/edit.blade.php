@@ -48,6 +48,29 @@
                 </select>
             </div>
 
+            <div class="mb-3" id="div_TempatLahir">
+                <label for="inputTempatLahir" class="form-label">Tempat Lahir</label>
+                <input type="text" class="form-control" id="inputTempatLahir" name="TempatLahir" value="{{ old('TempatLahir', $jemaat->TempatLahir) }}">
+            </div>
+
+            <div class="mb-3" id="div_TanggalLahir">
+                <label for="inputTanggalLahir" class="form-label">Tanggal Lahir</label>
+                <input type="date" class="form-control" id="inputTanggalLahir" name="TanggalLahir" value="{{ old('TanggalLahir', $jemaat->TanggalLahir) }}">
+            </div>
+
+            <div class="mb-3" id="div_GolonganDarah">
+                <label for="input_golongan_darah" class="form-label">Golongan Darah</label>
+                <select name="GolonganDarah" id="input_golongan_darah" class="form-control" value="{{ old('GolonganDarah', $jemaat->GolonganDarah) }}">
+                    <?php
+                        $val = array('A', 'B', 'AB', 'O');
+                    ?>
+                    
+                    @foreach ($val as $item)
+                        <option value="{{ $item }}" {{$jemaat->GolonganDarah == $item  ? 'selected' : ''}}>{{ $item}}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="mb-3" id="div_Alamat">
                 <label for="inputAlamat" class="form-label">Alamat</label>
                 <textarea class="form-control" id="inputAlamat" name="Alamat"> {{ old('Alamat', $jemaat->Alamat) }} </textarea>
@@ -71,8 +94,13 @@
             <div class="mb-3" id="div_StatusBaptis">
                 <label for="input_status_Baptis" class="form-label">Sudah Baptis</label>
                 <select name="StatusBaptis" id="input_status_Baptis" class="form-control" value="{{ old('Status', $jemaat->StatusBaptis) }}">
-                    <option value="Sudah">Sudah</option>
-                    <option value="Belum">Belum</option>
+                    <?php
+                        $val = array('Sudah', 'Belum');
+                    ?>
+                    
+                    @foreach ($val as $item)
+                        <option value="{{ $item }}" {{$jemaat->StatusBaptis == $item  ? 'selected' : ''}}>{{ $item}}</option>
+                    @endforeach
                 </select>
             </div>
             
@@ -99,8 +127,13 @@
             <div class="mb-3" id="div_Status">
                 <label for="inputStatus" class="form-label">Status</label>
                 <select name="Status" id="input_status" class="form-control" value="{{ old('Status', $jemaat->Status) }}">
-                    <option value="Menikah">Menikah</option>
-                    <option value="Belum Menikah">Belum Menikah</option>
+                    <?php
+                        $val = array('Menikah', 'Belum Menikah');
+                    ?>
+                    
+                    @foreach ($val as $item)
+                        <option value="{{ $item }}" {{$jemaat->Status == $item  ? 'selected' : ''}}>{{ $item}}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -136,7 +169,7 @@
                     ?>
                     
                     @foreach ($val as $item)
-                        <option value="{{ $jemaat->StatusKematian }}" {{$jemaat->StatusKematian == $item  ? 'selected' : ''}}>{{ $item}}</option>
+                        <option value="{{ $item }}" {{$jemaat->StatusKematian == $item  ? 'selected' : ''}}>{{ $item}}</option>
                     @endforeach
                 </select>
             </div>
@@ -196,8 +229,10 @@
 
         if (statBaptis == 'Sudah') {
             document.getElementById('div_TanggalBaptis').hidden=false;
+            document.getElementById('div_PelaksanaBaptis').hidden=false;
         } else {
             document.getElementById('div_TanggalBaptis').hidden=true;
+            document.getElementById('div_PelaksanaBaptis').hidden=true;
         }
 
         if (statKematian == 'Tidak') {

@@ -39,6 +39,21 @@
                 <input type="text" class="form-control" id="inputJenisKelamin" name="JenisKelamin" value="{{ $jemaat->JenisKelamin }}" readonly=true>
             </div>
 
+            <div class="mb-3" id="div_TempatLahir">
+                <label for="inputTempatLahir" class="form-label">Tempat Lahir</label>
+                <input type="text" class="form-control" id="inputTempatLahir" name="TempatLahir" value="{{ $jemaat->TempatLahir }}" readonly=true>
+            </div>
+
+            <div class="mb-3" id="div_TanggalLahir">
+                <label for="inputTanggalLahir" class="form-label">Tanggal Lahir</label>
+                <input type="text" class="form-control" id="inputTanggalLahir" name="TanggalLahir" value="{{ $jemaat->TanggalLahir }}" readonly=true>
+            </div>
+
+            <div class="mb-3" id="div_GolonganDarah">
+                <label for="inputGolonganDarah" class="form-label">Golongan Darah</label>
+                <input type="text" class="form-control" id="inputGolonganDarah" name="GolonganDarah" value="{{ $jemaat->GolonganDarah }}" readonly=true>
+            </div>
+
             <div class="mb-3" id="div_Alamat">
                 <label for="inputAlamat" class="form-label">Alamat</label>
                 <textarea class="form-control" id="inputAlamat" name="Alamat" readonly=true> {{ $jemaat->Alamat }} </textarea>
@@ -217,7 +232,7 @@
     }
 
     #foto_jemaat {
-        width: 140px;
+        width: 120px;
         height: auto;
         grid-area: foto_area;
         margin-top: 30px;
@@ -285,8 +300,10 @@
 
         if (statBaptis == 'Sudah') {
             document.getElementById('div_TanggalBaptis').hidden=false;
+            document.getElementById('div_PelaksanaBaptis').hidden=false;
         } else {
             document.getElementById('div_TanggalBaptis').hidden=true;
+            document.getElementById('div_PelaksanaBaptis').hidden=true;
         }
 
         if (statKematian == 'Tidak') {

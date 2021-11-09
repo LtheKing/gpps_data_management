@@ -63,6 +63,9 @@ class JemaatController extends Controller
             'StatusBaptis' => 'required',
             'StatusKematian' => 'required',
             'Segment' => 'required',
+            'TempatLahir' => 'required',
+            'TanggalLahir' => 'required',
+            'GolonganDarah' => 'required',
             'FileName' => 'required|file|max:2048',
         ]);
 
@@ -72,10 +75,6 @@ class JemaatController extends Controller
                 'TanggalPernikahan' => 'required',
                 'PelaksanaPemberkatan' => 'required',
             ]);
-
-            // $request->merge([
-            //     'NamaSuami' => '-'
-            // ]);
         }
 
         if ($request->Status == "Menikah" && $request->JenisKelamin == "Wanita") {
@@ -84,16 +83,18 @@ class JemaatController extends Controller
                 'TanggalPernikahan' => 'required',
                 'PelaksanaPemberkatan' => 'required',
             ]);
-
-            // $request->merge([
-            //     'NamaIstri' => '-'
-            // ]);
         }
 
         if ($request->StatusBaptis == "Sudah") {
             $request->validate([
                 'TanggalBaptis' => 'required',
                 'PelaksanaBaptis' => 'required',
+            ]);
+        }
+
+        if ($request->StatusKematian == "Ya") {
+            $request->validate([
+                'TanggalKematian' => 'required',
             ]);
         }
 
@@ -160,13 +161,10 @@ class JemaatController extends Controller
             'Tlp' => 'required',
             'Status' => 'required',
             'NamaAyah' => 'required',
-            'NamaIbu' => 'required',
-            'TanggalBaptis' => 'required',
-            'PelaksanaBaptis' => 'required',
+            'NamaIbu' => 'required',            
             'JenisKelamin' => 'required',
             'StatusBaptis' => 'required',
             'StatusKematian' => 'required',
-            'TanggalKematian' => 'required',
             'Segment' => 'required',
             'FileName' => 'file|max:2048',
         ]);
@@ -177,10 +175,6 @@ class JemaatController extends Controller
                 'TanggalPernikahan' => 'required',
                 'PelaksanaPemberkatan' => 'required',
             ]);
-
-            // $request->merge([
-            //     'NamaSuami' => '-'
-            // ]);
         }
 
         if ($request->Status == "Menikah" && $request->JenisKelamin == "Wanita") {
@@ -189,10 +183,19 @@ class JemaatController extends Controller
                 'TanggalPernikahan' => 'required',
                 'PelaksanaPemberkatan' => 'required',
             ]);
+        }
 
-            // $request->merge([
-            //     'NamaIstri' => '-'
-            // ]);
+        if ($request->StatusBaptis == "Sudah") {
+            $request->validate([
+                'TanggalBaptis' => 'required',
+                'PelaksanaBaptis' => 'required',
+            ]);
+        }
+
+        if ($request->StatusKematian == "Ya") {
+            $request->validate([
+                'TanggalKematian' => 'required',
+            ]);
         }
         
         $data = Jemaat::find($id);

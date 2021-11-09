@@ -22,3 +22,12 @@ tambahan 3 November 2021 :
 -TempatLahir
 -TanggalLahir
 -GolonganDarah
+
+=====================================================================================================================================================================================================
+ENCHANCEMENT :
+- create report berdasarkan filter
+    - desain report
+    - tambah fungsi print
+- absensi jemaat pada saat scan qrcode :
+    - sediakan tombol absen pada halaman detail
+    - tambah tabel baru khusus untuk data absen jemaat

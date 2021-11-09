@@ -30,5 +30,8 @@ class Jemaat extends Model
         'NamaIstri',
         'TanggalPernikahan',
         'PelaksanaPemberkatan',
+        'TempatLahir',
+        'TanggalLahir',
+        'GolonganDarah',
     ];
 }

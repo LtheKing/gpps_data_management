@@ -35,6 +35,13 @@ class JemaatSeeder extends Seeder
                 'TanggalKematian' => $faker->date,
                 'StatusBaptis' => $faker->randomElement(['Sudah' ,'Belum']),
                 'JenisKelamin' => $faker->randomElement(['Wanita' ,'Pria']),
+                'TempatLahir' => $faker->address,
+                'TanggalLahir' => $faker->date,
+                'GolonganDarah' => $faker->randomElement(['A' ,'B', 'AB', 'O']),
+                'NamaIstri' => $faker->randomElement(['-']),
+                'NamaSuami' => $faker->randomElement(['-']),
+                'TanggalPernikahan' => $faker->date,
+                'PelaksanaPemberkatan' => $faker->name,
             ]);
         }
     }

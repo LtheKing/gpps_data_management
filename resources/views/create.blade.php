@@ -46,6 +46,26 @@
                 </select>
             </div>
 
+            <div class="mb-3" id="div_TempatLahir">
+                <label for="inputTempatLahir" class="form-label">Tempat Lahir</label>
+                <input type="text" class="form-control" id="inputTempatLahir" name="TempatLahir" value="{{ old('TempatLahir') }}">
+            </div>
+
+            <div class="mb-3" id="div_TanggalLahir">
+                <label for="inputTanggalLahir" class="form-label">Tanggal Lahir</label>
+                <input type="date" class="form-control" id="inputTanggalLahir" name="TanggalLahir" value="{{ old('TanggalLahir') }}">
+            </div>
+
+            <div class="mb-3" id="div_GolonganDarah">
+                <label for="input_golongan_darah" class="form-label">Golongan Darah</label>
+                <select name="GolonganDarah" id="input_golongan_darah" class="form-control" value="{{ old('GolonganDarah') }}">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="AB">AB</option>
+                    <option value="O">O</option>
+                </select>
+            </div>
+
             <div class="mb-3" id="div_Alamat">
                 <label for="inputAlamat" class="form-label">Alamat</label>
                 <textarea class="form-control" id="inputAlamat" name="Alamat"> {{ old('Alamat') }} </textarea>
