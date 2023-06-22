@@ -43,8 +43,13 @@
             <div class="mb-3" id="div_JenisKelamin">
                 <label for="input_jenis_kelamin" class="form-label">Jenis Kelamin</label>
                 <select name="JenisKelamin" id="input_jenis_kelamin" class="form-control" value="{{ old('JenisKelamin', $jemaat->JenisKelamin) }}">
-                    <option value="Pria">Pria</option>
-                    <option value="Wanita">Wanita</option>
+                    <?php
+                        $val = array('Pria', 'Wanita');
+                    ?>
+                    
+                    @foreach ($val as $item)
+                        <option value="{{ $item }}" {{$jemaat->JenisKelamin == $item  ? 'selected' : ''}}>{{ $item}}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -93,7 +98,7 @@
             
             <div class="mb-3" id="div_StatusBaptis">
                 <label for="input_status_Baptis" class="form-label">Sudah Baptis</label>
-                <select name="StatusBaptis" id="input_status_Baptis" class="form-control" value="{{ old('Status', $jemaat->StatusBaptis) }}">
+                <select name="StatusBaptis" id="input_status_Baptis" class="form-control" value="{{ old('Status', $jemaat->StatusBaptis) }}" onchange="StatusBaptisOnChange();">
                     <?php
                         $val = array('Sudah', 'Belum');
                     ?>
@@ -117,10 +122,13 @@
             <div class="mb-3" id="div_Segment">
                 <label for="input_segment" class="form-label">Segment</label>
                 <select name="Segment" id="input_segment" class="form-control" value="{{ old('Status', $jemaat->Segment) }}">
-                    <option value="Anak">Anak</option>
-                    <option value="Remaja">Remaja</option>
-                    <option value="Dewasa">Dewasa</option>
-                    <option value="Lansia">Lansia</option>
+                    <?php
+                        $val = array('Anak', 'Remaja', 'Dewasa', 'Lansia');
+                    ?>
+                    
+                    @foreach ($val as $item)
+                        <option value="{{ $item }}" {{$jemaat->Segment == $item  ? 'selected' : ''}}>{{ $item}}</option>
+                    @endforeach
                 </select>
             </div>
             
