@@ -231,6 +231,11 @@
         async function onBtnFilterClick(){
             var field = document.getElementById('select_filter').value;
             var value = document.getElementById('value_filter').value;
+
+            if (field == 'Status' && value == 'belum') {
+                value = 'Belum Menikah'
+            }
+
             const response = await fetch(localhost + 'api/jemaat/filter/' + field + '/' + value);
             const result = await response.text();
             
