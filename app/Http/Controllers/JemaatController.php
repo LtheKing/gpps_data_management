@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jemaat;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File; 
-use Illuminate\Support\Arr;
-use Intervention\Image\ImageManagerStatic as Image;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Artisan;
-use PDF;
 use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
+use PDF;
 use QrCode;
-
 
 class JemaatController extends Controller
 {
@@ -99,8 +96,8 @@ class JemaatController extends Controller
         }
 
         if ($request->hasFile('FileName')) {
-            $image      = $request->file('FileName');
-            $fileName   = $request->Nama . '.' . $image->getClientOriginalExtension();
+            $image = $request->file('FileName');
+            $fileName = $request->Nama . '.' . $image->getClientOriginalExtension();
             $toSave = Arr::add($request->all(), 'ImageName', $fileName);
 
             $img = Image::make($image->getRealPath());
@@ -109,7 +106,7 @@ class JemaatController extends Controller
             // });
 
             $img->stream(); // <-- Key point
-            Storage::disk('local')->put('public/images/'.$fileName, $img, 'public');
+            Storage::disk('local')->put('public/images/' . $fileName, $img, 'public');
 
             Jemaat::create($toSave);
             return redirect()->route('jemaat_index')->with('Success', 'Data Jemaat Berhasil Ditambahkan');
@@ -161,7 +158,7 @@ class JemaatController extends Controller
             'Tlp' => 'required',
             'Status' => 'required',
             'NamaAyah' => 'required',
-            'NamaIbu' => 'required',            
+            'NamaIbu' => 'required',
             'JenisKelamin' => 'required',
             'StatusBaptis' => 'required',
             'StatusKematian' => 'required',
@@ -197,24 +194,24 @@ class JemaatController extends Controller
                 'TanggalKematian' => 'required',
             ]);
         }
-        
+
         $data = Jemaat::find($id);
-        if ($request->hasFile('FileName')){
+        if ($request->hasFile('FileName')) {
             // $existingImage = storage_path('public/images/'. $data->Nama);
             // File::delete($existingImage);
             Storage::disk('public')->delete('/images/' . $data->ImageName);
 
-            $image      = $request->file('FileName');
-            $fileName   = $request->Nama . '.' . $image->getClientOriginalExtension();
+            $image = $request->file('FileName');
+            $fileName = $request->Nama . '.' . $image->getClientOriginalExtension();
             $toUpdate = Arr::add($request->all(), 'ImageName', $fileName);
 
             $img = Image::make($image->getRealPath());
             // $img->resize(120, 120, function ($constraint) {
-            //     $constraint->aspectRatio();  
+            //     $constraint->aspectRatio();
             // });
 
             $img->stream(); // <-- Key point
-            Storage::disk('local')->put('public/images/'.$fileName, $img, 'public');
+            Storage::disk('local')->put('public/images/' . $fileName, $img, 'public');
 
             $data->update($toUpdate);
             return redirect()->route('jemaat_index')->with('Success', 'Data Jemaat Berhasil Diubah');
@@ -223,7 +220,7 @@ class JemaatController extends Controller
             $data->update($request->all());
             return redirect()->route('jemaat_index')->with('Success', 'Data Jemaat Berhasil Diubah');
         }
-        
+
         return back()->with('error', 'Gagal update Data');
     }
 
@@ -241,13 +238,21 @@ class JemaatController extends Controller
         return back()->with('error', 'data berhasil dihapus');
     }
 
+    public function testingPrint()
+    {
+        $jemaats = DB::table('jemaats')->get();
+        view()->share('index', $jemaats);
+        $pdf = PDF::loadView('index', ['jemaats' => $jemaats]);
+        return $pdf->download('data jemaat.pdf');
+    }
+
     //API
 
     public function getJemaatArray()
     {
         $jemaats = DB::table('jemaats')->get();
-        $data = (object)[
-            'data' => $jemaats
+        $data = (object) [
+            'data' => $jemaats,
         ];
         // array_push($data->data, $jemaats);
         return $data;
@@ -261,7 +266,8 @@ class JemaatController extends Controller
         return response('Data Deleted', 200);
     }
 
-    public function getAyah($nama) {
+    public function getAyah($nama)
+    {
         $data = Jemaat::where('Nama', $nama)->get();
         if (count($data) > 0) {
             return redirect()->route('jemaat_detail', $data[0]->id)->with('Success', 'Data Ayah Berhasil Ditemukan');
@@ -269,7 +275,8 @@ class JemaatController extends Controller
         return back()->with('error', 'Data Ayah Tidak Ditemukan');
     }
 
-    public function getIbu($nama) {
+    public function getIbu($nama)
+    {
         $data = Jemaat::where('Nama', $nama)->get();
         if (count($data) > 0) {
             return redirect()->route('jemaat_detail', $data[0]->id)->with('Success', 'Data Ibu Berhasil Ditemukan');
@@ -277,12 +284,14 @@ class JemaatController extends Controller
         return back()->with('error', 'Data Ibu Tidak Ditemukan');
     }
 
-    public function filter($field, $value){
+    public function filter($field, $value)
+    {
         $data = Jemaat::where($field, $value)->get();
         return $data;
     }
 
-    public function getSuami($nama) {
+    public function getSuami($nama)
+    {
         $data = Jemaat::where('Nama', $nama)->get();
         if (count($data) > 0) {
             return redirect()->route('jemaat_detail', $data[0]->id)->with('Success', 'Data Suami Berhasil Ditemukan');
@@ -290,7 +299,8 @@ class JemaatController extends Controller
         return back()->with('error', 'Data Suami Tidak Ditemukan');
     }
 
-    public function getIstri($nama) {
+    public function getIstri($nama)
+    {
         $data = Jemaat::where('Nama', $nama)->get();
         if (count($data) > 0) {
             return redirect()->route('jemaat_detail', $data[0]->id)->with('Success', 'Data Istri Berhasil Ditemukan');

@@ -8,6 +8,8 @@
 @section('content')
     <h1>Data Jemaat</h1>
 
+    <a href="{{ route('testing_print') }}" class="btn btn-warning float-right">Print</a>
+
     @if(session('Success'))
         <div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert">×</button>

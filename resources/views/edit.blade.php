@@ -23,7 +23,7 @@
             @endforeach
         </ul>
     </div>
-@endif
+    @endif
 
     <a class="btn btn-secondary mb-3 mt-3" href="{{ route('jemaat_index') }}"> Kembali </a>
 

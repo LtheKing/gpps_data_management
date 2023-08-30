@@ -21,7 +21,11 @@ Route::get('/', function () {
 });
 
 //user
-Route::post('/user/login', 'UserController@login')->name('user_login');
+Route::post(
+    
+    
+    
+    '/user/login', 'UserController@login')->name('user_login');
 
 //jemaat
 Route::get('/jemaat/index', 'JemaatController@index')->name('jemaat_index');
@@ -90,3 +94,9 @@ Route::get('/testing/view/kartu', function() {
     $qrcode = QrCode::size(125)->generate('ItSolutionStuff.com');
     return view('testing.testing_kartu', compact('qrcode'));
 });
+
+Route::get('/testing/print', 'JemaatController@testingPrint')->name('testing_print');
+
+Route::post('/yonatan/create', 'YonatanController@create');
+
+
