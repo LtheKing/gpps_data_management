@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jemaat;
+use App\Models\Attendance;
+use App\Models\Cabang;
 use Artisan;
 use DB;
 use Illuminate\Http\Request;
@@ -12,6 +14,8 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 use PDF;
 use QrCode;
+use Session;
+
 
 class JemaatController extends Controller
 {
@@ -244,6 +248,19 @@ class JemaatController extends Controller
         view()->share('index', $jemaats);
         $pdf = PDF::loadView('index', ['jemaats' => $jemaats]);
         return $pdf->download('data jemaat.pdf');
+    }
+
+    public function absen($id) {
+        $jemaat = Jemaat::find($id);
+        $session = Session::all();
+        $absen = [
+            'jemaat_id' => $id,
+            'tgl_kehadiran' => now(),
+            'cabang_id' => $session['cabang'],
+            'ibadah_ke' => 1
+        ];
+
+        Attendance::create($absen);
     }
 
     //API

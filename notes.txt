@@ -31,3 +31,21 @@ ENCHANCEMENT :
 - absensi jemaat pada saat scan qrcode :
     - sediakan tombol absen pada halaman detail
     - tambah tabel baru khusus untuk data absen jemaat
+
+kevin :
+    hasil diskusi: 
+    - minta penambahan field komisi (misal komisi anak, komisi pemuda, dll)
+    - minta penambahan field cabang (misal cabang kopo, cabang pasteur, dll)
+    - minta report nya dalam bentuk diagram batang dengan filter month to month, year to year, kehadiran jumlah pria, kehadiran jumlah wanita, dan sesuai filter yg sudh existing sekarang
+    - minta coba di assesment jika setiap cabang memiliki user login berbeda
+    - minta coba di assesment jika ditambahkan QR khusus tamu (jika di scan akan masuk ke dalam list, misalnya: tamu1, tamu2, tamu3 dst
+    - fitur print out ( list nama, alamat dan no telpon)
+
+===========================================================================
+database design :
+- attendances :
+    - id
+    - jemaat_id
+    - tgl_kehadiran
+    - cabang
+    - ibadah_ke

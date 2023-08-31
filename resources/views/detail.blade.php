@@ -21,6 +21,7 @@
         </div>
     @endif
     <a class="btn btn-secondary mb-3 mt-3" href="{{ route('jemaat_index') }}"> Kembali </a>
+    <a class="btn btn-success mb-3 mt-3" href="{{ route('jemaat_absen', $jemaat->id) }}"> Absen </a>
     <button id="btnDownload" type="button" class="btn btn-warning">Download Kartu Jemaat</button>
 
     <form action="#" method="post" enctype="multipart/form-data">

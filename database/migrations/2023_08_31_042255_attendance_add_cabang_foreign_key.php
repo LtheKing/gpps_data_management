@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class JemaatUpdateField20211103 extends Migration
+class AttendanceAddCabangForeignKey extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class JemaatUpdateField20211103 extends Migration
      */
     public function up()
     {
-        Schema::table('jemaats', function (Blueprint $table) {
-            // $table->string('TempatLahir');
-            // $table->string('TanggalLahir');
-            // $table->string('GolonganDarah');
+        Schema::table('attendances', function (Blueprint $table) {
+            $table->foreignId('cabang_id')->constrained('cabangs');
         });
+
+        Schema::table('attendances', function (Blueprint $table) {
+            $table->dropColumn('cabang');
+        });
+
     }
 
     /**

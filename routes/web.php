@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JemaatController;
 use Illuminate\Support\Facades\DB;
+use App\Models\Cabang;
+
 
 
 /*
@@ -17,15 +19,13 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $cabangs = DB::table('cabangs')->get();
+    // dd($cabangs);
+    return view('welcome', compact('cabangs'));
 });
 
 //user
-Route::post(
-    
-    
-    
-    '/user/login', 'UserController@login')->name('user_login');
+Route::post('/user/login', 'UserController@login')->name('user_login');
 
 //jemaat
 Route::get('/jemaat/index', 'JemaatController@index')->name('jemaat_index');
@@ -35,6 +35,7 @@ Route::get('/jemaat/edit/{id}', 'JemaatController@edit')->name('jemaat_edit');
 Route::get('/jemaat/detail/{id}', 'JemaatController@show')->name('jemaat_detail');
 Route::put('/jemaat/update/{id}', 'JemaatController@update')->name('jemaat_update');
 Route::delete('/jemaat/delete/{id}', 'JemaatController@destroy')->name('jemaat_destroy');
+Route::get('/jemaat/absen/{id}', 'JemaatController@absen')->name('jemaat_absen');
 
 //api
 Route::get('/api/token', function() {
@@ -97,6 +98,6 @@ Route::get('/testing/view/kartu', function() {
 
 Route::get('/testing/print', 'JemaatController@testingPrint')->name('testing_print');
 
-Route::post('/yonatan/create', 'YonatanController@create');
+Route::get('/testing/session', 'UserController@getSession')->name('testing_session');
 
 

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Attendance;
+
 
 class Jemaat extends Model
 {
@@ -34,4 +36,8 @@ class Jemaat extends Model
         'TanggalLahir',
         'GolonganDarah',
     ];
+
+    public function comments() {
+        return $this->hasMany(Attendance::class, 'id');
+    }
 }
