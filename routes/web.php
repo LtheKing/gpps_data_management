@@ -35,7 +35,7 @@ Route::get('/jemaat/edit/{id}', 'JemaatController@edit')->name('jemaat_edit');
 Route::get('/jemaat/detail/{id}', 'JemaatController@show')->name('jemaat_detail');
 Route::put('/jemaat/update/{id}', 'JemaatController@update')->name('jemaat_update');
 Route::delete('/jemaat/delete/{id}', 'JemaatController@destroy')->name('jemaat_destroy');
-Route::get('/jemaat/absen/{id}', 'JemaatController@absen')->name('jemaat_absen');
+Route::post('/jemaat/absen/{id}', 'JemaatController@absen')->name('jemaat_absen');
 
 //api
 Route::get('/api/token', function() {

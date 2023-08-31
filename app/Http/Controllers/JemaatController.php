@@ -250,14 +250,14 @@ class JemaatController extends Controller
         return $pdf->download('data jemaat.pdf');
     }
 
-    public function absen($id) {
+    public function absen($id, Request $request) {
         $jemaat = Jemaat::find($id);
         $session = Session::all();
         $absen = [
             'jemaat_id' => $id,
             'tgl_kehadiran' => now(),
             'cabang_id' => $session['cabang'],
-            'ibadah_ke' => 1
+            'ibadah_ke' => $request->IbadahKe
         ];
 
         Attendance::create($absen);
