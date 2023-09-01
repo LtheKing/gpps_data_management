@@ -37,7 +37,4 @@ class Jemaat extends Model
         'GolonganDarah',
     ];
 
-    public function comments() {
-        return $this->hasMany(Attendance::class, 'id');
-    }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Cabang extends Model
 {
@@ -14,4 +15,8 @@ class Cabang extends Model
         'Alamat',
         'Status'
     ];
+
+    public function cabangs() {
+        return $this->hasMany(User::class);
+    }
 }
