@@ -15,7 +15,8 @@ use Intervention\Image\ImageManagerStatic as Image;
 use PDF;
 use QrCode;
 use Session;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\JemaatExport;
 
 class JemaatController extends Controller
 {
@@ -261,6 +262,11 @@ class JemaatController extends Controller
         ];
 
         Attendance::create($absen);
+    }
+
+    public function export() 
+    {
+        return Excel::download(new JemaatExport, 'jemaat.xlsx');
     }
 
     //API

@@ -49,7 +49,7 @@
               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>
           </ul>
-          <a class="btn btn-danger" href="{{ url('/') }}">Logout</a>
+          <a class="btn btn-danger" href="{{ route('logout') }}">Logout</a>
         </div>
       </nav>
     @show

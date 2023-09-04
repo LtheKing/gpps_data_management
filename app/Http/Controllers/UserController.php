@@ -13,6 +13,7 @@ class UserController extends Controller
     {
         session([
             'cabang' => $request->cabang,
+            'username' => $request->username
         ]);
         
         $isExist = User::where('username', $request->username)->get();

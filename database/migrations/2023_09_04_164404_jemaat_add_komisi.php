@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class JemaatAddCabangId extends Migration
+class JemaatAddKomisi extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class JemaatAddCabangId extends Migration
      */
     public function up()
     {
-        Schema::table('jemaats', function (Blueprint $table) {
-            $table->foreignId('cabang_id')->nullable()->constrained('cabangs');
+        Schema::table('jemaats', function(Blueprint $table){
+            $table->string('komisi');
         });
     }
 
