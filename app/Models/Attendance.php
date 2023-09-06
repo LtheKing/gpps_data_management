@@ -21,7 +21,7 @@ class Attendance extends Model
     public $timestamps = false;
 
 
-    public function comments() {
+    public function getJemaat() {
         return $this->belongsTo(Jemaat::class, 'jemaat_id');
     }
 }

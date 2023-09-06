@@ -44,9 +44,9 @@ kevin :
 ===========================================================================
 to do :
 - minta penambahan field komisi (misal komisi anak, komisi pemuda, dll)
-     - database / migration
+     - database / migration [DONE]
      - view
-      - create
+      - create [DONE]
       - edit
       - detail
      - controller
@@ -62,7 +62,7 @@ to do :
      - controller
       - create
       - update
-      
+
     - minta report nya dalam bentuk diagram batang dengan filter month to month, year to year, kehadiran jumlah pria, kehadiran jumlah wanita, dan sesuai filter yg sudh existing sekarang
     - minta coba di assesment jika setiap cabang memiliki user login berbeda
     - minta coba di assesment jika ditambahkan QR khusus tamu (jika di scan akan masuk ke dalam list, misalnya: tamu1, tamu2, tamu3 dst)

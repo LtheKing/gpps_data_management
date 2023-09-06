@@ -42,6 +42,7 @@ Route::middleware('usersession')->group(function() {
     Route::delete('/jemaat/delete/{id}', 'JemaatController@destroy')->name('jemaat_destroy');
     Route::post('/jemaat/absen/{id}', 'JemaatController@absen')->name('jemaat_absen');
     Route::get('/jemaat/export', 'JemaatController@export')->name('jemaat_export');
+    Route::get('/jemaat/absensi', 'JemaatController@absensi')->name('jemaat_absensi');
 });
 
 
@@ -105,7 +106,8 @@ Route::get('/testing/view/kartu', function() {
 });
 
 Route::get('/testing/print', 'JemaatController@testingPrint')->name('testing_print');
-
 Route::get('/testing/session', 'UserController@getSession')->name('testing_session');
+Route::get('/testing/chart', 'YonatanController@testChart')->name('testing_chart');
+
 
 

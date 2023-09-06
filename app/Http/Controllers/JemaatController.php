@@ -17,6 +17,7 @@ use QrCode;
 use Session;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\JemaatExport;
+use App\Charts\MonthlyUsersChart;
 
 class JemaatController extends Controller
 {
@@ -249,6 +250,11 @@ class JemaatController extends Controller
         view()->share('index', $jemaats);
         $pdf = PDF::loadView('index', ['jemaats' => $jemaats]);
         return $pdf->download('data jemaat.pdf');
+    }
+
+    public function absensi(MonthlyUsersChart $chart)
+    {
+        return view('absen', ['chart' => $chart->build()]);
     }
 
     public function absen($id, Request $request) {

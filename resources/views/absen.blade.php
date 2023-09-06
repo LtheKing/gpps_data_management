@@ -7,7 +7,24 @@
 
 @section('content')
 
-<a href="" class="btn btn-primary">Absen</a>
-<a href="" class="btn btn-secondary">Detail</a>
+{{-- <body class="h-screen bg-gray-100">
+
+<div class="container px-4 mx-auto">
+
+    <div class="p-6 mt-3 bg-white rounded shadow">
+        {!! $chart->container() !!}
+    </div>
+
+</div>
+
+<script src="{{ $chart->cdn() }}"></script>
+
+{{ $chart->script() }}
+</body> --}}
+<div>
+    {!! $chart->container() !!}
+</div>
+<script src="{{ $chart->cdn() }}"></script>
+{{ $chart->script() }}
 
 @endsection
