@@ -57,6 +57,7 @@ Route::get('/api/jemaat/ibu/{nama}', 'JemaatController@getIbu')->name('jemaat_ge
 Route::get('/api/jemaat/filter/{field}/{value}', 'JemaatController@filter')->name('jemaat_filter');
 Route::get('/api/jemaat/suami/{nama}', 'JemaatController@getSuami')->name('jemaat_get_suami');
 Route::get('/api/jemaat/istri/{nama}', 'JemaatController@getIstri')->name('jemaat_get_istri');
+Route::post('/api/jemaat/absensi/filter', 'JemaatController@absensiFilter')->name('jemaat_absensi_filter');
 
 
 //testing

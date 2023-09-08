@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Jemaat;
+use App\Charts\MonthlyUsersChart;
+use App\Charts\JemaatsChart;
+use App\Exports\JemaatExport;
 use App\Models\Attendance;
 use App\Models\Cabang;
+use App\Models\Jemaat;
 use Artisan;
 use DB;
 use Illuminate\Http\Request;
@@ -12,12 +15,10 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use QrCode;
 use Session;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\JemaatExport;
-use App\Charts\MonthlyUsersChart;
 
 class JemaatController extends Controller
 {
@@ -29,7 +30,11 @@ class JemaatController extends Controller
     public function index()
     {
         // $jemaats = DB::table('jemaats')->paginate(15);
-        $jemaats = DB::table('jemaats')->get();
+        $session = Session::all();
+        $cabang_id = $session['cabang_id'];
+        $jemaats = DB::table('jemaats')
+            ->where('cabang_id', $cabang_id)
+            ->get();
         // dd($jemaats);
         return view('index', compact('jemaats'));
     }
@@ -41,7 +46,9 @@ class JemaatController extends Controller
      */
     public function create()
     {
-        return view('create');
+        $cabangs = DB::table('cabangs')->select()->get();
+        // dd($cabangs);
+        return view('create', compact('cabangs'));
     }
 
     /**
@@ -131,7 +138,8 @@ class JemaatController extends Controller
     {
         $jemaat = Jemaat::find($id);
         $qrcode = QrCode::size(125)->generate(route('jemaat_detail', $id));
-        return view('detail', compact('jemaat', 'qrcode'));
+        $cabang = Cabang::find($jemaat->cabang_id);
+        return view('detail', compact('jemaat', 'qrcode', 'cabang'));
     }
 
     /**
@@ -144,7 +152,8 @@ class JemaatController extends Controller
     {
         Artisan::call('cache:clear');
         $jemaat = Jemaat::find($id);
-        return view('edit', compact('jemaat'));
+        $cabangsObj = DB::table('cabangs')->select()->get();
+        return view('edit', compact('jemaat', 'cabangsObj'));
     }
 
     /**
@@ -257,20 +266,21 @@ class JemaatController extends Controller
         return view('absen', ['chart' => $chart->build()]);
     }
 
-    public function absen($id, Request $request) {
+    public function absen($id, Request $request)
+    {
         $jemaat = Jemaat::find($id);
         $session = Session::all();
         $absen = [
             'jemaat_id' => $id,
             'tgl_kehadiran' => now(),
-            'cabang_id' => $session['cabang'],
-            'ibadah_ke' => $request->IbadahKe
+            'cabang_id' => $session['cabang_id'],
+            'ibadah_ke' => $request->IbadahKe,
         ];
 
         Attendance::create($absen);
     }
 
-    public function export() 
+    public function export()
     {
         return Excel::download(new JemaatExport, 'jemaat.xlsx');
     }
@@ -279,7 +289,12 @@ class JemaatController extends Controller
 
     public function getJemaatArray()
     {
-        $jemaats = DB::table('jemaats')->get();
+        $session = Session::all();
+        $cabang_id = $session['cabang_id'];
+        $jemaats = DB::table('jemaats')
+            ->where('cabang_id', $cabang_id)
+            ->get();
+
         $data = (object) [
             'data' => $jemaats,
         ];
@@ -335,5 +350,11 @@ class JemaatController extends Controller
             return redirect()->route('jemaat_detail', $data[0]->id)->with('Success', 'Data Istri Berhasil Ditemukan');
         }
         return back()->with('error', 'Data Istri Tidak Ditemukan');
+    }
+
+    public function absensiFilter(JemaatsChart $chart, Request $request)
+    {
+        // dd($request->all());
+        return view('absen', ['chart' => $chart->build($request->all())]);
     }
 }

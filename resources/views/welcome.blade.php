@@ -71,7 +71,7 @@
                                 <form action="{{ route('user_login') }}" method="POST">
                                     @csrf
                                     <div class="mb-3" id="div_Cabang">
-                                        <select name="cabang" id="input_cabang"
+                                        <select name="cabang_id" id="input_cabang"
                                             class="form-control rounded-pill border-0 shadow-sm px-4" onchange="onCabangChange(this)">
                                             <option value="">== CABANG ==</option>
                                             @foreach ($cabangs as $item)

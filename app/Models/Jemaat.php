@@ -35,6 +35,8 @@ class Jemaat extends Model
         'TempatLahir',
         'TanggalLahir',
         'GolonganDarah',
+        'komisi',
+        'cabang_id'
     ];
 
 }

@@ -32,6 +32,16 @@
             <input type="text" class="form-control" id="inputNoAnggota" name="NoAnggota" value="{{ old('NoAnggota') }}">
         </div>
 
+        <div class="mb-3" id="div_cabang">
+            <label for="input_cabang" class="form-label">Cabang</label>
+            <select name="cabang_id" id="input_cabang" class="form-control" value="{{ old('cabang') }}">
+                @foreach ($cabangs as $val)
+                    <option value="{{ $val->id }}">
+                        {{ $val->NamaCabang }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="mb-3" id="div_Nama">
             <label for="inputNama" class="form-label">Nama Jemaat</label>
             <input type="text" class="form-control" id="inputNama" name="Nama" value="{{ old('Nama') }}">
@@ -159,9 +169,9 @@
 
         <div class="mb-3" id="div_Komisi">
             <label for="input_Komisi" class="form-label">Komisi</label>
-            <select name="Komisi" id="input_Komisi" class="form-control" value="{{ old('Komisi') }}">
-                <option value="Anak">Komisi Anak</option>
-                <option value="Anak">Komisi Pemuda</option>
+            <select name="komisi" id="input_Komisi" class="form-control" value="{{ old('Komisi') }}">
+                <option value="Komisi Anak">Komisi Anak</option>
+                <option value="Komisi Pemuda">Komisi Pemuda</option>
             </select>
         </div>
 

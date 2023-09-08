@@ -90,6 +90,12 @@
                 readonly=true>
         </div>
 
+        <div class="mb-3" id="div_cabang">
+            <label for="inputcabang" class="form-label">Cabang</label>
+            <input type="text" class="form-control" id="inputcabang" name="cabang_id" value="{{ $cabang->NamaCabang }}"
+                readonly=true>
+        </div>
+
         <div class="mb-3" id="div_Nama">
             <label for="inputNama" class="form-label">Nama Jemaat</label>
             <input type="text" class="form-control" id="inputNama" name="Nama" value="{{ $jemaat->Nama }}"
@@ -194,6 +200,12 @@
         <div class="mb-3" id="div_Segment">
             <label for="inputSegment" class="form-label">Segment</label>
             <input type="text" class="form-control" id="inputSegment" name="Segment" value="{{ $jemaat->Segment }}"
+                readonly=true>
+        </div>
+
+        <div class="mb-3" id="div_komisi">
+            <label for="inputkomisi" class="form-label">Komisi</label>
+            <input type="text" class="form-control" id="inputkomisi" name="komisi" value="{{ $jemaat->komisi }}"
                 readonly=true>
         </div>
 

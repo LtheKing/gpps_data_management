@@ -36,7 +36,7 @@ class MonthlyUsersChart
         return $this->chart->barChart()
             ->setTitle('Absensi GPPS Agape.')
             ->setSubtitle('Absensi tahun 2023.')
-            ->addData('aaa', $viewDataPerMonth)
+            ->addData('Jumlah Jemaat', $viewDataPerMonth)
             ->setXAxis($month);
     }
 }
