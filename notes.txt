@@ -68,6 +68,11 @@ to do :
         - filter wanita
         - month to month [DONE]
         - year to year [DONE]
+        - segment
+        - status baptis
+        - status pernikahan
+        - status kematian 
+
     - minta coba di assesment jika setiap cabang memiliki user login berbeda [DONE]
     - index otomatis terfilter sesuai login cabang [DONE]
     - minta coba di assesment jika ditambahkan QR khusus tamu (jika di scan akan masuk ke dalam list, misalnya: tamu1, tamu2, tamu3 dst)

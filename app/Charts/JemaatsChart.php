@@ -50,7 +50,7 @@ class JemaatsChart
                 ->addData('Jumlah Jemaat', $viewData)
                 ->setXAxis($year);
 
-        } else {
+        } else if($selector == 'bulan') {
             $dataPerMonth = DB::table('attendances')
                 ->whereYear('tgl_kehadiran', $yearMonth)->select(DB::raw("MONTH(tgl_kehadiran) month"), DB::raw("count('month') as jemaat_count"))
                 ->groupby('month')
@@ -65,6 +65,16 @@ class JemaatsChart
                 ->setSubtitle('Absensi tahun '. $yearMonth)
                 ->addData('Jumlah Jemaat', $viewData)
                 ->setXAxis($month);
+        } 
+
+        switch ($selector) {
+            case 'value':
+                # code...
+                break;
+            
+            default:
+                # code...
+                break;
         }
     }
 }
