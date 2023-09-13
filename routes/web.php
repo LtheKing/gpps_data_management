@@ -1,11 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\JemaatController;
 use Illuminate\Support\Facades\DB;
-use App\Models\Cabang;
-
-
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +12,7 @@ use App\Models\Cabang;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     $cabangs = DB::table('cabangs')->get();
@@ -31,7 +27,7 @@ Route::get('/logout', function () {
     return redirect('/');
 })->name('logout');
 
-Route::middleware('usersession')->group(function() {
+Route::middleware('usersession')->group(function () {
     //jemaat
     Route::get('/jemaat/index', 'JemaatController@index')->name('jemaat_index');
     Route::get('/jemaat/create', 'JemaatController@create')->name('jemaat_create');
@@ -43,11 +39,16 @@ Route::middleware('usersession')->group(function() {
     Route::post('/jemaat/absen/{id}', 'JemaatController@absen')->name('jemaat_absen');
     Route::get('/jemaat/export', 'JemaatController@export')->name('jemaat_export');
     Route::get('/jemaat/absensi', 'JemaatController@absensi')->name('jemaat_absensi');
+
+    //tamu
+    Route::get('/jemaat/tamu', 'JemaatController@tamuPage')->name('jemaat_tamu');
+    Route::get('/jemaat/tamu/edit/{id}', 'JemaatController@tamuEdit')->name('jemaat_tamu_edit');
+    Route::get('/jemaat/tamu/update/{id}', 'JemaatController@tamuUpdate')->name('jemaat_tamu_update');
+    Route::get('/jemaat/tamu/qr', 'JemaatController@qrTamu')->name('jemaat_tamu_qr');
 });
 
-
 //api
-Route::get('/api/token', function() {
+Route::get('/api/token', function () {
     return csrf_token();
 });
 Route::get('/jemaat/array', 'JemaatController@getJemaatArray')->name('jemaat_array');
@@ -58,34 +59,34 @@ Route::get('/api/jemaat/filter/{field}/{value}', 'JemaatController@filter')->nam
 Route::get('/api/jemaat/suami/{nama}', 'JemaatController@getSuami')->name('jemaat_get_suami');
 Route::get('/api/jemaat/istri/{nama}', 'JemaatController@getIstri')->name('jemaat_get_istri');
 Route::post('/api/jemaat/absensi/filter', 'JemaatController@absensiFilter')->name('jemaat_absensi_filter');
-
+Route::get('/jemaat/tamu/array', 'JemaatController@getTamu')->name('jemaat_get_tamu');
 
 //testing
-Route::get('testing/playground', function(){
+Route::get('testing/playground', function () {
     return view('testing.playground');
 });
 
 Route::get('testing/qrcode', function () {
-  
+
     QrCode::size(500)
-            ->format('png')
-            ->generate(route('jemaat_detail', 16), Storage::disk('local')->put('public/images/qrcode.png', 'public'));
-    
-    return view('testing.qrcode');  
+        ->format('png')
+        ->generate(route('jemaat_detail', 16), Storage::disk('local')->put('public/images/qrcode.png', 'public'));
+
+    return view('testing.qrcode');
 });
 
-Route::get('testing/alert', function(){
+Route::get('testing/alert', function () {
     return redirect('/testing/playground')->with('status', 'this is alert');
 });
 
-Route::get('/clear-cache', function() {
+Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
     return "Cache is cleared";
 });
 
-Route::get('/testing/pdf', function() {
+Route::get('/testing/pdf', function () {
     $qrcode = QrCode::size(125)->generate('ItSolutionStuff.com');
-    
+
     // $pdf = PDF::loadView('testing.testing_pdf', compact('qrcode'));
     $pdf = PDF::loadView('testing.qrcode');
 
@@ -95,13 +96,12 @@ Route::get('/testing/pdf', function() {
     return $pdf->stream('testing.pdf');
 });
 
-
-Route::get('/testing/view/pdf', function() {
+Route::get('/testing/view/pdf', function () {
     $qrcode = QrCode::size(125)->generate('ItSolutionStuff.com');
     return view('testing.testing_pdf', compact('qrcode'));
 });
 
-Route::get('/testing/view/kartu', function() {
+Route::get('/testing/view/kartu', function () {
     $qrcode = QrCode::size(125)->generate('ItSolutionStuff.com');
     return view('testing.testing_kartu', compact('qrcode'));
 });
@@ -109,6 +109,7 @@ Route::get('/testing/view/kartu', function() {
 Route::get('/testing/print', 'JemaatController@testingPrint')->name('testing_print');
 Route::get('/testing/session', 'UserController@getSession')->name('testing_session');
 Route::get('/testing/chart', 'YonatanController@testChart')->name('testing_chart');
-
-
-
+Route::get('/testing/tamu/latest', function () {
+    $latest = App\Models\Tamu::orderBy('id', 'DESC')->first();
+    dd($latest->Alias);
+});

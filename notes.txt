@@ -64,16 +64,17 @@ to do :
       - update [DONE]
 
     - minta report nya dalam bentuk diagram batang dengan filter month to month, year to year, kehadiran jumlah pria, kehadiran jumlah wanita, dan sesuai filter yg sudh existing sekarang 
-        - filter pria
-        - filter wanita
+        - filter pria [DONE]
+        - filter wanita [DONE]
         - month to month [DONE]
         - year to year [DONE]
-        - segment
-        - status baptis
-        - status pernikahan
-        - status kematian 
+        - segment [DONE]
+        - status baptis [DONE]
+        - status pernikahan [DONE]
+        - status kematian [DONE]
 
     - minta coba di assesment jika setiap cabang memiliki user login berbeda [DONE]
     - index otomatis terfilter sesuai login cabang [DONE]
-    - minta coba di assesment jika ditambahkan QR khusus tamu (jika di scan akan masuk ke dalam list, misalnya: tamu1, tamu2, tamu3 dst)
+    - minta coba di assesment jika ditambahkan QR khusus tamu (jika di scan akan masuk ke dalam list, misalnya: tamu1, tamu2, tamu3 dst) [DONE]
+    - CRUD tamu
     - fitur print out ( list nama, alamat dan no telpon)

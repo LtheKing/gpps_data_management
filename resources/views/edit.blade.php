@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h1>Input Jemaat Baru</h1>
+    <h1>Edit Jemaat</h1>
 
     @if (session('error'))
         <div class="alert alert-danger">

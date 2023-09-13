@@ -58,28 +58,6 @@
             </div>
         </div>
     </div>
-    {{-- CONTOH --}}
-
-    {{-- <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <form action="{{ route('jemaat_absen', $jemaat->id) }}" method="post">
-                    <div class="mb-3" id="div_IbadahKe">
-                        <label for="input_ibadah_ke" class="form-label">Ibadah Ke</label>
-                        <select name="IbadahKe" id="input_ibadah_ke" class="form-control"
-                            value="{{ old('GolonganDarah') }}">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
-
-                    <input type="submit" class="btn btn-primary"></input>
-                </form>
-            </div>
-        </div>
-    </div> --}}
 
     <button id="btnDownload" type="button" class="btn btn-warning">Download Kartu Jemaat</button>
 

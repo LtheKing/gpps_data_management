@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\MonthlyUsersChart;
 use App\Charts\JemaatsChart;
+use App\Charts\MonthlyUsersChart;
 use App\Exports\JemaatExport;
 use App\Models\Attendance;
 use App\Models\Cabang;
 use App\Models\Jemaat;
+use App\Models\Tamu;
 use Artisan;
 use DB;
 use Illuminate\Http\Request;
@@ -285,6 +286,46 @@ class JemaatController extends Controller
         return Excel::download(new JemaatExport, 'jemaat.xlsx');
     }
 
+    public function tamuPage()
+    {
+        $qrcode = QrCode::size(125)->generate(route('jemaat_tamu_qr'));
+        return view('tamu', compact('qrcode'));
+    }
+
+    public function tamuInserted()
+    {
+        return view('tamu-inserted');
+    }
+
+    public function tamuEdit($id)
+    {
+        $tamu = Tamu::find($id);
+        $cabangsObj = DB::table('cabangs')->select()->get();
+        return view('tamu-edit', compact('tamu', 'cabangsObj'));
+    }
+
+    public function tamuUpdate(Request $request, $id)
+    {
+        $tamu = Tamu::find($id);
+        $message = '';
+        $qrcode = QrCode::size(125)->generate(route('jemaat_tamu_qr'));
+
+        try {
+            $tamu->update($request->all());
+            $message = 'Data tamu berhasil diupdate !';
+            return redirect()->route('jemaat_tamu')
+                ->with('message', $message)
+                ->with('message_type', 'success');
+        } catch (\Throwable $th) {
+            $message = $th->message;
+            return redirect()->route('jemaat_tamu')
+                ->with('message', $message)
+                ->with('message_type', 'error');
+        }
+
+        //    return view('tamu', compact('message', 'qrcode'));
+    }
+
     //API
 
     public function getJemaatArray()
@@ -357,4 +398,55 @@ class JemaatController extends Controller
         // dd($request->all());
         return view('absen', ['chart' => $chart->build($request->all())]);
     }
+
+    public function getTamu()
+    {
+        $session = Session::all();
+        $cabang_id = $session['cabang_id'];
+        $tamu = DB::table('tamu')
+            ->where('cabang_id', $cabang_id)
+            ->get();
+
+        $data = (object) [
+            'data' => $tamu,
+        ];
+        return $data;
+    }
+
+    public function qrTamu()
+    {
+        //get latest data
+        $latest = Tamu::orderBy('id', 'DESC')->first();
+        $tamuSeq = substr($latest->Alias, 4);
+        $seq = intval($tamuSeq);
+        $session = Session::all();
+        $cabang_id = $session['cabang_id'];
+
+        //isi data
+        $data = [
+            'NamaTamu' => '-',
+            'Alias' => 'tamu' . $seq + 1,
+            'Alamat' => '-',
+            'Email' => '-',
+            'NoTelp' => '-',
+            'cabang_id' => $cabang_id,
+            'IbadahKe' => '-',
+        ];
+
+        //store to db
+        $message = '';
+        try {
+            $response = Tamu::create($data);
+        } catch (\Throwable $th) {
+            $message = $th->message;
+        }
+
+        if ($message != '') {
+            return view('tamu-inserted', compact('message'));
+        } else {
+            $message = 'Data tamu berhasil diinput, silahkan kembali';
+            return view('tamu-inserted', compact('message'));
+        }
+    }
+
 }
