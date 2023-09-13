@@ -39,11 +39,12 @@ Route::middleware('usersession')->group(function () {
     Route::post('/jemaat/absen/{id}', 'JemaatController@absen')->name('jemaat_absen');
     Route::get('/jemaat/export', 'JemaatController@export')->name('jemaat_export');
     Route::get('/jemaat/absensi', 'JemaatController@absensi')->name('jemaat_absensi');
+    Route::get('/jemaat/absensi/export', 'JemaatController@absensiExport')->name('jemaat_absensi_export');
 
     //tamu
     Route::get('/jemaat/tamu', 'JemaatController@tamuPage')->name('jemaat_tamu');
     Route::get('/jemaat/tamu/edit/{id}', 'JemaatController@tamuEdit')->name('jemaat_tamu_edit');
-    Route::get('/jemaat/tamu/update/{id}', 'JemaatController@tamuUpdate')->name('jemaat_tamu_update');
+    Route::put('/jemaat/tamu/update/{id}', 'JemaatController@tamuUpdate')->name('jemaat_tamu_update');
     Route::get('/jemaat/tamu/qr', 'JemaatController@qrTamu')->name('jemaat_tamu_qr');
 });
 
@@ -109,7 +110,6 @@ Route::get('/testing/view/kartu', function () {
 Route::get('/testing/print', 'JemaatController@testingPrint')->name('testing_print');
 Route::get('/testing/session', 'UserController@getSession')->name('testing_session');
 Route::get('/testing/chart', 'YonatanController@testChart')->name('testing_chart');
-Route::get('/testing/tamu/latest', function () {
-    $latest = App\Models\Tamu::orderBy('id', 'DESC')->first();
-    dd($latest->Alias);
+Route::get('/testing/getNow', function() {
+    return now()->format('Ymdh');
 });

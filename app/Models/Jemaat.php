@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Attendance;
+use App\Models\Cabang;
 
 
 class Jemaat extends Model
@@ -39,4 +40,7 @@ class Jemaat extends Model
         'cabang_id'
     ];
 
+    public function cabang() {
+        return $this->hasOne(Cabang::class);
+    }
 }

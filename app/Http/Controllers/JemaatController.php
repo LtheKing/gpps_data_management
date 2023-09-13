@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Charts\JemaatsChart;
 use App\Charts\MonthlyUsersChart;
 use App\Exports\JemaatExport;
+use App\Exports\AttendanceExport;
 use App\Models\Attendance;
 use App\Models\Cabang;
 use App\Models\Jemaat;
@@ -314,16 +315,18 @@ class JemaatController extends Controller
             $tamu->update($request->all());
             $message = 'Data tamu berhasil diupdate !';
             return redirect()->route('jemaat_tamu')
-                ->with('message', $message)
+                ->with('pesan', $message)
                 ->with('message_type', 'success');
         } catch (\Throwable $th) {
             $message = $th->message;
             return redirect()->route('jemaat_tamu')
                 ->with('message', $message)
-                ->with('message_type', 'error');
+                ->with('message_type', 'danger');
         }
+    }
 
-        //    return view('tamu', compact('message', 'qrcode'));
+    public function absensiExport() {
+        return Excel::download(new AttendanceExport, 'absensi'. now()->format('Ymdh') .'.xlsx');
     }
 
     //API

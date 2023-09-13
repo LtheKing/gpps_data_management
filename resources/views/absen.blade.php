@@ -54,10 +54,12 @@
                 </div>
             </form>
         </div>
-    </div>
-
-    <div id="div_cart">
-        {!! $chart->container() !!}
+        
+        <div id="div_cart">
+            {!! $chart->container() !!}
+        </div>
+        
+        <a class="btn btn-warning" href="{{ route('jemaat_absensi_export') }}">Print Absen</a>
     </div>
 
     <script src="{{ asset('js/render.js') }}"></script>

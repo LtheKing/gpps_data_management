@@ -5,23 +5,25 @@
 @endsection
 
 @section('content')
-
     <h1>Edit Tamu</h1>
 
-    @if (session('error'))
+    {{-- @if (session('message_type') == 'error')
         <div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert">×</button>
-            {{ session('error') }}
+            {{ session('message') }}
         </div>
     @endif
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+    @if (session('message_type') == 'success')
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ session('message') }}
+        </div>
+    @endif --}}
+
+    @if (session('pesan'))
+        <div class="alert alert-success }}">
+            <p> {{ session('pesan') }} </p>
         </div>
     @endif
 
@@ -55,6 +57,11 @@
                 value="{{ old('Email', $tamu->Email) }}"></input>
         </div>
 
+        <div class="mb-3" id="div_Alamat">
+            <label for="inputAlamat" class="form-label">Alamat</label>
+            <textarea class="form-control" id="inputAlamat" name="Alamat"> {{ old('Alamat', $tamu->Alamat) }} </textarea>
+        </div>
+
         <div class="mb-3" id="div_cabang">
             <label for="input_cabang" class="form-label">Cabang</label>
             <select name="cabang_id" id="input_cabang" class="form-control" value="{{ old('cabang') }}">
@@ -65,7 +72,7 @@
             </select>
         </div>
 
-         <div class="mb-3" id="div_ibadahke">
+        <div class="mb-3" id="div_ibadahke">
             <label for="input_ibadahKe" class="form-label">Ibadah Ke</label>
             <select name="IbadahKe" id="input_ibadahKe" class="form-control" value="{{ old('IbadahKe') }}">
                 <option value="1">1</option>
@@ -73,5 +80,7 @@
                 <option value="3">3</option>
             </select>
         </div>
+
+        <button type="submit" class="btn btn-primary mt-2 mb-3">Submit</button>
     </form>
 @endsection

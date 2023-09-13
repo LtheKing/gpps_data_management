@@ -16,7 +16,7 @@ class Cabang extends Model
         'Status'
     ];
 
-    public function cabangs() {
+    public function jemaatCabang() {
         return $this->hasMany(User::class);
     }
 }

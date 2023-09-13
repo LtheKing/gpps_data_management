@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Yonatan;
+use App\Models\Jemaat;
 use Illuminate\Http\Request;
 use App\Charts\MonthlyUsersChart;
+use Illuminate\Support\Facades\Schema;
 
 class YonatanController extends Controller
 {
@@ -17,5 +19,10 @@ class YonatanController extends Controller
     public function testChart(MonthlyUsersChart $chart)
     {
         return view('testing.chart_example', ['chart' => $chart->build()]);
+    }
+
+    public function testGetAttribute() {
+        $result = Schema::getColumnListing((new Jemaat)->getTable());
+        return $result;
     }
 }
