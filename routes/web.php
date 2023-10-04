@@ -40,14 +40,14 @@ Route::middleware('usersession')->group(function () {
     Route::get('/jemaat/export', 'JemaatController@export')->name('jemaat_export');
     Route::get('/jemaat/absensi', 'JemaatController@absensi')->name('jemaat_absensi');
     Route::get('/jemaat/absensi/export', 'JemaatController@absensiExport')->name('jemaat_absensi_export');
-
-    //tamu
-    Route::get('/jemaat/tamu', 'JemaatController@tamuPage')->name('jemaat_tamu');
-    Route::get('/jemaat/tamu/edit/{id}', 'JemaatController@tamuEdit')->name('jemaat_tamu_edit');
-    Route::get('/jemaat/tamu/detail/{id}', 'JemaatController@tamuDetail')->name('jemaat_tamu_detail');
-    Route::put('/jemaat/tamu/update/{id}', 'JemaatController@tamuUpdate')->name('jemaat_tamu_update');
-    Route::get('/jemaat/tamu/qr', 'JemaatController@qrTamu')->name('jemaat_tamu_qr');
 });
+
+//tamu
+Route::get('/jemaat/tamu', 'JemaatController@tamuPage')->name('jemaat_tamu');
+Route::get('/jemaat/tamu/edit/{id}', 'JemaatController@tamuEdit')->name('jemaat_tamu_edit');
+Route::get('/jemaat/tamu/detail/{id}', 'JemaatController@tamuDetail')->name('jemaat_tamu_detail');
+Route::put('/jemaat/tamu/update/{id}', 'JemaatController@tamuUpdate')->name('jemaat_tamu_update');
+Route::get('/absen/tamu/qr', 'JemaatController@qrTamu')->name('jemaat_tamu_qr');
 
 //api
 Route::get('/jemaat/absen/{id}', 'JemaatController@absen_qr')->name('jemaat_absen');

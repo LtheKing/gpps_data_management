@@ -448,8 +448,8 @@ class JemaatController extends Controller
         $latest = Tamu::orderBy('id', 'DESC')->first();
         $tamuSeq = substr($latest->Alias, 4);
         $seq = intval($tamuSeq);
-        $session = Session::all();
-        $cabang_id = $session['cabang_id'];
+        // $session = Session::all();
+        $cabang_id = 1;
 
         //isi data
         $data = [
