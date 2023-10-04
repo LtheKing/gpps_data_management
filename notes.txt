@@ -77,4 +77,4 @@ to do :
     - index otomatis terfilter sesuai login cabang [DONE]
     - minta coba di assesment jika ditambahkan QR khusus tamu (jika di scan akan masuk ke dalam list, misalnya: tamu1, tamu2, tamu3 dst) [DONE]
     - CRUD tamu [DONE]
-    - fitur print out ( list nama, alamat dan no telpon)
+    - fitur print out ( list nama, alamat dan no telpon) [DONE]

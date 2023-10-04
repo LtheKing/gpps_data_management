@@ -13,31 +13,31 @@ class Jemaat extends Model
     use HasFactory;
 
     protected $fillable = [
-        'NoAnggota',
-        'Nama',
-        'Alamat',
-        'Tlp',
-        'Status',
-        'NamaAyah',
-        'NamaIbu',
-        'TanggalBaptis',
-        'PelaksanaBaptis',
-        'FileName',
-        'ImageName',
-        'JenisKelamin',
-        'Segment',
-        'StatusBaptis',
-        'StatusKematian',
-        'TanggalKematian',
-        'NamaSuami',
-        'NamaIstri',
-        'TanggalPernikahan',
-        'PelaksanaPemberkatan',
-        'TempatLahir',
-        'TanggalLahir',
-        'GolonganDarah',
-        'komisi',
-        'cabang_id'
+        'NoAnggota', //a
+        'Nama', //b
+        'Alamat', //c
+        'Tlp', //d
+        'Status', //e
+        'NamaAyah', //f
+        'NamaIbu', //g
+        'TanggalBaptis', //h
+        'PelaksanaBaptis', //i
+        'FileName', //j
+        'ImageName', //k
+        'JenisKelamin', //l
+        'Segment', //m
+        'StatusBaptis', //n
+        'StatusKematian', //o
+        'TanggalKematian', //p
+        'NamaSuami', //q
+        'NamaIstri', //r
+        'TanggalPernikahan', //s
+        'PelaksanaPemberkatan', //t
+        'TempatLahir', //u
+        'TanggalLahir', //v
+        'GolonganDarah', //w
+        'komisi', //x
+        'cabang_id' //y
     ];
 
     public function cabang() {

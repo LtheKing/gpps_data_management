@@ -8,9 +8,11 @@ use App\Models\Jemaat;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-
-class AttendanceExport implements FromArray, WithHeadings
+class AttendanceExport implements FromArray, WithHeadings, WithColumnWidths, WithStyles
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -47,5 +49,23 @@ class AttendanceExport implements FromArray, WithHeadings
         ];
 
         return $columns;
+    }
+
+    public function columnWidths(): array
+    {
+        return [
+            'A' => 55,
+            'B' => 45,            
+            'C' => 55,
+            'D' => 25,
+        ];
+    }
+
+     public function styles(Worksheet $sheet)
+    {
+        return [
+            // Style the first row as bold text.
+            1    => ['font' => ['bold' => true, 'size' => 18]]
+        ];
     }
 }

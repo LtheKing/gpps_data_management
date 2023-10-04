@@ -88,19 +88,19 @@
                     document.getElementById('id01').style.display = 'block'
                     $('#btnYes').on('click', function() {
                         deleteRecord(data.id);
-                        alert('Data Jemaat Berhasil Dihapus');
+                        alert('Data Tamu Berhasil Dihapus');
                     })
                 }
 
                 if (action.includes('btnDetail')) {
-                    window.location.href = localhost + 'jemaat/detail/' + data.id;
+                    window.location.href = localhost + 'jemaat/tamu/detail/' + data.id;
                 }
             });
         });
 
         async function deleteRecord(id) {
             token = await getToken();
-            const response = await fetch(localhost + "api/jemaat/delete/" + id, {
+            const response = await fetch(localhost + "api/jemaat/tamu/delete/" + id, {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json',

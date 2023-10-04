@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Charts\JemaatsChart;
 use App\Charts\MonthlyUsersChart;
-use App\Exports\JemaatExport;
 use App\Exports\AttendanceExport;
+use App\Exports\JemaatExport;
 use App\Models\Attendance;
 use App\Models\Cabang;
 use App\Models\Jemaat;
@@ -139,7 +139,9 @@ class JemaatController extends Controller
     public function show($id)
     {
         $jemaat = Jemaat::find($id);
-        $qrcode = QrCode::size(125)->generate(route('jemaat_detail', $id));
+        $qrcode = QrCode::size(125)->generate(route('jemaat_absen', $id, [
+            'X-CSRF-TOKEN' => csrf_token(),
+        ]));
         $cabang = Cabang::find($jemaat->cabang_id);
         return view('detail', compact('jemaat', 'qrcode', 'cabang'));
     }
@@ -275,11 +277,27 @@ class JemaatController extends Controller
         $absen = [
             'jemaat_id' => $id,
             'tgl_kehadiran' => now(),
-            'cabang_id' => $session['cabang_id'],
+            'cabang_id' => $jemaat->cabang_id,
             'ibadah_ke' => $request->IbadahKe,
         ];
 
         Attendance::create($absen);
+    }
+
+    public function absen_qr($id)
+    {
+        $jemaat = Jemaat::find($id);
+        $session = Session::all();
+        $absen = [
+            'jemaat_id' => $id,
+            'tgl_kehadiran' => now(),
+            'cabang_id' => $jemaat->cabang_id,
+            'ibadah_ke' => 1,
+        ];
+
+        Attendance::create($absen);
+
+        return ('absen berhasil');
     }
 
     public function export()
@@ -325,8 +343,16 @@ class JemaatController extends Controller
         }
     }
 
-    public function absensiExport() {
-        return Excel::download(new AttendanceExport, 'absensi'. now()->format('Ymdh') .'.xlsx');
+    public function tamuDetail($id)
+    {
+        $tamu = Tamu::find($id);
+        $cabangsObj = DB::table('cabangs')->select()->get();
+        return view('tamu-detail', compact('tamu', 'cabangsObj'));
+    }
+
+    public function absensiExport()
+    {
+        return Excel::download(new AttendanceExport, 'absensi' . now()->format('Ymdh') . '.xlsx');
     }
 
     //API
@@ -440,16 +466,29 @@ class JemaatController extends Controller
         $message = '';
         try {
             $response = Tamu::create($data);
+            return 'daftar tamu ' . $seq + 1 . ' berhasil';
         } catch (\Throwable $th) {
-            $message = $th->message;
+            // $message = $th->message;
+            return $th->message;
         }
 
-        if ($message != '') {
-            return view('tamu-inserted', compact('message'));
-        } else {
-            $message = 'Data tamu berhasil diinput, silahkan kembali';
-            return view('tamu-inserted', compact('message'));
-        }
+        // if ($message != '') {
+        //     return view('tamu-inserted', compact('message'));
+        // } else {
+        //     $message = 'Data tamu berhasil diinput, silahkan kembali';
+        //     return view('tamu-inserted', compact('message'));
+        // }
+    }
+
+    public function api_tamu_delete($id)
+    {
+        // $jemaat = Jemaat::find($id);
+        // $jemaat->delete();
+        // Storage::disk('public')->delete('/images/' . $jemaat->ImageName);
+
+        $tamu = Tamu::find($id);
+        $tamu->delete();
+        return response('Data Deleted', 200);
     }
 
 }
