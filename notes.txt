@@ -78,3 +78,13 @@ to do :
     - minta coba di assesment jika ditambahkan QR khusus tamu (jika di scan akan masuk ke dalam list, misalnya: tamu1, tamu2, tamu3 dst) [DONE]
     - CRUD tamu [DONE]
     - fitur print out ( list nama, alamat dan no telpon) [DONE]
+
+tambahan :
+    - komisi :
+        AMC
+        AWC
+        youth
+        Teens
+        SM
+        ACC
+    - print absen berdasarkan jam ibadah : 06.00, 07.45, 16.00

@@ -16,9 +16,15 @@ class JemaatExport implements FromCollection, WithHeadings, WithColumnWidths, Wi
     /**
      * @return \Illuminate\Support\Collection
      */
+
+    public function __construct($filter, $value) {
+        $this->filter = $filter;
+        $this->value = $value;
+    } 
+
     public function collection()
     {
-        return Jemaat::all();
+        return Jemaat::where($this->filter, $this->value)->get();
     }
 
     public function headings(): array

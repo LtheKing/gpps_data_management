@@ -138,6 +138,7 @@ class JemaatController extends Controller
      */
     public function show($id)
     {
+        Artisan::call('cache:clear');
         $jemaat = Jemaat::find($id);
         $qrcode = QrCode::size(125)->generate(route('jemaat_absen', $id, [
             'X-CSRF-TOKEN' => csrf_token(),
@@ -233,6 +234,7 @@ class JemaatController extends Controller
             Storage::disk('local')->put('public/images/' . $fileName, $img, 'public');
 
             $data->update($toUpdate);
+            Artisan::call('cache:clear');
             return redirect()->route('jemaat_index')->with('Success', 'Data Jemaat Berhasil Diubah');
 
         } else {
@@ -300,9 +302,11 @@ class JemaatController extends Controller
         return ('absen berhasil');
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new JemaatExport, 'jemaat.xlsx');
+        $filter = $request->select_filter;
+        $value = $request->value_filter;
+        return Excel::download(new JemaatExport($filter, $value), 'jemaat-' . $filter . '-' . $value . '-' . now()->format('Ymdh') . '.xlsx');
     }
 
     public function tamuPage()

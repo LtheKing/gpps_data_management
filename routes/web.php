@@ -30,6 +30,7 @@ Route::get('/logout', function () {
 
 Route::middleware('usersession')->group(function () {
     //jemaat
+    Artisan::call('cache:clear');
     Route::get('/jemaat/index', 'JemaatController@index')->name('jemaat_index');
     Route::get('/jemaat/create', 'JemaatController@create')->name('jemaat_create');
     Route::post('/jemaat/store', 'JemaatController@store')->name('jemaat_store');
@@ -37,7 +38,7 @@ Route::middleware('usersession')->group(function () {
     Route::get('/jemaat/detail/{id}', 'JemaatController@show')->name('jemaat_detail');
     Route::put('/jemaat/update/{id}', 'JemaatController@update')->name('jemaat_update');
     Route::delete('/jemaat/delete/{id}', 'JemaatController@destroy')->name('jemaat_destroy');
-    Route::get('/jemaat/export', 'JemaatController@export')->name('jemaat_export');
+    Route::post('/jemaat/export', 'JemaatController@export')->name('jemaat_export');
     Route::get('/jemaat/absensi', 'JemaatController@absensi')->name('jemaat_absensi');
     Route::get('/jemaat/absensi/export', 'JemaatController@absensiExport')->name('jemaat_absensi_export');
 });
