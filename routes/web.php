@@ -3,6 +3,8 @@
 use App\Models\Jemaat;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Carbon;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +42,7 @@ Route::middleware('usersession')->group(function () {
     Route::delete('/jemaat/delete/{id}', 'JemaatController@destroy')->name('jemaat_destroy');
     Route::post('/jemaat/export', 'JemaatController@export')->name('jemaat_export');
     Route::get('/jemaat/absensi', 'JemaatController@absensi')->name('jemaat_absensi');
-    Route::get('/jemaat/absensi/export', 'JemaatController@absensiExport')->name('jemaat_absensi_export');
+    Route::post('/jemaat/absensi/export', 'JemaatController@absensiExport')->name('jemaat_absensi_export');
 });
 
 //tamu
@@ -113,8 +115,24 @@ Route::get('/testing/view/kartu', function () {
 Route::get('/testing/print', 'JemaatController@testingPrint')->name('testing_print');
 Route::get('/testing/session', 'UserController@getSession')->name('testing_session');
 Route::get('/testing/chart', 'YonatanController@testChart')->name('testing_chart');
-Route::get('/testing/getNow', function () {
-    return now()->format('Ymdh');
+Route::get('/testing/getIbadah', function () {
+    // 06.00, 07.45, 16.00
+    $ibadah1 = strtotime('06:00:00');
+    $ibadah2 = strtotime('07:45:00');
+    $ibadah3 = strtotime('16:00:00');
+    $now = date('H:i:s');
+
+    $result = '';
+
+    if ($now > $ibadah1 && $now < $ibadah2 ) {
+        $result = 'ibadah 1';
+    } else if ($now > $ibadah2 && $now < $ibadah3) {
+        $result = 'ibadah 2';
+    } else {
+        $result = 'ibadah 3';
+    }
+    
+    return $result;
 });
 Route::get('/testing/jemaat', function () {
     $jemaat = Jemaat::all();

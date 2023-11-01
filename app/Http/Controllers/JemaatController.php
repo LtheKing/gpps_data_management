@@ -272,29 +272,32 @@ class JemaatController extends Controller
         return view('absen', ['chart' => $chart->build()]);
     }
 
-    public function absen($id, Request $request)
-    {
-        $jemaat = Jemaat::find($id);
-        $session = Session::all();
-        $absen = [
-            'jemaat_id' => $id,
-            'tgl_kehadiran' => now(),
-            'cabang_id' => $jemaat->cabang_id,
-            'ibadah_ke' => $request->IbadahKe,
-        ];
-
-        Attendance::create($absen);
-    }
-
     public function absen_qr($id)
     {
         $jemaat = Jemaat::find($id);
         $session = Session::all();
+
+        //choose ibadah
+        $ibadah1 = strtotime('06:00:00');
+        $ibadah2 = strtotime('07:45:00');
+        $ibadah3 = strtotime('16:00:00');
+        $now = date('H:i:s');
+
+        $jamIbadah = '';
+
+        if ($now > $ibadah1 && $now < $ibadah2) {
+            $jamIbadah = 1;
+        } else if ($now > $ibadah2 && $now < $ibadah3) {
+            $jamIbadah = 2;
+        } else {
+            $jamIbadah = 3;
+        }
+
         $absen = [
             'jemaat_id' => $id,
             'tgl_kehadiran' => now(),
             'cabang_id' => $jemaat->cabang_id,
-            'ibadah_ke' => 1,
+            'ibadah_ke' => $jamIbadah,
         ];
 
         Attendance::create($absen);
@@ -354,9 +357,9 @@ class JemaatController extends Controller
         return view('tamu-detail', compact('tamu', 'cabangsObj'));
     }
 
-    public function absensiExport()
+    public function absensiExport(Request $request)
     {
-        return Excel::download(new AttendanceExport, 'absensi' . now()->format('Ymdh') . '.xlsx');
+        return Excel::download(new AttendanceExport($request->all()), 'absensi' . now()->format('Ymdh') . '.xlsx');
     }
 
     //API

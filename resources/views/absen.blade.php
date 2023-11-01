@@ -33,6 +33,9 @@
                             <option value="pernikahan">Status Pernikahan</option>
                             <option value="kematian">Status Kematian</option>
                             <option value="segment">Segment</option>
+                            <option value="ibadah1">Ibadah 1</option>
+                            <option value="ibadah2">Ibadah 2</option>
+                            <option value="ibadah3">Ibadah 3</option>
                         </select>
                     </div>
 
@@ -49,17 +52,27 @@
                     </div>
 
                     <div class="col">
-                        <input type="submit" class="btn btn-info" id="btnSubmit" value="Submit" disabled>
+                        <input type="submit" class="btn btn-info" id="btnSubmit" value="Submit" disabled onclick="onSubmitClick()">
+                        <button class="btn btn-warning" type="button" onclick="triggerBtnPrint()">Print Absen</button>
                     </div>
                 </div>
             </form>
         </div>
-        
+
         <div id="div_cart">
             {!! $chart->container() !!}
         </div>
-        
-        <a class="btn btn-warning" href="{{ route('jemaat_absensi_export') }}">Print Absen</a>
+
+        <form action="{{ route('jemaat_absensi_export') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <input type="text" hidden="true" name="input_filter" id="input_filter">
+            <input type="text" hidden="true" name="input_year_from" id="input_year_from">
+            <input type="text" hidden="true" name="input_year_to" id="input_year_to">
+            <input type="text" hidden="true" name="input_year_month" id="input_year_month">
+            <button class="btn btn-warning" type="submit" hidden=true id="btnPrint">
+                Print Absen</button>
+        </form>
+
     </div>
 
     <script src="{{ asset('js/render.js') }}"></script>
@@ -110,24 +123,38 @@
                 'yearMonth': inputYearMonth.value
             };
 
-            console.log(data);
-
             // const response = await fetch(localhost + 'api/jemaat/filter/' + field + '/' + value);
             // const result = await response.text();
 
-            var myHeaders = new Headers();
-            myHeaders.append("X-CSRF-TOKEN", "lbQp9w3YGn8oF7xprxCKrRjTgJ3AAZjF4XaJ5qum");
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: data,
-                redirect: 'follow'
-            };
+            // var myHeaders = new Headers();
+            // myHeaders.append("X-CSRF-TOKEN", "lbQp9w3YGn8oF7xprxCKrRjTgJ3AAZjF4XaJ5qum");
+            // var requestOptions = {
+            //     method: 'POST',
+            //     headers: myHeaders,
+            //     body: data,
+            //     redirect: 'follow'
+            // };
 
-            fetch("http://127.0.0.1:8000/api/jemaat/absensi/filter", requestOptions)
-                .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
+            // fetch("http://127.0.0.1:8000/api/jemaat/absensi/filter", requestOptions)
+            //     .then(response => response.text())
+            //     .then(result => console.log(result))
+            //     .catch(error => console.log('error', error));
+        }
+
+        function triggerBtnPrint() {
+            //fill data for print
+
+            var inputFilter = document.getElementById('selectFilter');
+            var inputYearFrom = document.getElementById('inputYearFrom');
+            var inputYearTo = document.getElementById('inputYearTo');
+            var inputYearMonth = document.getElementById('inputYearMonth');
+
+            document.getElementById('input_filter').value = inputFilter.value;
+            document.getElementById('input_year_from').value = inputYearFrom.value;
+            document.getElementById('input_year_to').value = inputYearTo.value;
+            document.getElementById('input_year_month').value = inputYearMonth.value;
+            
+            document.getElementById('btnPrint').click();
         }
     </script>
 @endsection

@@ -167,7 +167,7 @@
             <select name="komisi" id="input_Komisi" class="form-control" value="{{ old('Komisi') }}">
                 value="{{ old('Status', $jemaat->komisi) }}">
                 <?php
-                $val = ['Anak', 'Pemuda'];
+                $val = ['AMC', 'AWC', 'Youth', 'Teens', 'SM', 'ACC'];
                 ?>
 
                 @foreach ($val as $item)

@@ -17,6 +17,11 @@ class AttendanceExport implements FromArray, WithHeadings, WithColumnWidths, Wit
     /**
      * @return \Illuminate\Support\Collection
      */
+
+    public function __construct($filter) {
+        $this->filter = $filter;
+    } 
+
     public function array() : array
     {
         $dataOri = Attendance::all();

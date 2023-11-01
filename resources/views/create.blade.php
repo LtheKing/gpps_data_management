@@ -170,8 +170,12 @@
         <div class="mb-3" id="div_Komisi">
             <label for="input_Komisi" class="form-label">Komisi</label>
             <select name="komisi" id="input_Komisi" class="form-control" value="{{ old('Komisi') }}">
-                <option value="Komisi Anak">Komisi Anak</option>
-                <option value="Komisi Pemuda">Komisi Pemuda</option>
+                <option value="AMC">AMC</option>
+                <option value="AWC">AWC</option>
+                <option value="Youth">Youth</option>
+                <option value="Teens">Teens</option>
+                <option value="SM">SM</option>
+                <option value="ACC">ACC</option>
             </select>
         </div>
 
