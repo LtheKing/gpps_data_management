@@ -39,6 +39,14 @@
                         </select>
                     </div>
 
+                    <div id="div_input_jk" hidden=true>
+                        <select name="filter" id="selectFilter"  class="form-control mb-3">
+                            <option value="">== Hanya Untuk Print Filter</option>
+                            <option value="Pria">Pria</option>
+                            <option value="Wanita">Wanita</option>
+                        </select>
+                    </div>
+
                     <div id="div_input_tahun" class="col" hidden=true>
                         <input id="inputYearFrom" name="inputYearFrom" type="number" min="2000" max="2099"
                             step="1" value="2016" class="form-control mb-3" placeholder="from" />

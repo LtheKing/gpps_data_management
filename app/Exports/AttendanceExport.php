@@ -24,6 +24,60 @@ class AttendanceExport implements FromArray, WithHeadings, WithColumnWidths, Wit
 
     public function array() : array
     {
+        dd($this->filter['input_filter']);
+
+        // if ($this->filter['input_filter'] != null) {
+        //     dd($this->filter);
+        //     # code...
+        // }
+
+        $dataOri = [];
+
+        switch ($this->filter['input_filter']) {
+            case 'tahun':
+                # code...
+                break;
+
+            case 'bulan':
+                # code...
+                break;
+
+            case 'baptis':
+                # code...
+                break;
+            
+            case 'jk':
+                # code...
+                break;
+                
+            case 'pernikahan':
+                # code...
+                break;
+            
+            case 'kematian':
+                # code...
+                break;
+
+            case 'segment':
+                # code...
+                break;  
+                
+            case 'ibadah1':
+                # code...
+                break;   
+                
+            case 'ibadah2':
+                # code...
+                break;     
+
+            case 'ibadah3':
+                # code...
+                break;         
+
+            default:
+                $dataOri = Attendance::all();
+                break;
+        }
         $dataOri = Attendance::all();
         $dataModif = [];
         foreach ($dataOri as $key => $value) {
