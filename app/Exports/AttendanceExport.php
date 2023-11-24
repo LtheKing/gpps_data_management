@@ -24,7 +24,8 @@ class AttendanceExport implements FromArray, WithHeadings, WithColumnWidths, Wit
 
     public function array() : array
     {
-        dd($this->filter['input_filter']);
+        dd($this);
+        // dd($this->filter['input_filter']);
 
         // if ($this->filter['input_filter'] != null) {
         //     dd($this->filter);

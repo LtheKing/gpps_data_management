@@ -28,83 +28,81 @@
                         </select>
                     </div>
 
-                    <div id="div_input_jk" hidden=true>
-                        <select name="filter_jk" id="selectFilter_jk" class="form-control mb-3">
-                            <option value="">== Hanya Untuk Print Filter</option>
-                            <option value="Pria">Pria</option>
-                            <option value="Wanita">Wanita</option>
-                        </select>
-                    </div>
-
-                    <div id="div_input_baptis" hidden=true>
-                        <select name="filter_baptis" id="selectFilter_baptis" class="form-control mb-3">
-                            <option value="">== Hanya Untuk Print Filter</option>
-                            <option value="Sudah">Sudah</option>
-                            <option value="Belum">Belum</option>
-                        </select>
-                    </div>
-
-                    <div id="div_input_pernikahan" hidden=true>
-                        <select name="filter_pernikahan" id="selectFilter_pernikahan" class="form-control mb-3">
-                            <option value="">== Hanya Untuk Print Filter</option>
-                            <option value="Menikah">Menikah</option>
-                            <option value="Belum Menikah">Belum Menikah</option>
-                        </select>
-                    </div>
-
-                    <div id="div_input_kematian" hidden=true>
-                        <select name="filter_kematian" id="selectFilter_kematian" class="form-control mb-3">
-                            <option value="">== Hanya Untuk Print Filter</option>
-                            <option value="Ya">Ya</option>
-                            <option value="Tidak">Tidak</option>
-                        </select>
-                    </div>
-
-                    <div id="div_input_segment" hidden=true>
-                        <select name="filter_segment" id="selectFilter_segment" class="form-control mb-3">
-                            <option value="">== Hanya Untuk Print Filter</option>
-                            <option value="Anak">Anak</option>
-                            <option value="Remaja">Remaja</option>
-                            <option value="Dewasa">Dewasa</option>
-                            <option value="Lansia">Lansia</option>
-                        </select>
-                    </div>
-
-                    <div id="div_input_tahun" class="col" hidden=true>
-                        <input id="inputYearFrom" name="inputYearFrom" type="number" min="2000" max="2099"
-                            step="1" value="2016" class="form-control mb-3" placeholder="from" />
-                        <input id="inputYearTo" name="inputYearTo" type="number" min="2000" max="2099"
-                            step="1" value="2016" class="form-control" placeholder="to" />
-                    </div>
-
-                    <div id="div_input_bulanan" class="col" hidden=true>
-                        <input class="form-control date-year" placeholder="Pilih Tahun" value="2023" name="inputYearMonth"
-                            id="inputYearMonth">
-                    </div>
-
                     <div class="col">
-                        <input type="submit" class="btn btn-info" id="btnSubmit" value="Submit" disabled
-                            onclick="onSubmitClick()">
-                        <button class="btn btn-warning" type="button" onclick="triggerBtnPrint()">Print Absen</button>
+                        <form action="{{ route('jemaat_absensi_export') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="text" hidden="true" name="input_filter" id="input_filter">
+                            <input type="text" hidden="true" name="input_year_from" id="input_year_from">
+                            <input type="text" hidden="true" name="input_year_to" id="input_year_to">
+                            <input type="text" hidden="true" name="input_year_month" id="input_year_month">
+                            <div id="div_input_jk" hidden=true>
+                                <select name="filter_jk" id="selectFilter_jk" class="form-control mb-3">
+                                    <option value="">== Hanya Untuk Print Filter</option>
+                                    <option value="Pria">Pria</option>
+                                    <option value="Wanita">Wanita</option>
+                                </select>
+                            </div>
+
+                            <div id="div_input_baptis" hidden=true>
+                                <select name="filter_baptis" id="selectFilter_baptis" class="form-control mb-3">
+                                    <option value="">== Hanya Untuk Print Filter</option>
+                                    <option value="Sudah">Sudah</option>
+                                    <option value="Belum">Belum</option>
+                                </select>
+                            </div>
+
+                            <div id="div_input_pernikahan" hidden=true>
+                                <select name="filter_pernikahan" id="selectFilter_pernikahan" class="form-control mb-3">
+                                    <option value="">== Hanya Untuk Print Filter</option>
+                                    <option value="Menikah">Menikah</option>
+                                    <option value="Belum Menikah">Belum Menikah</option>
+                                </select>
+                            </div>
+
+                            <div id="div_input_kematian" hidden=true>
+                                <select name="filter_kematian" id="selectFilter_kematian" class="form-control mb-3">
+                                    <option value="">== Hanya Untuk Print Filter</option>
+                                    <option value="Ya">Ya</option>
+                                    <option value="Tidak">Tidak</option>
+                                </select>
+                            </div>
+
+                            <div id="div_input_segment" hidden=true>
+                                <select name="filter_segment" id="selectFilter_segment" class="form-control mb-3">
+                                    <option value="">== Hanya Untuk Print Filter</option>
+                                    <option value="Anak">Anak</option>
+                                    <option value="Remaja">Remaja</option>
+                                    <option value="Dewasa">Dewasa</option>
+                                    <option value="Lansia">Lansia</option>
+                                </select>
+                            </div>
+
+                            <div id="div_input_tahun" class="col" hidden=true>
+                                <input id="inputYearFrom" name="inputYearFrom" type="number" min="2000" max="2099"
+                                    step="1" value="2016" class="form-control mb-3" placeholder="from" />
+                                <input id="inputYearTo" name="inputYearTo" type="number" min="2000" max="2099"
+                                    step="1" value="2016" class="form-control" placeholder="to" />
+                            </div>
+
+                            <div id="div_input_bulanan" class="col" hidden=true>
+                                <input class="form-control date-year" placeholder="Pilih Tahun" value="2023"
+                                    name="inputYearMonth" id="inputYearMonth">
+                            </div>
+                            <button class="btn btn-warning" type="submit" hidden=true id="btnPrint">
+                                Print Absen</button>
+                        </form>
                     </div>
                 </div>
-            </form>
-        </div>
 
+                <button id="">button hidden submit</button>
+            </form>
+            <input type="submit" class="btn btn-info" id="btnSubmit" value="Submit" disabled
+                onclick="onSubmitClick()">
+            <button class="btn btn-warning" type="button" onclick="triggerBtnPrint()">Print Absen</button>
+        </div>
         <div id="div_cart">
             {!! $chart->container() !!}
         </div>
-
-        <form action="{{ route('jemaat_absensi_export') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <input type="text" hidden="true" name="input_filter" id="input_filter">
-            <input type="text" hidden="true" name="input_year_from" id="input_year_from">
-            <input type="text" hidden="true" name="input_year_to" id="input_year_to">
-            <input type="text" hidden="true" name="input_year_month" id="input_year_month">
-            <button class="btn btn-warning" type="submit" hidden=true id="btnPrint">
-                Print Absen</button>
-        </form>
-
     </div>
 
     <script src="{{ asset('js/render.js') }}"></script>
