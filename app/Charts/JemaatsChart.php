@@ -21,9 +21,9 @@ class JemaatsChart
 
         //filter values
         $selector = $filter['filter'];
-        $yearFrom = $filter['inputYearFrom'];
-        $yearTo = $filter['inputYearTo'];
-        $yearMonth = $filter['inputYearMonth'];
+        $yearFrom = $filter['input_year_from'];
+        $yearTo = $filter['input_year_to'];
+        $yearMonth = $filter['input_year_month'];
 
         switch ($selector) {
             case 'tahun':
@@ -152,6 +152,57 @@ class JemaatsChart
                     ->setTitle('Data Jemaat GPPS Agape.')
                     ->addData('Jumlah Jemaat', $viewData)
                     ->setXAxis(['Anak', 'Dewasa', 'Lansia', 'Remaja']);
+
+                break;
+
+            case 'ibadah1':
+                $data = DB::table('attendances')->selectRaw('ibadah_ke, count(id) as jumlah')
+                    ->groupBy('ibadah_ke')->get();
+
+                $viewData = [
+                    $data[0]->jumlah,
+                    $data[1]->jumlah,
+                    $data[2]->jumlah,
+                ];
+
+                return $this->chart->barChart()
+                    ->setTitle('Data Jemaat GPPS Agape.')
+                    ->addData('Jumlah Jemaat', $viewData)
+                    ->setXAxis(['Ibadah 1', 'Ibadah 2', 'Ibadah 3']);
+
+                break;
+
+            case 'ibadah2':
+                $data = DB::table('attendances')->selectRaw('ibadah_ke, count(id) as jumlah')
+                    ->groupBy('ibadah_ke')->get();
+
+                $viewData = [
+                    $data[0]->jumlah,
+                    $data[1]->jumlah,
+                    $data[2]->jumlah,
+                ];
+
+                return $this->chart->barChart()
+                    ->setTitle('Data Jemaat GPPS Agape.')
+                    ->addData('Jumlah Jemaat', $viewData)
+                    ->setXAxis(['Ibadah 1', 'Ibadah 2', 'Ibadah 3']);
+
+                break;
+
+            case 'ibadah3':
+                $data = DB::table('attendances')->selectRaw('ibadah_ke, count(id) as jumlah')
+                    ->groupBy('ibadah_ke')->get();
+
+                $viewData = [
+                    $data[0]->jumlah,
+                    $data[1]->jumlah,
+                    $data[2]->jumlah,
+                ];
+
+                return $this->chart->barChart()
+                    ->setTitle('Data Jemaat GPPS Agape.')
+                    ->addData('Jumlah Jemaat', $viewData)
+                    ->setXAxis(['Ibadah 1', 'Ibadah 2', 'Ibadah 3']);
 
                 break;
 

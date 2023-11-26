@@ -7,10 +7,10 @@
 @section('content')
     <div class="container" id="div_filter">
         <div class="form-group mt-3">
-            <form action="{{ route('jemaat_absensi_filter') }}" method="post" enctype="multipart/form-data">
-                <div class="row">
-                    @csrf
-                    <div class="col">
+            <div class="row">
+                <div class="col">
+                    <form action="{{ route('jemaat_absensi_filter') }}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <select name="filter" id="selectFilter" onchange="onAbsenFilterChange(this);"
                             class="form-control mb-3">
 
@@ -26,78 +26,86 @@
                             <option value="ibadah2">Ibadah 2</option>
                             <option value="ibadah3">Ibadah 3</option>
                         </select>
-                    </div>
 
-                    <div class="col">
-                        <form action="{{ route('jemaat_absensi_export') }}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <input type="text" hidden="true" name="input_filter" id="input_filter">
-                            <input type="text" hidden="true" name="input_year_from" id="input_year_from">
-                            <input type="text" hidden="true" name="input_year_to" id="input_year_to">
-                            <input type="text" hidden="true" name="input_year_month" id="input_year_month">
-                            <div id="div_input_jk" hidden=true>
-                                <select name="filter_jk" id="selectFilter_jk" class="form-control mb-3">
-                                    <option value="">== Hanya Untuk Print Filter</option>
-                                    <option value="Pria">Pria</option>
-                                    <option value="Wanita">Wanita</option>
-                                </select>
-                            </div>
+                        <input type="text" hidden name="input_year_from" id="input_year_from" value="2016">
+                        <input type="text" hidden name="input_year_to" id="input_year_to" value="2016">
+                        <input type="text" hidden name="input_year_month" id="input_year_month" value="2016">
 
-                            <div id="div_input_baptis" hidden=true>
-                                <select name="filter_baptis" id="selectFilter_baptis" class="form-control mb-3">
-                                    <option value="">== Hanya Untuk Print Filter</option>
-                                    <option value="Sudah">Sudah</option>
-                                    <option value="Belum">Belum</option>
-                                </select>
-                            </div>
-
-                            <div id="div_input_pernikahan" hidden=true>
-                                <select name="filter_pernikahan" id="selectFilter_pernikahan" class="form-control mb-3">
-                                    <option value="">== Hanya Untuk Print Filter</option>
-                                    <option value="Menikah">Menikah</option>
-                                    <option value="Belum Menikah">Belum Menikah</option>
-                                </select>
-                            </div>
-
-                            <div id="div_input_kematian" hidden=true>
-                                <select name="filter_kematian" id="selectFilter_kematian" class="form-control mb-3">
-                                    <option value="">== Hanya Untuk Print Filter</option>
-                                    <option value="Ya">Ya</option>
-                                    <option value="Tidak">Tidak</option>
-                                </select>
-                            </div>
-
-                            <div id="div_input_segment" hidden=true>
-                                <select name="filter_segment" id="selectFilter_segment" class="form-control mb-3">
-                                    <option value="">== Hanya Untuk Print Filter</option>
-                                    <option value="Anak">Anak</option>
-                                    <option value="Remaja">Remaja</option>
-                                    <option value="Dewasa">Dewasa</option>
-                                    <option value="Lansia">Lansia</option>
-                                </select>
-                            </div>
-
-                            <div id="div_input_tahun" class="col" hidden=true>
-                                <input id="inputYearFrom" name="inputYearFrom" type="number" min="2000" max="2099"
-                                    step="1" value="2016" class="form-control mb-3" placeholder="from" />
-                                <input id="inputYearTo" name="inputYearTo" type="number" min="2000" max="2099"
-                                    step="1" value="2016" class="form-control" placeholder="to" />
-                            </div>
-
-                            <div id="div_input_bulanan" class="col" hidden=true>
-                                <input class="form-control date-year" placeholder="Pilih Tahun" value="2023"
-                                    name="inputYearMonth" id="inputYearMonth">
-                            </div>
-                            <button class="btn btn-warning" type="submit" hidden=true id="btnPrint">
-                                Print Absen</button>
-                        </form>
-                    </div>
+                        <input type="submit" id="btnSubmitHidden" hidden=true value="btn hidden submit"
+                            class="btn btn-dark" />
+                    </form>
                 </div>
 
-                <button id="">button hidden submit</button>
-            </form>
-            <input type="submit" class="btn btn-info" id="btnSubmit" value="Submit" disabled
-                onclick="onSubmitClick()">
+                <div class="col">
+                    <form action="{{ route('jemaat_absensi_export') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+
+                        <input type="hidden" name="input_filter" id="input_filter">
+
+                        <div id="div_input_jk" hidden=true>
+                            <select name="filter_jk" id="selectFilter_jk" class="form-control mb-3">
+                                <option value="">== Hanya Untuk Print Filter</option>
+                                <option value="Pria">Pria</option>
+                                <option value="Wanita">Wanita</option>
+                            </select>
+                        </div>
+
+                        <div id="div_input_baptis" hidden=true>
+                            <select name="filter_baptis" id="selectFilter_baptis" class="form-control mb-3">
+                                <option value="">== Hanya Untuk Print Filter</option>
+                                <option value="Sudah">Sudah</option>
+                                <option value="Belum">Belum</option>
+                            </select>
+                        </div>
+
+                        <div id="div_input_pernikahan" hidden=true>
+                            <select name="filter_pernikahan" id="selectFilter_pernikahan" class="form-control mb-3">
+                                <option value="">== Hanya Untuk Print Filter</option>
+                                <option value="Menikah">Menikah</option>
+                                <option value="Belum Menikah">Belum Menikah</option>
+                            </select>
+                        </div>
+
+                        <div id="div_input_kematian" hidden=true>
+                            <select name="filter_kematian" id="selectFilter_kematian" class="form-control mb-3">
+                                <option value="">== Hanya Untuk Print Filter</option>
+                                <option value="Ya">Ya</option>
+                                <option value="Tidak">Tidak</option>
+                            </select>
+                        </div>
+
+                        <div id="div_input_segment" hidden=true>
+                            <select name="filter_segment" id="selectFilter_segment" class="form-control mb-3">
+                                <option value="">== Hanya Untuk Print Filter</option>
+                                <option value="Anak">Anak</option>
+                                <option value="Remaja">Remaja</option>
+                                <option value="Dewasa">Dewasa</option>
+                                <option value="Lansia">Lansia</option>
+                            </select>
+                        </div>
+
+                        <div id="div_input_tahun" class="col" hidden=true>
+                            <input id="inputYearFrom" name="inputYearFrom" type="number" min="2000" max="2099"
+                                step="1" value="2016" class="form-control mb-3" placeholder="from"
+                                onchange="onInputYearFromChange(this)" />
+                            <input id="inputYearTo" name="inputYearTo" type="number" min="2000" max="2099"
+                                step="1" value="2016" class="form-control" placeholder="to"
+                                onchange="onInputYearToChange(this)" />
+                        </div>
+
+                        <div id="div_input_bulanan" class="col" hidden=true>
+                            <input class="form-control date-year" placeholder="Pilih Tahun" value="2023"
+                                type="number" min="2000" max="2099" step="1" name="inputYearMonth"
+                                id="inputYearMonth" onchange="onInputBulanChange(this)">
+                        </div>
+                        <button class="btn btn-warning" type="submit" hidden=true id="btnPrint">
+                            Print Absen</button>
+                    </form>
+                </div>
+            </div>
+
+            <button class="btn btn-info" id="btnSubmit" value="Submit" disabled
+                onclick="onSubmitClick()">Submit</button>
             <button class="btn btn-warning" type="button" onclick="triggerBtnPrint()">Print Absen</button>
         </div>
         <div id="div_cart">
@@ -118,6 +126,8 @@
             } else {
                 document.getElementById('btnSubmit').disabled = true;
             }
+
+            document.getElementById('input_filter').value = e.value;
 
             var div_inputTahun = document.getElementById('div_input_tahun');
             var div_inputBulan = document.getElementById('div_input_bulanan');
@@ -229,6 +239,13 @@
                     break;
 
                 default:
+                    div_inputTahun.hidden = true;
+                    div_inputBulan.hidden = true;
+                    div_inputJk.hidden = true;
+                    div_inputBaptis.hidden = true;
+                    div_inputPernikahan.hidden = true;
+                    div_inputKematian.hidden = true;
+                    div_inputSegment.hidden = true;
                     break;
             }
         }
@@ -245,29 +262,7 @@
                 return alert('input tahun harus lebih dari tahun 1999 dan kurang dari 2099');
             }
 
-            var data = {
-                'filter': inputFilter.value,
-                'yearFrom': inputYearFrom.value,
-                'yearTo': inputYearTo.value,
-                'yearMonth': inputYearMonth.value
-            };
-
-            // const response = await fetch(localhost + 'api/jemaat/filter/' + field + '/' + value);
-            // const result = await response.text();
-
-            // var myHeaders = new Headers();
-            // myHeaders.append("X-CSRF-TOKEN", "lbQp9w3YGn8oF7xprxCKrRjTgJ3AAZjF4XaJ5qum");
-            // var requestOptions = {
-            //     method: 'POST',
-            //     headers: myHeaders,
-            //     body: data,
-            //     redirect: 'follow'
-            // };
-
-            // fetch("http://127.0.0.1:8000/api/jemaat/absensi/filter", requestOptions)
-            //     .then(response => response.text())
-            //     .then(result => console.log(result))
-            //     .catch(error => console.log('error', error));
+            document.getElementById('btnSubmitHidden').click();
         }
 
         function triggerBtnPrint() {
@@ -277,13 +272,60 @@
             var inputYearFrom = document.getElementById('inputYearFrom');
             var inputYearTo = document.getElementById('inputYearTo');
             var inputYearMonth = document.getElementById('inputYearMonth');
+            var isValid = true;
 
-            document.getElementById('input_filter').value = inputFilter.value;
             document.getElementById('input_year_from').value = inputYearFrom.value;
             document.getElementById('input_year_to').value = inputYearTo.value;
             document.getElementById('input_year_month').value = inputYearMonth.value;
 
-            document.getElementById('btnPrint').click();
+            switch (inputFilter.value) {
+                case 'baptis':
+                    if (document.getElementById('selectFilter_baptis').value == '') {
+                        isValid = false;
+                    }                    
+                    break;
+                case 'jk':
+                    if (document.getElementById('selectFilter_jk').value == '') {
+                        isValid = false;
+                    }  
+                    break;
+                case 'pernikahan':
+                    if (document.getElementById('selectFilter_pernikahan').value == '') {
+                        isValid = false;
+                    }  
+                    break;
+                case 'kematian':
+                    if (document.getElementById('selectFilter_kematian').value == '') {
+                        isValid = false;
+                    }  
+                    break;
+                case 'segment':
+                    if (document.getElementById('selectFilter_segment').value == '') {
+                        isValid = false;
+                    }  
+                    break;
+                default:
+                    break;
+            }
+
+            if (isValid) {
+                onSubmitClick();
+                document.getElementById('btnPrint').click();
+            } else {
+                alert('Please complete the filters !');
+            }
+        }
+
+        function onInputYearFromChange(e) {
+            document.getElementById('input_year_from').value = e.value;
+        }
+
+        function onInputYearToChange(e) {
+            document.getElementById('input_year_to').value = e.value;
+        }
+
+        function onInputBulanChange(e) {
+            document.getElementById('input_year_month').value = e.value;
         }
     </script>
 @endsection
