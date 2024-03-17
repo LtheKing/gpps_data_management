@@ -360,6 +360,15 @@ class JemaatController extends Controller
     public function absensiExport(Request $request)
     {
         return Excel::download(new AttendanceExport($request->all()), 'absensi' . now()->format('Ymdh') . '.xlsx');
+
+        //another condition
+        // if (!str_contains($request->input_filter, 'ibadah')) {
+        //     // return Excel::download(new AttendanceExport($request->all()), 'absensi' . now()->format('Ymdh') . '.xlsx');
+        //     dd('donlot biasa');
+        // } else {
+        //     dd('donlot per ibadah');
+        //     return 'this is ibadah';
+        // }
     }
 
     //API

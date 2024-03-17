@@ -88,3 +88,11 @@ tambahan :
         SM
         ACC
     - print absen berdasarkan jam ibadah : 06.00, 07.45, 16.00
+
+***
+13 January 2024
+*Absen perminggu dibagi persheet*
+Steps :
+- lempar parameter bulan apa dan ibadah ke berapa
+- seleksi parameter di controller
+- bikin file import baru khusus untuk pilihan ibadah

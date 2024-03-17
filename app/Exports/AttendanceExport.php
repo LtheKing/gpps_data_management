@@ -62,6 +62,7 @@ class AttendanceExport implements FromArray, WithHeadings, WithColumnWidths, Wit
             case 'bulan':
                 $dataOri = DB::table('attendances')
                     ->whereYear('tgl_kehadiran', $this->filter['inputYearMonth'])
+                    ->orderBy('tgl_kehadiran', 'ASC')
                     ->get();
                 $dataModif = [];
                 foreach ($dataOri as $key => $value) {

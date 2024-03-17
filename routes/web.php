@@ -1,10 +1,9 @@
 <?php
 
+use App\Exports\IbadaAttendanceExport;
 use App\Models\Jemaat;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Carbon;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -124,17 +123,20 @@ Route::get('/testing/getIbadah', function () {
 
     $result = '';
 
-    if ($now > $ibadah1 && $now < $ibadah2 ) {
+    if ($now > $ibadah1 && $now < $ibadah2) {
         $result = 'ibadah 1';
     } else if ($now > $ibadah2 && $now < $ibadah3) {
         $result = 'ibadah 2';
     } else {
         $result = 'ibadah 3';
     }
-    
+
     return $result;
 });
 Route::get('/testing/jemaat', function () {
     $jemaat = Jemaat::all();
     return $jemaat;
 });
+Route::get('/testing/multiplesheet', function () {
+    return Excel::download(new IbadaAttendanceExport(), 'multiplesheettesting.csv');
+})->name('testing_print');

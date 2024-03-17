@@ -37,7 +37,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('jemaat_absen', $jemaat->id) }}" method="post">
+                    <form action="{{ route('jemaat_absen', $jemaat->id) }}" method="get">
                         @csrf
                         <div class="mb-3" id="div_IbadahKe">
                             <label for="input_ibadah_ke" class="form-label">Ibadah Ke</label>
