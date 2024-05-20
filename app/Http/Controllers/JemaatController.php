@@ -309,6 +309,13 @@ class JemaatController extends Controller
     {
         $filter = $request->select_filter;
         $value = $request->value_filter;
+
+        if ($filter == 'Status') {
+            if ($value == 'Belum') {
+                $value = 'Belum Menikah';
+            }
+        }
+        
         return Excel::download(new JemaatExport($filter, $value), 'jemaat-' . $filter . '-' . $value . '-' . now()->format('Ymdh') . '.xlsx');
     }
 
@@ -407,7 +414,9 @@ class JemaatController extends Controller
 
     public function filter($field, $value)
     {
-        $data = Jemaat::where($field, $value)->get();
+        $session = Session::all();
+        $cabang_id = $session['cabang_id'];
+        $data = Jemaat::where($field, $value)->where('cabang_id', $cabang_id)->get();
         return $data;
     }
 
@@ -431,7 +440,6 @@ class JemaatController extends Controller
 
     public function absensiFilter(JemaatsChart $chart, Request $request)
     {
-        // dd($request->all());
         return view('absen', ['chart' => $chart->build($request->all())]);
     }
 

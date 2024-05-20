@@ -29,13 +29,15 @@
     <div class="form-group float-left">
         <form action="{{ route('jemaat_export') }}" method="post" enctype="multipart/form-data">
             @csrf
-            <select id="select_filter" name="select_filter" onchange="onSelectFilterChange(this);" class="form-control mb-3">
+            <select id="select_filter" name="select_filter" onchange="onSelectFilterChange(this);"
+                class="form-control mb-3">
                 <option value="">== Pilih Filter ==</option>
                 <option value="JenisKelamin">Jenis Kelamin</option>
                 <option value="Status">Status Pernikahan</option>
                 <option value="StatusBaptis">Status Baptis</option>
                 <option value="Segment">Segment</option>
                 <option value="StatusKematian">Status Kematian</option>
+                <option value="Komisi">Komisi</option>
             </select>
 
             <select id="value_filter" name="value_filter" class="form-control mt-3 mb-3" hidden=true></select>
@@ -191,7 +193,7 @@
                     document.getElementById('btnFilter').disabled = false;
                     var select = document.getElementById('value_filter');
                     var arr = ['Menikah', 'Belum Menikah'];
-                    var options = arr.map(x => `<option value=${x.toLowerCase()}>${x}</option>`).join('\n');
+                    var options = arr.map(x => `<option value=${x}>${x}</option>`);
                     select.innerHTML = options;
                     break;
 
@@ -218,6 +220,15 @@
                     document.getElementById('btnFilter').disabled = false;
                     var select = document.getElementById('value_filter');
                     var arr = ['Anak', 'Remaja', 'Dewasa', 'Lansia'];
+                    var options = arr.map(x => `<option value=${x.toLowerCase()}>${x}</option>`).join('\n');
+                    select.innerHTML = options;
+                    break;
+
+                case 'Komisi':
+                    document.getElementById('value_filter').hidden = false;
+                    document.getElementById('btnFilter').disabled = false;
+                    var select = document.getElementById('value_filter');
+                    var arr = ['AMC', 'AWC', 'Youth', 'Teens', 'SM', 'ACC'];
                     var options = arr.map(x => `<option value=${x.toLowerCase()}>${x}</option>`).join('\n');
                     select.innerHTML = options;
                     break;

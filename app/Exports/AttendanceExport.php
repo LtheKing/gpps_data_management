@@ -198,9 +198,10 @@ class AttendanceExport implements FromArray, WithHeadings, WithColumnWidths, Wit
                 return $dataModif;
                 break;
 
-            case 'ibadah1':
-                $selector = substr($this->filter['input_filter'], 6);
-                $dataOri = Attendance::where('ibadah_ke', $selector)->get();
+            case 'ibadah':
+                $dataOri = Attendance::where('ibadah_ke', $this->filter['filter_ibadah'])
+                            ->whereYear('tgl_kehadiran', '=', $this->filter['inputYearMonth'])
+                            ->get();
                 $dataModif = [];
                 foreach ($dataOri as $key => $value) {
                     $cabang = Cabang::find($value->cabang_id);
@@ -219,9 +220,12 @@ class AttendanceExport implements FromArray, WithHeadings, WithColumnWidths, Wit
 
                 break;
 
-            case 'ibadah2':
-                $selector = substr($this->filter['input_filter'], 6);
-                $dataOri = Attendance::where('ibadah_ke', $selector)->get();
+            case 'komisi':
+                $dataOri = DB::table('attendances')
+                    ->join('jemaats', 'attendances.jemaat_id', '=', 'jemaats.id')
+                    ->where('jemaats.komisi', $this->filter['filter_komisi'])
+                    ->where('attendances.tgl_kehadiran', $this->filter['inputYearMonth'])
+                    ->get();
                 $dataModif = [];
                 foreach ($dataOri as $key => $value) {
                     $cabang = Cabang::find($value->cabang_id);
@@ -236,30 +240,8 @@ class AttendanceExport implements FromArray, WithHeadings, WithColumnWidths, Wit
 
                     $dataModif[] = $object;
                 }
+
                 return $dataModif;
-
-                break;
-
-            case 'ibadah3':
-                $selector = substr($this->filter['input_filter'], 6);
-                $dataOri = Attendance::where('ibadah_ke', $selector)->get();
-
-                $dataModif = [];
-                foreach ($dataOri as $key => $value) {
-                    $cabang = Cabang::find($value->cabang_id);
-                    $jemaat = Jemaat::find($value->jemaat_id);
-
-                    $object = new \stdClass();
-
-                    $object->NamaJemaat = $jemaat->Nama;
-                    $object->TglKehadiran = $value->tgl_kehadiran;
-                    $object->Cabang = $cabang->NamaCabang;
-                    $object->IbadahKe = $value->ibadah_ke;
-
-                    $dataModif[] = $object;
-                }
-                return $dataModif;
-
                 break;
 
             default:

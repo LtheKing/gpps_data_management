@@ -88,3 +88,10 @@ tambahan :
         SM
         ACC
     - print absen berdasarkan jam ibadah : 06.00, 07.45, 16.00
+
+fixing :
+- Data jemaat kurang komisi filternya [DONE]
+- Sama data absen si nya 
+- Data tamu msh ada
+- Filter blom menikah ga keluar di print jemaat [DONE]
+- multiple sheet absen print

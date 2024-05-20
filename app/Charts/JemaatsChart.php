@@ -24,6 +24,7 @@ class JemaatsChart
         $yearFrom = $filter['input_year_from'];
         $yearTo = $filter['input_year_to'];
         $yearMonth = $filter['input_year_month'];
+        $ibadahKe = $filter['input_ibadah_ke'];
 
         switch ($selector) {
             case 'tahun':
@@ -155,55 +156,56 @@ class JemaatsChart
 
                 break;
 
-            case 'ibadah1':
-                $data = DB::table('attendances')->selectRaw('ibadah_ke, count(id) as jumlah')
-                    ->groupBy('ibadah_ke')->get();
+            case 'ibadah':
+                if ($ibadahKe == null) {
+                    # code...
+                    $data = DB::table('attendances')->selectRaw('ibadah_ke, count(id) as jumlah')
+                        ->groupBy('ibadah_ke')->get();
 
-                $viewData = [
-                    $data[0]->jumlah,
-                    $data[1]->jumlah,
-                    $data[2]->jumlah,
-                ];
+                    $viewData = [
+                        $data[0]->jumlah,
+                        $data[1]->jumlah,
+                        $data[2]->jumlah,
+                    ];
 
-                return $this->chart->barChart()
-                    ->setTitle('Data Jemaat GPPS Agape.')
-                    ->addData('Jumlah Jemaat', $viewData)
-                    ->setXAxis(['Ibadah 1', 'Ibadah 2', 'Ibadah 3']);
+                    return $this->chart->barChart()
+                        ->setTitle('Data Jemaat GPPS Agape.')
+                        ->addData('Jumlah Jemaat', $viewData)
+                        ->setXAxis(['Ibadah 1', 'Ibadah 2', 'Ibadah 3']);
+                } else {
+                    $data = DB::table('attendances')
+                        ->whereYear('tgl_kehadiran', $yearMonth)
+                        ->where('ibadah_ke', $ibadahKe)
+                        ->get();
+
+                    $viewData = [
+                        count($data)
+                    ];
+
+                    return $this->chart->barChart()
+                        ->setTitle('Data Jemaat GPPS Agape.')
+                        ->addData('Jumlah Jemaat Ibadah ' . $ibadahKe . '', $viewData)
+                        ->setXAxis(['Ibadah ' . $ibadahKe . '']);
+                }
 
                 break;
 
-            case 'ibadah2':
-                $data = DB::table('attendances')->selectRaw('ibadah_ke, count(id) as jumlah')
-                    ->groupBy('ibadah_ke')->get();
+            case 'komisi':
+                $data = DB::table('attendances')
+                    ->join('jemaats', 'jemaats.id', '=', 'attendances.jemaat_id')
+                    ->whereYear('tgl_kehadiran', $yearMonth)
+                    ->where('jemaats.komisi', $selector)
+                    ->get();
 
                 $viewData = [
-                    $data[0]->jumlah,
-                    $data[1]->jumlah,
-                    $data[2]->jumlah,
+                    count($data)
                 ];
 
+                dd($viewData);
                 return $this->chart->barChart()
                     ->setTitle('Data Jemaat GPPS Agape.')
                     ->addData('Jumlah Jemaat', $viewData)
-                    ->setXAxis(['Ibadah 1', 'Ibadah 2', 'Ibadah 3']);
-
-                break;
-
-            case 'ibadah3':
-                $data = DB::table('attendances')->selectRaw('ibadah_ke, count(id) as jumlah')
-                    ->groupBy('ibadah_ke')->get();
-
-                $viewData = [
-                    $data[0]->jumlah,
-                    $data[1]->jumlah,
-                    $data[2]->jumlah,
-                ];
-
-                return $this->chart->barChart()
-                    ->setTitle('Data Jemaat GPPS Agape.')
-                    ->addData('Jumlah Jemaat', $viewData)
-                    ->setXAxis(['Ibadah 1', 'Ibadah 2', 'Ibadah 3']);
-
+                    ->setXAxis(['Komisi ' . $selector . ' Tahun ' . $yearMonth . '']);
                 break;
 
             default:

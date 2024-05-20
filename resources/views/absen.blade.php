@@ -22,16 +22,16 @@
                             <option value="pernikahan">Status Pernikahan</option>
                             <option value="kematian">Status Kematian</option>
                             <option value="segment">Segment</option>
-                            <option value="ibadah1">Ibadah 1</option>
-                            <option value="ibadah2">Ibadah 2</option>
-                            <option value="ibadah3">Ibadah 3</option>
+                            <option value="ibadah">Per Ibadah</option>
+                            <option value="komisi">Komisi</option>
                         </select>
 
                         <input type="text" hidden name="input_year_from" id="input_year_from" value="2016">
                         <input type="text" hidden name="input_year_to" id="input_year_to" value="2016">
                         <input type="text" hidden name="input_year_month" id="input_year_month" value="2016">
+                        <input type="text" hidden name="input_ibadah_ke" id="input_ibadah_ke" value="1">
 
-                        <input type="submit" id="btnSubmitHidden" hidden=true value="btn hidden submit"
+                        <input type="submit" id="btnSubmitHidden" hidden=true value="btn hidden submit" onclick="triggerBtnPrint()"
                             class="btn btn-dark" />
                     </form>
                 </div>
@@ -41,6 +41,21 @@
                         @csrf
 
                         <input type="hidden" name="input_filter" id="input_filter">
+
+                        <div id="div_input_tahun" class="col mb-3" hidden=true>
+                            <input id="inputYearFrom" name="inputYearFrom" type="number" min="2000" max="2099"
+                                step="1" value="2016" class="form-control mb-3" placeholder="from"
+                                onchange="onInputYearFromChange(this)" />
+                            <input id="inputYearTo" name="inputYearTo" type="number" min="2000" max="2099"
+                                step="1" value="2016" class="form-control" placeholder="to"
+                                onchange="onInputYearToChange(this)" />
+                        </div>
+
+                        <div id="div_input_bulanan" class="col mb-3" hidden=true>
+                            <input class="form-control date-year" placeholder="Pilih Tahun" value="2023"
+                                type="number" min="2000" max="2099" step="1" name="inputYearMonth"
+                                id="inputYearMonth" onchange="onInputBulanChange(this)">
+                        </div>
 
                         <div id="div_input_jk" hidden=true>
                             <select name="filter_jk" id="selectFilter_jk" class="form-control mb-3">
@@ -84,20 +99,27 @@
                             </select>
                         </div>
 
-                        <div id="div_input_tahun" class="col" hidden=true>
-                            <input id="inputYearFrom" name="inputYearFrom" type="number" min="2000" max="2099"
-                                step="1" value="2016" class="form-control mb-3" placeholder="from"
-                                onchange="onInputYearFromChange(this)" />
-                            <input id="inputYearTo" name="inputYearTo" type="number" min="2000" max="2099"
-                                step="1" value="2016" class="form-control" placeholder="to"
-                                onchange="onInputYearToChange(this)" />
+                        <div id="div_input_komisi" class="col" hidden=true>
+                            <select name="filter_komisi" id="selectFilter_komisi" class="form-control mb-3">
+                                <option value="">== Pilih Komisi ==</option>
+                                <option value="AMC">AMC</option>
+                                <option value="AWC">AWC</option>
+                                <option value="Youth">Youth</option>
+                                <option value="Teens">Teens</option>
+                                <option value="SM">SM</option>
+                                <option value="ACC">ACC</option>
+                            </select>
                         </div>
 
-                        <div id="div_input_bulanan" class="col" hidden=true>
-                            <input class="form-control date-year" placeholder="Pilih Tahun" value="2023"
-                                type="number" min="2000" max="2099" step="1" name="inputYearMonth"
-                                id="inputYearMonth" onchange="onInputBulanChange(this)">
+                        <div id="div_input_ibadah" class="col" hidden=true>
+                            <select name="filter_ibadah" id="selectFilter_ibadah" class="form-control mb-3">
+                                <option value="">== Pilih Ibadah ==</option>
+                                <option value="1">Ibadah 1</option>
+                                <option value="2">Ibadah 2</option>
+                                <option value="3">Ibadah 3</option>
+                            </select>
                         </div>
+
                         <button class="btn btn-warning" type="submit" hidden=true id="btnPrint">
                             Print Absen</button>
                     </form>
@@ -136,6 +158,8 @@
             var div_inputPernikahan = document.getElementById('div_input_pernikahan');
             var div_inputKematian = document.getElementById('div_input_kematian');
             var div_inputSegment = document.getElementById('div_input_segment');
+            var div_inputKomisi = document.getElementById('div_input_komisi');
+            var div_inputIbadah = document.getElementById('div_input_ibadah');
 
             switch (e.value) {
                 case 'tahun':
@@ -146,6 +170,8 @@
                     div_inputPernikahan.hidden = true;
                     div_inputKematian.hidden = true;
                     div_inputSegment.hidden = true;
+                    div_inputKomisi.hidden = true;
+                    div_inputIbadah.hidden = true;
                     break;
 
                 case 'bulan':
@@ -156,6 +182,8 @@
                     div_inputPernikahan.hidden = true;
                     div_inputKematian.hidden = true;
                     div_inputSegment.hidden = true;
+                    div_inputKomisi.hidden = true;
+                    div_inputIbadah.hidden = true;
                     break;
 
                 case 'baptis':
@@ -166,6 +194,8 @@
                     div_inputPernikahan.hidden = true;
                     div_inputKematian.hidden = true;
                     div_inputSegment.hidden = true;
+                    div_inputKomisi.hidden = true;
+                    div_inputIbadah.hidden = true;
                     break;
 
                 case 'jk':
@@ -176,6 +206,8 @@
                     div_inputPernikahan.hidden = true;
                     div_inputKematian.hidden = true;
                     div_inputSegment.hidden = true;
+                    div_inputKomisi.hidden = true;
+                    div_inputIbadah.hidden = true;
                     break;
 
                 case 'pernikahan':
@@ -186,6 +218,8 @@
                     div_inputPernikahan.hidden = false;
                     div_inputKematian.hidden = true;
                     div_inputSegment.hidden = true;
+                    div_inputKomisi.hidden = true;
+                    div_inputIbadah.hidden = true;
                     break;
 
                 case 'kematian':
@@ -196,6 +230,8 @@
                     div_inputPernikahan.hidden = true;
                     div_inputKematian.hidden = false;
                     div_inputSegment.hidden = true;
+                    div_inputKomisi.hidden = true;
+                    div_inputIbadah.hidden = true;
                     break;
 
                 case 'segment':
@@ -206,36 +242,32 @@
                     div_inputPernikahan.hidden = true;
                     div_inputKematian.hidden = true;
                     div_inputSegment.hidden = false;
+                    div_inputKomisi.hidden = true;
+                    div_inputIbadah.hidden = true;
                     break;
 
-                case 'ibadah1':
+                case 'ibadah':
                     div_inputTahun.hidden = true;
-                    div_inputBulan.hidden = true;
+                    div_inputBulan.hidden = false;
                     div_inputJk.hidden = true;
                     div_inputBaptis.hidden = true;
                     div_inputPernikahan.hidden = true;
                     div_inputKematian.hidden = true;
                     div_inputSegment.hidden = true;
+                    div_inputKomisi.hidden = true;
+                    div_inputIbadah.hidden = false;
                     break;
 
-                case 'ibadah2':
+                case 'komisi':
                     div_inputTahun.hidden = true;
-                    div_inputBulan.hidden = true;
+                    div_inputBulan.hidden = false;
                     div_inputJk.hidden = true;
                     div_inputBaptis.hidden = true;
                     div_inputPernikahan.hidden = true;
                     div_inputKematian.hidden = true;
                     div_inputSegment.hidden = true;
-                    break;
-
-                case 'ibadah3':
-                    div_inputTahun.hidden = true;
-                    div_inputBulan.hidden = true;
-                    div_inputJk.hidden = true;
-                    div_inputBaptis.hidden = true;
-                    div_inputPernikahan.hidden = true;
-                    div_inputKematian.hidden = true;
-                    div_inputSegment.hidden = true;
+                    div_inputKomisi.hidden = false;
+                    div_inputIbadah.hidden = true;
                     break;
 
                 default:
@@ -246,6 +278,8 @@
                     div_inputPernikahan.hidden = true;
                     div_inputKematian.hidden = true;
                     div_inputSegment.hidden = true;
+                    div_inputKomisi.hidden = true;
+                    div_inputIbadah.hidden = true;
                     break;
             }
         }
@@ -272,37 +306,39 @@
             var inputYearFrom = document.getElementById('inputYearFrom');
             var inputYearTo = document.getElementById('inputYearTo');
             var inputYearMonth = document.getElementById('inputYearMonth');
+            var inputIbadahKe = document.getElementById('selectFilter_ibadah');
             var isValid = true;
 
             document.getElementById('input_year_from').value = inputYearFrom.value;
             document.getElementById('input_year_to').value = inputYearTo.value;
             document.getElementById('input_year_month').value = inputYearMonth.value;
+            document.getElementById('input_ibadah_ke').value = inputIbadahKe.value;
 
             switch (inputFilter.value) {
                 case 'baptis':
                     if (document.getElementById('selectFilter_baptis').value == '') {
                         isValid = false;
-                    }                    
+                    }
                     break;
                 case 'jk':
                     if (document.getElementById('selectFilter_jk').value == '') {
                         isValid = false;
-                    }  
+                    }
                     break;
                 case 'pernikahan':
                     if (document.getElementById('selectFilter_pernikahan').value == '') {
                         isValid = false;
-                    }  
+                    }
                     break;
                 case 'kematian':
                     if (document.getElementById('selectFilter_kematian').value == '') {
                         isValid = false;
-                    }  
+                    }
                     break;
                 case 'segment':
                     if (document.getElementById('selectFilter_segment').value == '') {
                         isValid = false;
-                    }  
+                    }
                     break;
                 default:
                     break;
